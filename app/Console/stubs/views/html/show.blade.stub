@@ -1,0 +1,5 @@
+@extends('layouts.backend.__templates.show', ['active' => 'true'])
+@section('title', '%%crudNameTitle%%')
+
+@section('table-header')%%formBodyHtmlForShowView%%
+@endsection
