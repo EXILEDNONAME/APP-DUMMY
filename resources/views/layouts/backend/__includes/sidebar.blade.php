@@ -17,7 +17,7 @@
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-element-11 text-lg"></i>
+                        <i class="ki-filled ki-message-text-2"></i>
                     </span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Messages
@@ -33,7 +33,7 @@
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-element-11 text-lg"></i>
+                        <i class="ki-filled ki-folder"></i>
                     </span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         File Manager
@@ -49,7 +49,7 @@
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <div class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-profile-circle text-lg">
+                        <i class="ki-filled ki-abstract-21"></i>
                         </i>
                     </span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
@@ -98,7 +98,7 @@
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-element-11 text-lg"></i>
+                        <i class="ki-filled ki-user"></i>
                     </span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Profiles
@@ -108,7 +108,7 @@
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-element-11 text-lg"></i>
+                        <i class="ki-filled ki-exit-left"></i>
                     </span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Logout
