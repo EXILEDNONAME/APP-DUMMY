@@ -26,6 +26,9 @@
                 <div class="kt-container-fluid">
                     <div class="grid gap-5 lg:gap-7.5">
                         <div class="grid lg:grid-cols-3 gap-5 lg:gap-7.5 items-stretch">
+
+                            @include('layouts.backend.__includes.breadcrumb')
+
                             <div class="lg:col-span-3">
                                 <div class="grid">
                                     <div class="kt-card kt-card-grid h-full min-w-full">
@@ -33,6 +36,25 @@
                                             <h3 class="kt-card-title">
                                                 Main
                                             </h3>
+
+                                            <select
+                                                class="kt-select max-w-px"
+                                                data-kt-select="true"
+                                                data-kt-select-placeholder="Select Active">
+                                                <option value="react"> Yes </option>
+                                                <option value="react"> No </option>
+
+                                            </select>
+
+                                            <select
+                                                class="kt-select max-w-px"
+                                                data-kt-select="true"
+                                                data-kt-select-placeholder="Select Status">
+                                                <option value="react"> Pending </option>
+                                                <option value="react"> Success </option>
+                                                <option value="react"> Failed </option>
+
+                                            </select>
                                             <div class="kt-input max-w-48">
                                                 <i class="ki-filled ki-magnifier">
                                                 </i>
@@ -43,7 +65,7 @@
 
                                         <!-- <div class="kt-card-table"> -->
                                         <div class="kt-scrollable-x-auto">
-                                            <table id="serverTable" class="kt-table kt-table-border" width="100%">
+                                            <table id="serverTable" class="kt-table" width="100%">
                                                 <!-- <table class="" data-kt-datatable-table="true" id="kt_datatable_1"> -->
                                                 <thead>
                                                     <tr>
@@ -73,29 +95,49 @@
                                                                 </span>
                                                             </span>
                                                         </th>
+                                                        <th class="w-full whitespace-nowrap">
+                                                            <span class="kt-table-col flex items-center justify-between">
+                                                                <span class="kt-table-col-label">
+                                                                    Active
+                                                                </span>
+                                                                <span class="kt-table-col-sort">
+                                                                </span>
+                                                            </span>
+                                                        </th>
+                                                        <th class="w-full whitespace-nowrap">
+                                                            <span class="kt-table-col flex items-center justify-between">
+                                                                <span class="kt-table-col-label">
+                                                                    Status
+                                                                </span>
+                                                                <span class="kt-table-col-sort">
+                                                                </span>
+                                                            </span>
+                                                        </th>
+                                                        <th>
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                             </table>
                                         </div>
 
                                         <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
-  <!-- Kiri: Show entries -->
-  <div class="flex items-center gap-2 order-2 md:order-1">
-    <label for="perpage" class="text-sm">Show</label>
-    <select id="perpage" class="kt-select w-16 border rounded px-2 py-1">
-      <option value="25" selected>25</option>
-      <option value="100">100</option>
-      <option value="250">250</option>
-      <option value="500">500</option>
-    </select>
-    <span class="text-sm">entries</span>
-  </div>
+                                            <!-- Kiri: Show entries -->
+                                            <div class="flex items-center gap-2 order-2 md:order-1">
+                                                <label for="perpage" class="text-sm">Show</label>
+                                                <select id="perpage" class="kt-select w-16 border rounded px-2 py-1">
+                                                    <option value="25" selected>25</option>
+                                                    <option value="100">100</option>
+                                                    <option value="250">250</option>
+                                                    <option value="500">500</option>
+                                                </select>
+                                                <span class="text-sm">entries</span>
+                                            </div>
 
-  <!-- Kanan: Pagination -->
-  <div class="flex items-center gap-2 order-1 md:order-2">
-    <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
-  </div>
-</div>
+                                            <!-- Kanan: Pagination -->
+                                            <div class="flex items-center gap-2 order-1 md:order-2">
+                                                <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
+                                            </div>
+                                        </div>
 
 
                                     </div>
@@ -220,6 +262,77 @@
                         name: 'description',
                         'className': 'text-nowrap',
                     },
+                    {
+                        data: 'active',
+                        name: 'active',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row) {
+                            return 'Active';
+                        },
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row) {
+                            return '<span class="kt-badge kt-badge-outline kt-badge-success">Success</span>';
+                        },
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row) {
+                            return `<td>
+              <div class="kt-menu" data-kt-menu="true">
+               <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="click">
+                <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost">
+                 <i class="ki-filled ki-dots-vertical text-lg">
+                 </i>
+                </button>
+                <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]" data-kt-menu-dismiss="true" style="">
+                 <div class="kt-menu-item">
+                  <a class="kt-menu-link" href="#">
+                   <span class="kt-menu-icon">
+                    <i class="ki-filled ki-search-list">
+                    </i>
+                   </span>
+                   <span class="kt-menu-title">
+                    View
+                   </span>
+                  </a>
+                 </div>
+                 <div class="kt-menu-item">
+                  <a class="kt-menu-link" href="#">
+                   <span class="kt-menu-icon">
+                    <i class="ki-filled ki-pencil">
+                    </i>
+                   </span>
+                   <span class="kt-menu-title">
+                    Edit
+                   </span>
+                  </a>
+                 </div>
+                 <div class="kt-menu-item">
+                  <a class="kt-menu-link" href="#">
+                   <span class="kt-menu-icon">
+                    <i class="ki-filled ki-trash">
+                    </i>
+                   </span>
+                   <span class="kt-menu-title">
+                    Delete
+                   </span>
+                  </a>
+                 </div>
+                </div>
+               </div>
+              </div>
+             </td>`;
+                        }
+                    },
                 ],
                 pageLength: 25,
                 lengthChange: false, // 🔒 hide bawaan select length
@@ -237,10 +350,29 @@
                 table.page.len(perPage).draw();
             });
 
-
             $('#searchInput').on('keyup', function() {
                 table.search(this.value).draw();
             });
+
+            document.addEventListener("click", function(e) {
+                const allSelects = document.querySelectorAll(".kt-select-display.kt-select");
+
+                allSelects.forEach(select => {
+                    if (select.contains(e.target)) {
+                        // klik di dalam select → toggle active
+                        if (!select.classList.contains("active")) {
+                            // tutup semua dulu
+                            allSelects.forEach(s => s.classList.remove("active"));
+                            // baru buka yang diklik
+                            select.classList.add("active");
+                        }
+                    } else {
+                        // klik di luar → tutup
+                        select.classList.remove("active");
+                    }
+                });
+            });
+
         });
     </script>
 
