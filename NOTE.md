@@ -13,3 +13,9 @@ npx javascript-obfuscator resources/assets/datatable-index.js --output public/as
 php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.json"
 
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
+
+# EDIT TEMPLATE
+- EDIT LANGUAGE
+- PAGE SHOW
+- PAGE CREATE
+- PAGE EDIT
