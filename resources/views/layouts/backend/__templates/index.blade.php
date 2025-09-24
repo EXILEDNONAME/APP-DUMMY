@@ -5,16 +5,83 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title">
+                <h3 class="kt-card-title text-sm">
                     Main
                 </h3>
 
-                <select
+                <div class="flex flex-wrap gap-2 lg:gap-5" bis_skin_checked="1">
+          <div class="flex" bis_skin_checked="1">
+           <label class="kt-input">
+            <i class="ki-filled ki-magnifier">
+            </i>
+            <input data-kt-datatable-search="#team_crew_table" placeholder="Search users" type="text" value="">
+           </label>
+          </div>
+          <div class="flex flex-wrap gap-2.5" bis_skin_checked="1">
+           <select class="hidden" data-kt-select="true" data-kt-select-placeholder="Select a status" data-kt-select-initialized="true">
+            <option value="1" >
+             Active
+            </option>
+            <option value="2" data-kt-select-option-initialized="true">
+             Disabled
+            </option>
+            <option value="2" data-kt-select-option-initialized="true">
+             Pending
+            </option>
+           </select><div data-kt-select-wrapper="" class="kt-select-wrapper w-36" bis_skin_checked="1"><div data-kt-select-display="" class="kt-select-display kt-select" tabindex="0" role="button" data-selected="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select an option" bis_skin_checked="1"><div data-kt-select-placeholder="" class="kt-select-placeholder " bis_skin_checked="1">Select a status</div></div><div data-kt-select-dropdown="" class="kt-select-dropdown hidden" style="z-index: 105; opacity: 0;" bis_skin_checked="1"><ul role="listbox" aria-label="Select an option" class="kt-select-options " data-kt-select-options="true"><li data-kt-select-option="" data-value="1" data-text="Active" class="kt-select-option " role="option" aria-selected="true">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Active
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li><li data-kt-select-option="" data-value="2" data-text="Disabled" class="kt-select-option " role="option" aria-selected="false">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Disabled
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li><li data-kt-select-option="" data-value="2" data-text="Pending" class="kt-select-option " role="option" aria-selected="false">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Pending
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li></ul></div></div>
+           
+        <select class="hidden" data-kt-select="true" data-kt-select-placeholder="Select a sort" data-kt-select-initialized="true">
+            <option value="1" data-kt-select-option-initialized="true">
+             Latest
+            </option>
+            <option value="2" data-kt-select-option-initialized="true">
+             Older
+            </option>
+            <option value="3" data-kt-select-option-initialized="true">
+             Oldest
+            </option>
+           </select>
+           
+           <div data-kt-select-wrapper="" class="kt-select-wrapper w-36" bis_skin_checked="1"><div data-kt-select-display="" class="kt-select-display kt-select" tabindex="0" role="button" data-selected="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select an option" bis_skin_checked="1"><div data-kt-select-placeholder="" class="kt-select-placeholder " bis_skin_checked="1">Select a sort</div></div><div data-kt-select-dropdown="" class="kt-select-dropdown hidden" style="z-index: 105; opacity: 0;" bis_skin_checked="1"><ul role="listbox" aria-label="Select an option" class="kt-select-options " data-kt-select-options="true"><li data-kt-select-option="" data-value="1" data-text="Latest" class="kt-select-option " role="option" aria-selected="true">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Latest
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li><li data-kt-select-option="" data-value="2" data-text="Older" class="kt-select-option " role="option" aria-selected="false">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Older
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li><li data-kt-select-option="" data-value="3" data-text="Oldest" class="kt-select-option " role="option" aria-selected="false">
+			<div class="kt-select-option-text" data-kt-text-container="true" bis_skin_checked="1">
+             Oldest
+            </div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 ms-auto hidden text-primary kt-select-option-selected:block"><path d="M20 6 9 17l-5-5"></path></svg>
+		</li></ul></div></div>
+           <button class="kt-btn kt-btn-outline kt-btn-primary">
+            <i class="ki-filled ki-setting-4">
+            </i>
+            Filters
+           </button>
+          </div>
+         </div>
+                
+
+                <!-- <select
                     class="kt-select max-w-px"
                     data-kt-select="true"
                     data-kt-select-placeholder="Select Active">
-                    <option value="react"> Yes </option>
-                    <option value="react"> No </option>
+                    <option value="yes"> Yes </option>
+                    <option value="no"> No </option>
 
                 </select>
 
@@ -32,7 +99,7 @@
                     </i>
                     <input id="searchInput" data-kt-datatable-search="#kt_datatable_1" placeholder="Search Teams" type="text">
                     </input>
-                </div>
+                </div> -->
             </div>
 
             <!-- <div class="kt-card-table"> -->
@@ -229,7 +296,7 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row) {
-                            return '<span class="kt-badge kt-badge-outline kt-badge-success">Success</span>';
+                            return '<span class="kt-badge kt-badge-outline kt-badge-success"> Yes </span>';
                         },
                     },
                     {

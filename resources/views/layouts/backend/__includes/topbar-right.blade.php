@@ -1289,12 +1289,11 @@
     <!--End of Notifications Drawer-->
     <!-- End of Notifications -->
     <!-- Chat -->
-    <button class="kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-drawer-toggle="#chat_drawer">
+    <!-- <button class="kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-drawer-toggle="#chat_drawer">
         <i class="ki-filled ki-messages text-lg">
         </i>
-    </button>
-    <!--Chat Drawer-->
-    <div class="hidden kt-drawer kt-drawer-end card flex-col max-w-[90%] w-[450px] top-5 bottom-5 end-5 rounded-xl border border-border" data-kt-drawer="true" data-kt-drawer-container="body" id="chat_drawer">
+    </button> -->
+    <!-- <div class="hidden kt-drawer kt-drawer-end card flex-col max-w-[90%] w-[450px] top-5 bottom-5 end-5 rounded-xl border border-border" data-kt-drawer="true" data-kt-drawer-container="body" id="chat_drawer">
         <div>
             <div class="flex items-center justify-between gap-2.5 text-sm text-mono font-semibold px-5 py-3.5">
                 Chat
@@ -1555,7 +1554,6 @@
                 </div>
             </div>
         </div>
-        <!--Chat Footer-->
         <div class="mb-2.5">
             <div class="flex grow gap-2 px-5 py-3.5 bg-accent/60 mb-2.5 border-y border-border" id="join_request">
                 <div class="kt-avatar size-9">
@@ -1610,8 +1608,7 @@
                 </img>
             </div>
         </div>
-        <!--End of Chat Footer-->
-    </div>
+    </div> -->
     <!--End of Chat Drawer-->
     <!-- End of Chat -->
     <!-- Apps -->
@@ -1742,11 +1739,9 @@
                     <img alt="" class="size-9 shrink-0 rounded-full border-2 border-green-500" src="/assets/backend/media/avatars/300-2.png" />
                     <div class="flex flex-col gap-1.5">
                         <span class="text-sm text-foreground font-semibold leading-none">
-                            Cody Fisher
+                            Naufal Haidir Ridha
                         </span>
-                        <a class="text-xs text-secondary-foreground hover:text-primary font-medium leading-none" href="html/demo1/account/home/get-started.html">
-                            c.fisher@gmail.com
-                        </a>
+                        
                     </div>
                 </div>
                 <span class="kt-badge kt-badge-sm kt-badge-primary kt-badge-outline">
@@ -1757,13 +1752,6 @@
                 <li>
                     <div class="kt-dropdown-menu-separator">
                     </div>
-                </li>
-                <li>
-                    <a class="kt-dropdown-menu-link" href="html/demo1/public-profile/profiles/default.html">
-                        <i class="ki-filled ki-badge">
-                        </i>
-                        Public Profile
-                    </a>
                 </li>
                 <li>
                     <a class="kt-dropdown-menu-link" href="html/demo1/account/home/user-profile.html">
@@ -1852,13 +1840,6 @@
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a class="kt-dropdown-menu-link" href="https://devs.keenthemes.com">
-                        <i class="ki-filled ki-message-programming">
-                        </i>
-                        Dev Forum
-                    </a>
-                </li>
                 <li data-kt-dropdown="true" data-kt-dropdown-placement="right-start" data-kt-dropdown-trigger="hover">
                     <button class="kt-dropdown-menu-toggle py-1" data-kt-dropdown-toggle="true">
                         <span class="flex items-center gap-2">
@@ -1867,71 +1848,40 @@
                             Language
                         </span>
                         <span class="ms-auto kt-badge kt-badge-stroke shrink-0">
-                            English
-                            <img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/flags/united-states.svg" />
+                            @if ( app()->getLocale() == 'en' )
+                            English <img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/flags/united-states.svg" />
+                            @else
+                            Bahasa <img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/flags/indonesia.svg" />
+                            @endif
+                            
                         </span>
                     </button>
                     <div class="kt-dropdown-menu w-[180px]" data-kt-dropdown-menu="true">
                         <ul class="kt-dropdown-menu-sub">
                             <li class="active">
-                                <a class="kt-dropdown-menu-link" href="?dir=ltr">
+                                <a class="kt-dropdown-menu-link" href="{{ route('language', 'en') }}">
                                     <span class="flex items-center gap-2">
                                         <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/united-states.svg" />
-                                        <span class="kt-menu-title">
-                                            English
-                                        </span>
+                                        <span class="kt-menu-title"> English </span>
                                     </span>
-                                    <i class="ki-solid ki-check-circle ms-auto text-green-500 text-base">
-                                    </i>
+                                    {!! app()->getLocale() == 'en' ? '<i class="ki-solid ki-check-circle ms-auto text-green-500 text-base"></i>' : '' !!}
                                 </a>
                             </li>
                             <li class="">
-                                <a class="kt-dropdown-menu-link" href="?dir=rtl">
+                                <a class="kt-dropdown-menu-link" href="{{ route('language', 'id') }}" >
                                     <span class="flex items-center gap-2">
-                                        <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/saudi-arabia.svg" />
+                                        <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/indonesia.svg" />
                                         <span class="kt-menu-title">
-                                            Arabic(Saudi)
+                                            Bahasa
                                         </span>
                                     </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                    <span class="flex items-center gap-2">
-                                        <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/spain.svg" />
-                                        <span class="kt-menu-title">
-                                            Spanish
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                    <span class="flex items-center gap-2">
-                                        <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/germany.svg" />
-                                        <span class="kt-menu-title">
-                                            German
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                    <span class="flex items-center gap-2">
-                                        <img alt="" class="inline-block size-4 rounded-full" src="/assets/backend/media/flags/japan.svg" />
-                                        <span class="kt-menu-title">
-                                            Japanese
-                                        </span>
-                                    </span>
+                                    {!! app()->getLocale() == 'id' ? '<i class="ki-solid ki-check-circle ms-auto text-green-500 text-base"></i>' : '' !!}
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <div class="kt-dropdown-menu-separator">
-                    </div>
-                </li>
+                <li><div class="kt-dropdown-menu-separator"></div></li>
             </ul>
             <div class="px-2.5 pt-1.5 mb-2.5 flex flex-col gap-3.5">
                 <div class="flex items-center gap-2 justify-between">

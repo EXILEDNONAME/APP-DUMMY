@@ -3,7 +3,7 @@
         <div class="kt-card-content px-3.5 p-2">
             <ol class="kt-breadcrumb">
                 <li class="kt-breadcrumb-item">
-                    <a href="#" class="kt-breadcrumb-link"><svg
+                    <a href="/dashboard" class="kt-breadcrumb-link"><svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
