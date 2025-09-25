@@ -17,6 +17,16 @@
                 {{ csrf_field() }}
                 <div class="kt-card-content p-7.5 grid gap-5">
                     @include($path . 'form', ['formMode' => 'create'])
+                    
+                    <div class="kt-form-item">
+                        <div class="flex items-start gap-4">
+                            <span class="kt-form-label w-40 pt-2"> Name </span>
+                            <div class="kt-form-control flex-1">
+                                {{ Html::file('file')->class(['kt-input w-full'])->required() }}
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flex justify-end">
                         <button type="submit" class="kt-btn kt-btn-primary">
                             Save Changes

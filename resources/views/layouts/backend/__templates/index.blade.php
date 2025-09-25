@@ -4,122 +4,65 @@
 <div class="lg:col-span-3">
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
-
-
             <div class="kt-card-header">
-                <h3 class="kt-card-title text-sm grid gap-5">
-                    Main
-                </h3>
+                <h3 class="kt-card-title text-sm grid gap-5"> Main </h3>
 
-                <div class="flex flex-wrap gap-2">
-                    <div class="flex flex-wrap gap-2.5">
+                <div class="kt-menu">
+                    <a href="{{ URL::Current() }}/create"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-plus"></i></button></a>
 
-                    </div>
-                    <div class="flex flex-wrap gap-2.5">
-                        <button class="kt-btn kt-btn-sm kt-btn-outline">
-                            <i class="ki-filled ki-plus"></i>
-                        </button>
-                        <!-- <button class="kt-btn kt-btn-sm kt-btn-outline" data-kt-drawer-toggle="#drawer_filter">
-                            <i class="ki-filled ki-setting-4"></i>
-                        </button> -->
-                        <div
-                            class="inline-flex"
-                            data-kt-dropdown="true"
-                            data-kt-dropdown-trigger="click"
-                            data-kt-dropdown-placement="bottom-end">
-                            <button class="kt-btn kt-btn-sm kt-btn-outline" data-kt-dropdown-toggle="true">
-                                <i class="ki-filled ki-setting-4"></i>
-                            </button>
-                            <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                                <div class="kt-card-header kt-form-label">
-                                    Filters 
-                                    <button class="kt-btn kt-btn-sm kt-btn-outline kt-btn-destructive" data-kt-dropdown-toggle="true">
-                                RESET
-                            </button>
+                    <div data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true"><i class="ki-filled ki-setting-4"></i></button>
+                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
+                            <div class="kt-card-header kt-form-label"> Filters <button class="kt-btn kt-btn-sm kt-btn-outline kt-btn-destructive" data-kt-dropdown-toggle="true"> RESET </button></div>
+                            <div class="kt-card-body p-5 grid gap-3">
+                                <div class="flex items-center">
+                                    <div class="kt-form-control flex-1">
+                                        <select class="kt-select">
+                                            <option value="">- Select Active -</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="kt-card-body p-5 grid gap-3">
-                                    <div class="flex items-center">
-                                        <span class="w-40"> Active </span>
-                                        <div class="kt-form-control flex-1">
-                                            <select class="kt-select">
-                                                <option value="">- Select Active -</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
-                                    </div>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="w-40"> Status </span>
-                                        <div class="kt-form-control flex-1">
-                                            <select class="kt-select">
-                                                <option value="">- Select Status -</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
-                                            </select>
-                                        </div>
+                                <div class="flex items-center">
+                                    <div class="kt-form-control flex-1">
+                                        <select class="kt-select">
+                                            <option value="">- Select Status -</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="no">No</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="inline-flex"
-                            data-kt-dropdown="true"
-                            data-kt-dropdown-trigger="click"
-                            data-kt-dropdown-placement="bottom-end">
-                        <button class="kt-btn kt-btn-sm kt-btn-outline" data-kt-dropdown-toggle="true">
-                            <i class="ki-filled ki-magnifier"></i>
-                        </button>
-                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                                <div class="kt-card-header kt-form-label">
-                                    <label class="kt-input kt-input-sm w-auto max-w-xs">
-                            <i class="ki-filled ki-magnifier"></i>
-                            <input id="searchInput" placeholder="Search" type="text" class="w-fit" />
-                        </label>
-                            </button>
-                                </div>
-                                
-                            </div>
-</div>
                     </div>
-                    <!-- <div class="inline-flex">
-                        <label class="kt-input kt-input-sm w-auto max-w-xs">
-                            <i class="ki-filled ki-magnifier"></i>
-                            <input id="searchInput" placeholder="Search" type="text" class="w-fit" />
-                        </label>
-                    </div> -->
+                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true"><i class="ki-filled ki-magnifier"></i></button>
+                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
+                            <div class="kt-card-header kt-form-label">
+                                <label class="kt-input kt-input-sm">
+                                    <i class="ki-filled ki-magnifier"></i>
+                                    <input id="searchInput" placeholder="Search" type="text" />
+                                </label>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button>
+
+
+
+                    <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-2.5">
+
+
+                        </div>
+                    </div>
                 </div>
-
-
-                <!-- <select
-                    class="kt-select max-w-px"
-                    data-kt-select="true"
-                    data-kt-select-placeholder="Select Active">
-                    <option value="yes"> Yes </option>
-                    <option value="no"> No </option>
-
-                </select>
-
-                <select
-                    class="kt-select max-w-px"
-                    data-kt-select="true"
-                    data-kt-select-placeholder="Select Status">
-                    <option value="react"> Pending </option>
-                    <option value="react"> Success </option>
-                    <option value="react"> Failed </option>
-
-                </select>
-                <div class="kt-input max-w-48">
-                    <i class="ki-filled ki-magnifier">
-                    </i>
-                    <input id="searchInput" data-kt-datatable-search="#kt_datatable_1" placeholder="Search Teams" type="text">
-                    </input>
-                </div> -->
             </div>
 
-            <!-- <div class="kt-card-table"> -->
             <div class="kt-scrollable-x-auto">
                 <table id="serverTable" class="kt-table" width="100%">
-                    <!-- <table class="" data-kt-datatable-table="true" id="kt_datatable_1"> -->
                     <thead>
                         <tr>
                             <th class="w-px whitespace-nowrap">
@@ -242,6 +185,20 @@
 @endsection
 
 @push('js')
+<script>
+    window.onload = function() {
+        KTToast.show({
+            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+            message: 'Success',
+            progress: true,
+            pauseOnHover: true,
+            maxToasts: 3,
+            position: 'bottom-end',
+            variant: 'mono',
+        });
+
+    };
+</script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
 <script>
@@ -351,10 +308,11 @@
                 {
                     data: 'active',
                     name: 'active',
+                    'className': 'text-center',
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        return '<span class="kt-badge kt-badge-outline kt-badge-success"> Yes </span>';
+                        return '<span class="kt-badge kt-badge-outline kt-badge-success"><i class="ki-filled ki-check-circle"></i></span>';
                     },
                 },
                 {
