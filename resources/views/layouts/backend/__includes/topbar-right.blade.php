@@ -1,17 +1,17 @@
 <div class="flex items-center gap-2.5">
     <!-- Search -->
-    <button class="group kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-modal-toggle="#search_modal">
+    <!-- <button class="group kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-modal-toggle="#search_modal">
         <i class="ki-filled ki-magnifier text-lg group-hover:text-primary">
         </i>
-    </button>
+    </button> -->
     <!-- End of Search -->
     <!-- Notifications -->
-    <button class="kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-drawer-toggle="#notifications_drawer">
+    <!-- <button class="kt-btn kt-btn-ghost kt-btn-icon size-9 rounded-full hover:bg-primary/10 hover:[&_i]:text-primary" data-kt-drawer-toggle="#notifications_drawer">
         <i class="ki-filled ki-notification-status text-lg">
         </i>
-    </button>
+    </button> -->
     <!--Notifications Drawer-->
-    <div class="hidden kt-drawer kt-drawer-end card flex-col max-w-[90%] w-[450px] top-5 bottom-5 end-5 rounded-xl border border-border" data-kt-drawer="true" data-kt-drawer-container="body" id="notifications_drawer">
+    <!-- <div class="hidden kt-drawer kt-drawer-end card flex-col max-w-[90%] w-[450px] top-5 bottom-5 end-5 rounded-xl border border-border" data-kt-drawer="true" data-kt-drawer-container="body" id="notifications_drawer">
         <div class="flex items-center justify-between gap-2.5 text-sm text-mono font-semibold px-5 py-2.5 border-b border-b-border" id="notifications_header">
             Notifications
             <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-dim shrink-0" data-kt-drawer-dismiss="true">
@@ -1285,7 +1285,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--End of Notifications Drawer-->
     <!-- End of Notifications -->
     <!-- Chat -->

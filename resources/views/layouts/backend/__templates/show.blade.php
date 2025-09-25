@@ -5,9 +5,13 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title"> Details </h3>
+                <h3 class="kt-card-title text-sm grid gap-5">
+                    Details
+                </h3>
                 <div class="kt-menu" data-kt-menu="true">
-                    <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-pencil"></i></button></a>
+                    <a href="{{ URL::Current() }}/edit">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-pencil"></i></button>
+                    </a>
                     <div id="tooltip_edit" class="kt-tooltip">
                         Edit
                     </div>
@@ -23,10 +27,6 @@
                     <!-- <table class="" data-kt-datatable-table="true" id="kt_datatable_1"> -->
                     <tbody>
                         @yield('table-header')
-
-
-
-
                     </tbody>
                 </table>
             </div>
@@ -88,15 +88,6 @@
                             </div>
                         </div>
                     </div>
-                   
-                    
-                    
-                    
-                    
-                    
-                    
-                
-                    
                     <div class="flex items-start relative" bis_skin_checked="1">
                         <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground" bis_skin_checked="1">
                             <i class="ki-filled ki-cup text-base">
@@ -126,8 +117,8 @@
 <div class="kt-modal" data-kt-modal="true" id="modal">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
         <div class="kt-modal-header">
-            <h3 class="kt-modal-title">
-                Share Profile
+            <h3 class="kt-modal-title text-sm">
+                Share
             </h3>
             <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true">
                 <i class="ki-filled ki-cross">
@@ -141,11 +132,10 @@
         </div>
         <div class="kt-modal-footer">
             <div></div>
-            <div class="flex gap-4">
-                <button
-                    class="kt-btn kt-btn-secondary"
-                    data-kt-modal-dismiss="#modal">
-                    Cancel</button><button class="kt-btn"><i class="ki-filled ki-printer"></i> Print</button>
+            <div class="flex gap-2">
+                <button class="kt-btn"><i class="ki-filled ki-copy"></i> Copy</button>
+                <button class="kt-btn"><i class="ki-filled ki-printer"></i> Print</button>
+                <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title"> Create </h3>
+                <h3 class="kt-card-title"> Edit </h3>
                 <div class="kt-menu" data-kt-menu="true">
                     <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-arrow-up-right"></i></button></a>
                     <div id="tooltip_back" class="kt-tooltip">
@@ -16,8 +16,28 @@
             <form method="POST" id="exilednoname-form" action="{{ URL::current() }}/../" accept-charset="UTF-8" class="kt-form" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="kt-card-content p-7.5 grid gap-5">
-                    @include($path . 'form', ['formMode' => 'create'])
-                    <div class="flex justify-end">
+
+                    <div class="kt-form-item">
+                        <div class="flex items-start gap-4">
+                            <span class="kt-form-label w-40 pt-2"> Name </span>
+                            <div class="kt-form-control flex-1">
+                                <input type="text" name="name" value="{{ old('name') }}" class="kt-input w-full" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kt-form-item">
+                        <div class="flex items-start gap-4">
+                            <span class="kt-form-label w-40 pt-2"> Description </span>
+                            <div class="flex-1">
+                                <div class="kt-form-control">
+                                    <input type="text" name="description" value="{{ old('description') }}" class="kt-input w-full" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end" bis_skin_checked="1">
                         <button type="submit" class="kt-btn kt-btn-primary">
                             Save Changes
                         </button>

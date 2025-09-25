@@ -16,6 +16,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 
 # EDIT TEMPLATE
 - [OK] EDIT LANGUAGE
+- FILTER PAGE INDEX
 - PAGE SHOW
 - PAGE CREATE
 - PAGE EDIT

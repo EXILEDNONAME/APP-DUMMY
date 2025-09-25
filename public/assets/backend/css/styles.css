@@ -7218,7 +7218,7 @@
   .kt-form-message {
     margin-top: calc(var(--spacing) * -1);
     display: none;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-xs--line-height));
     --tw-font-weight: var(--font-weight-normal);
     font-weight: var(--font-weight-normal);
