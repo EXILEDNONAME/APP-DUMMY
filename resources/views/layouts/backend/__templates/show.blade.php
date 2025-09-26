@@ -13,7 +13,13 @@
                     <div id="tooltip_print" class="kt-tooltip"> Print </div>
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-scan-barcode"></i></button>
                     <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
-                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-trash"></i></button>
+
+                    <form method="POST" action="{{ URL::current() }}/../{{ $data->id }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        @method('DELETE')
+                        @csrf
+                        <button id="delete" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-trash"></i></button>
+                    </form>
+
                     <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-black-right-line"></i></button></a>
                     <div id="tooltip_back" class="kt-tooltip"> Back </div>
                 </div>
@@ -21,6 +27,7 @@
             <div class="kt-card-body p-1">
                 <div class="kt-scrollable overflow-x-auto">
                     <table id="serverTable" class="kt-table w-full">
+                        @if(!empty($data->file))
                         <tr>
                             <td> {{ __('default.label.file') }} </td>
                             <td class="">
@@ -49,19 +56,26 @@
 
                             </td>
                         </tr>
+                        @endif
 
+                        @if(!empty($data->date))
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.date') }} </td>
                             <td> {{ !empty($data->date) ? \Carbon\Carbon::parse($data->date)->format('d F Y') : '-' }} </td>
                         </tr>
+                        @endif
+                        @if(!empty($data->date_start))
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.date-start') }} </td>
                             <td> {{ !empty($data->date_start) ? \Carbon\Carbon::parse($data->date_start)->format('d F Y') : '-' }} </td>
                         </tr>
+                        @endif
+                        @if(!empty($data->date_end))
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.date-end') }} </td>
                             <td> {{ !empty($data->date_end) ? \Carbon\Carbon::parse($data->date_end)->format('d F Y') : '-' }} </td>
                         </tr>
+                        @endif
                         @yield('table-header')
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.active') }} </td>
@@ -91,16 +105,18 @@
                             <td class="align-middle font-weight-bold"> {{ __('default.label.updated_at') }} </td>
                             <td> {{ \Carbon\Carbon::parse($data->updated_at)->format('d F Y, H:i') }} </td>
                         </tr>
+                        @if(!empty($data->created_by))
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.created_by') }} </td>
-                            <td>
-                                {{ \DB::table('users')->where('id', $data->created_by)->first()->name ?? '-' }}
-                            </td>
+                            <td> {{ \DB::table('users')->where('id', $data->created_by)->first()->name ?? '-' }} </td>
                         </tr>
+                        @endif
+                        @if(!empty($data->updated_by))
                         <tr>
                             <td class="align-middle font-weight-bold whitespace-nowrap"> {{ __('default.label.last_updated_by') }} </td>
                             <td class="text-nowrap"> {{ \DB::table('users')->where('id', $data->updated_by)->first()->name ?? '-' }} </td>
                         </tr>
+                        @endif
                         <tr>
                             <td></td>
                             <td class="text-nowrap">
@@ -119,7 +135,7 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title"> Activities </h3>
+                <h3 class="kt-card-title text-sm grid gap-5"> Activities </h3>
                 <div class="kt-menu">
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-arrows-circle"></i></button>
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-printer"></i></button>
@@ -129,71 +145,66 @@
                     </div>
                 </div>
             </div>
-            <div class="kt-card-content lg:p-7.5 lg:pt-6 p-5">
-                <div class="kt-scrollable overflow-x-auto w-full rounded-lg">
+            <div class="kt-scrollable overflow-x-auto w-full rounded-lg">
+                <div class="kt-card-content lg:p-7.5 lg:pt-6 p-5">
                     <div class="flex flex-col" bis_skin_checked="1">
-                        <div class="flex items-start relative" bis_skin_checked="1">
-                            <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input" bis_skin_checked="1">
-                            </div>
-                            <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground" bis_skin_checked="1">
-                                <i class="ki-filled ki-people text-base">
-                                </i>
-                            </div>
-                            <div class="ps-2.5 mb-7 text-base grow" bis_skin_checked="1">
-                                <div class="flex flex-col" bis_skin_checked="1">
-                                    <div class="text-sm text-foreground" bis_skin_checked="1">
-                                        Posted a new article
-                                        <a class="text-sm font-medium kt-link" href="/metronic/tailwind/demo1/public-profile/profiles/blogger">
-                                            Top 10 Tech Trends
-                                        </a>
-                                    </div>
-                                    <span class="text-xs text-secondary-foreground">
-                                        Today, 9:00 AM
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-start relative" bis_skin_checked="1">
-                            <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input" bis_skin_checked="1">
-                            </div>
-                            <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground" bis_skin_checked="1">
-                                <i class="ki-filled ki-entrance-left text-base">
-                                </i>
-                            </div>
-                            <div class="ps-2.5 mb-7 text-base grow" bis_skin_checked="1">
-                                <div class="flex flex-col" bis_skin_checked="1">
-                                    <div class="text-sm text-foreground whitespace-nowrap" bis_skin_checked="1">
-                                        I had the privilege of interviewing an industry expert for an <br>
-                                        <a class="text-sm kt-link" href="/metronic/tailwind/demo1/public-profile/profiles/blogger">
-                                            upcoming blog post
-                                        </a>
-                                    </div>
-                                    <span class="text-xs text-secondary-foreground">
-                                        2 days ago, 4:07 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-start relative" bis_skin_checked="1">
-                            <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground" bis_skin_checked="1">
-                                <i class="ki-filled ki-cup text-base">
-                                </i>
-                            </div>
-                            <div class="ps-2.5 text-base grow" bis_skin_checked="1">
-                                <div class="flex flex-col" bis_skin_checked="1">
-                                    <div class="text-sm text-foreground" bis_skin_checked="1">
-                                        We recently
-                                        <a class="text-sm font-medium kt-link" href="/metronic/tailwind/demo1/public-profile/profiles/nft">
-                                            celebrated
-                                        </a>
-                                        the blog's 1-year anniversary
-                                    </div>
-                                    <span class="text-xs text-secondary-foreground">
-                                        3 months ago, 4:07 PM
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+
+                        @php $activity = activities($model)->where('subject_id', $data->id)->take(7); @endphp
+                        <div class="flex flex-col">
+    @foreach($activity as $acts)
+        @php
+            $props = json_decode($acts->properties, true) ?? [];
+            $isRestored = $acts->description === 'updated'
+                && ($props['attributes']['deleted_at'] ?? null) === null
+                && !empty($props['old']['deleted_at']);
+        @endphp
+
+        <div class="flex items-start relative">
+            {{-- Garis penghubung kecuali terakhir --}}
+            @unless($loop->last)
+                <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input"></div>
+            @endunless
+
+            {{-- Icon --}}
+            <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground">
+                @if ($acts->description == 'created')
+                    <i class="ki-filled ki-plus"></i>
+                @elseif ($isRestored)
+                    <i class="ki-filled ki-arrows-circle"></i>
+                @elseif ($acts->description == 'updated')
+                    <i class="ki-filled ki-pencil"></i>
+                @elseif ($acts->description == 'deleted')
+                    <i class="ki-filled ki-trash"></i>
+                @endif
+            </div>
+
+            {{-- Konten --}}
+            <div class="ps-2.5 mb-7 text-base grow">
+                <div class="flex flex-col">
+                    <div class="text-sm text-foreground whitespace-nowrap">
+                        @if ($acts->description == 'created')
+                            {{ __('default.activity.item-created') }}
+                            {{ mb_strimwidth($props['attributes']['name'] ?? $data_object['name'] ?? '', 0, 10, ' ...') }}
+                        @elseif ($isRestored)
+                            {{ __('default.activity.item-restored') }}
+                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                        @elseif ($acts->description == 'updated')
+                            {{ __('default.activity.item-updated') }}
+                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                        @elseif ($acts->description == 'deleted')
+                            {{ __('default.activity.item-deleted') }}
+                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                        @endif
+                    </div>
+                    <span class="text-xs text-secondary-foreground">
+                        {{ $acts->created_at->diffForHumans() }}, {{ $acts->causer->name }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
                     </div>
                 </div>
             </div>
@@ -230,6 +241,24 @@
 
 @push('js')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('body').on('click', '#delete', function(e) {
+        e.preventDefault()
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.delete') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $(e.target).closest('form').submit()
+            }
+        });
+    });
+</script>
 <script>
     ! function(t, e) {
         "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : t.lozad = e()

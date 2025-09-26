@@ -253,6 +253,36 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
 <script>
+    $('body').on('click', '#restore', function () {
+    var id = $(this).data("id");
+    Swal.fire({ text: "{{ __('default.notification.confirm.restore') }}?", icon: "warning", showCancelButton: true, 
+        confirmButtonText: "{{ __('default.label.yes') }}", 
+        cancelButtonText: "{{ __('default.label.no') }}", reverseButtons: false }).then(function (result) {
+        if (result.value) {
+            $.ajax({
+                type: "get", url:  "{{ URL::Current() }}/../restore/" + id,
+                success: function (data) {
+                    // KTApp.block('#exilednoname_body', {
+                    //     overlayColor: '#000000',
+                    //     state: 'info',
+                    //     message: "{{ __('default.label.processing') }} ..."
+                    // });
+                    setTimeout(function () {
+                        KTApp.unblock('#exilednoname_body');
+                        var oTable = $('#exilednoname_table').dataTable();
+                        oTable.fnDraw(false);
+                        // toastr.success(__('default.notification.success.item_restored'));
+                    }, 500);
+                },
+                error: function (data) {
+                    // toastr.error(translations.default.notification.error.error);
+                }
+            });
+        }
+    });
+});
+    </script>
+<script>
     function renderPaginationWindow(dt, container, windowSize = 2) {
         const pageInfo = dt.page.info();
         const totalPages = pageInfo.pages;
@@ -339,7 +369,7 @@
             processing: true,
             serverSide: true,
             "pagingType": "simple_numbers",
-            ajax: "{{ route('dashboard.system.application.datatable.generals.index') }}",
+            ajax: "{{ route('dashboard.system.application.datatable.generals.trash') }}",
             columns: [{
                     data: 'id',
                     name: 'id',
@@ -390,13 +420,13 @@
                 </button>
                 <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]" data-kt-menu-dismiss="true" style="">
                  <div class="kt-menu-item">
-                  <a class="kt-menu-link" href="#">
+                  <a id="restore" class="kt-menu-link" data-id="${row.id}">
                    <span class="kt-menu-icon">
                     <i class="ki-filled ki-search-list">
                     </i>
                    </span>
                    <span class="kt-menu-title">
-                    View
+                    Restore
                    </span>
                   </a>
                  </div>
@@ -418,7 +448,7 @@
                     </i>
                    </span>
                    <span class="kt-menu-title">
-                    Delete
+                    Delete Permanent
                    </span>
                   </a>
                  </div>
