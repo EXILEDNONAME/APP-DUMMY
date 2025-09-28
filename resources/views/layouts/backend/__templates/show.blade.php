@@ -84,11 +84,11 @@
                         <tr>
                             <td class="align-middle font-weight-bold"> {{ __('default.label.status') }} </td>
                             <td>
-                                @if( $data->status == 1 ) <strong><span class="text-dark"> {{ __('default.label.default') }} </span></strong>
+                                @if( $data->status == 1 ) <span class="text-black"> {{ __('default.label.default') }} </span>
                                 @elseif( $data->status == 2 ) <span class="text-yellow-600"> {{ __('default.label.pending') }} </span>
-                                @elseif( $data->status == 3 ) <strong><span class="text-info"> {{ __('default.label.progress') }} </span></strong>
-                                @elseif( $data->status == 4 ) <strong><span class="text-success"> {{ __('default.label.success') }} </span></strong>
-                                @elseif( $data->status == 5 ) <strong><span class="text-danger"> {{ __('default.label.failed') }} </span></strong>
+                                @elseif( $data->status == 3 ) <span class="text-violet-500"> {{ __('default.label.progress') }} </span>
+                                @elseif( $data->status == 4 ) <span class="text-green-600"> {{ __('default.label.success') }} </span>
+                                @elseif( $data->status == 5 ) <span class="text-red-600"> {{ __('default.label.failed') }} </span>
                                 @else {{ __('default.label.unknown') }}
                                 @endif
                             </td>
@@ -151,59 +151,46 @@
 
                         @php $activity = activities($model)->where('subject_id', $data->id)->take(7); @endphp
                         <div class="flex flex-col">
-    @foreach($activity as $acts)
-        @php
-            $props = json_decode($acts->properties, true) ?? [];
-            $isRestored = $acts->description === 'updated'
-                && ($props['attributes']['deleted_at'] ?? null) === null
-                && !empty($props['old']['deleted_at']);
-        @endphp
+                            @foreach($activity as $acts)
+                            @php
+                            $props = json_decode($acts->properties, true) ?? [];
+                            $isRestored = $acts->description === 'updated' && ($props['attributes']['deleted_at'] ?? null) === null && !empty($props['old']['deleted_at']);
+                            @endphp
 
-        <div class="flex items-start relative">
-            {{-- Garis penghubung kecuali terakhir --}}
-            @unless($loop->last)
-                <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input"></div>
-            @endunless
+                            <div class="flex items-start relative">
+                                @unless($loop->last)
+                                <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input"></div>
+                                @endunless
 
-            {{-- Icon --}}
-            <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground">
-                @if ($acts->description == 'created')
-                    <i class="ki-filled ki-plus"></i>
-                @elseif ($isRestored)
-                    <i class="ki-filled ki-arrows-circle"></i>
-                @elseif ($acts->description == 'updated')
-                    <i class="ki-filled ki-pencil"></i>
-                @elseif ($acts->description == 'deleted')
-                    <i class="ki-filled ki-trash"></i>
-                @endif
-            </div>
+                                <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground">
+                                    @if ($acts->description == 'created') <i class="ki-filled ki-plus"></i>
+                                    @elseif ($isRestored) <i class="ki-filled ki-arrows-circle"></i>
+                                    @elseif ($acts->description == 'updated') <i class="ki-filled ki-pencil"></i>
+                                    @elseif ($acts->description == 'deleted') <i class="ki-filled ki-trash"></i>
+                                    @endif
+                                </div>
 
-            {{-- Konten --}}
-            <div class="ps-2.5 mb-7 text-base grow">
-                <div class="flex flex-col">
-                    <div class="text-sm text-foreground whitespace-nowrap">
-                        @if ($acts->description == 'created')
-                            {{ __('default.activity.item-created') }}
-                            {{ mb_strimwidth($props['attributes']['name'] ?? $data_object['name'] ?? '', 0, 10, ' ...') }}
-                        @elseif ($isRestored)
-                            {{ __('default.activity.item-restored') }}
-                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
-                        @elseif ($acts->description == 'updated')
-                            {{ __('default.activity.item-updated') }}
-                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
-                        @elseif ($acts->description == 'deleted')
-                            {{ __('default.activity.item-deleted') }}
-                            {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
-                        @endif
-                    </div>
-                    <span class="text-xs text-secondary-foreground">
-                        {{ $acts->created_at->diffForHumans() }}, {{ $acts->causer->name }}
-                    </span>
-                </div>
-            </div>
-        </div>
-    @endforeach
-</div>
+                                <div class="ps-2.5 text-base grow {{ !$loop->last ? 'mb-7' : '' }}">
+                                    <div class="flex flex-col">
+                                        <div class="text-sm text-foreground whitespace-nowrap">
+                                            @if ($acts->description == 'created')
+                                            {{ __('default.activity.item-created') }} {{ mb_strimwidth($props['attributes']['name'] ?? $data_object['name'] ?? '', 0, 10, ' ...') }}
+                                            @elseif ($isRestored)
+                                            {{ __('default.activity.item-restored') }} {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                                            @elseif ($acts->description == 'updated')
+                                            {{ __('default.activity.item-updated') }} {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                                            @elseif ($acts->description == 'deleted')
+                                            {{ __('default.activity.item-deleted') }} {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                                            @endif
+                                        </div>
+                                        <span class="text-xs text-secondary-foreground">
+                                            {{ $acts->created_at->diffForHumans() }}, {{ $acts->causer->name }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
 
                     </div>
                 </div>
@@ -240,8 +227,6 @@
 @endsection
 
 @push('js')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $('body').on('click', '#delete', function(e) {
         e.preventDefault()
@@ -259,6 +244,7 @@
         });
     });
 </script>
+
 <script>
     ! function(t, e) {
         "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : t.lozad = e()

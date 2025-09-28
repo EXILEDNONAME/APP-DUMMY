@@ -11,6 +11,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Http\Requests\Backend\__System\Application\Datatable\General\StoreRequest;
 use App\Http\Requests\Backend\__System\Application\Datatable\General\UpdateRequest;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+
 class GeneralController extends Controller implements HasMiddleware
 {
     /**
@@ -75,4 +78,40 @@ class GeneralController extends Controller implements HasMiddleware
 
     public function store(StoreRequest $request) {}
     public function update(UpdateRequest $request, $id) {}
+
+    public function exportPdf(Request $request)
+    {
+
+        // $start = $request->input('start', 0);
+        // $length = $request->input('length', 10);
+
+        // $users = $this->model::skip($start)->take($length)->get();
+
+        $ids = $request->input('ids');
+        $length = $request->input('length'); // string "1,2,3" atau kosong
+        $columns = $request->input('columns', []); // array dari Blade
+
+        if ($ids) {
+            $idsArray = explode(',', $ids);
+            $data = $this->model::whereIn('id', $idsArray)->get();
+        } else {
+            $data = $this->model::paginate($length); // atau data per halaman
+        }
+
+        // buat field mapping otomatis: ambil lowercase dan replace spasi
+        $fields = array_map(function ($col) {
+            return [
+                'label' => $col,
+                'field' => strtolower(str_replace(' ', '_', $col))
+            ];
+        }, $columns);
+
+        $pdf = PDF::loadView('users_pdf', [
+            'title' => 'Export Data',
+            'data' => $data,
+            'columns' => $fields
+        ]);
+
+        return $pdf->download('export.pdf');
+    }
 }

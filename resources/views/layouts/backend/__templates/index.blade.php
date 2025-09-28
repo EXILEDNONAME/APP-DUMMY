@@ -5,22 +5,41 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title text-sm grid gap-5"> Main </h3>
-
+                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.main') }} </h3>
                 <div class="kt-menu">
-                    <a href="{{ URL::Current() }}/create"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-plus"></i></button></a>
-
-                    <div data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true"><i class="ki-filled ki-setting-4"></i></button>
+                    <a href="{{ URL::Current() }}/create"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_create" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-plus"></i></button></a>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
+                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-exit-down"></i></button>
+                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
+                            <div class="kt-card-body grid gap-3">
+                                <div class="flex">
+                                    <div class="kt-menu-default w-px whitespace-nowrap" data-kt-menu-dismiss="true">
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_copy" data-kt-tooltip-placement="top-end"><a id="export_copy" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-copy"></i></span><span class="kt-menu-title"> {{ __('default.label.export.copy') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_csv" data-kt-tooltip-placement="top-end"><a id="export_csv" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-notepad"></i></span><span class="kt-menu-title"> {{ __('default.label.export.csv') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_excel" data-kt-tooltip-placement="top-end"><a id="export_excel" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-tablet-text-up"></i></span><span class="kt-menu-title"> {{ __('default.label.export.excel') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_pdf" data-kt-tooltip-placement="top-end"><a id="export_pdf" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-document"></i></span><span class="kt-menu-title"> {{ __('default.label.export.pdf') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_print" data-kt-tooltip-placement="top-end"><a id="export_print" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-printer"></i></span><span class="kt-menu-title"> {{ __('default.label.export.print') }} </span></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
                         <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
                             <div class="kt-card-header kt-form-label"> Filters <button class="kt-btn kt-btn-sm kt-btn-outline kt-btn-destructive" data-kt-dropdown-toggle="true"> RESET </button></div>
                             <div class="kt-card-body p-5 grid gap-3">
+                                <label class="kt-input">
+                                    <i class="ki-filled ki-magnifier"></i>
+                                    <input id="searchInput" class="filter_form" placeholder="Search" type="text" />
+                                </label>
                                 <div class="flex items-center">
                                     <div class="kt-form-control flex-1">
-                                        <select class="kt-select">
-                                            <option value="">- Select Active -</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                        <select class="kt-select filter-form filter_form filter_active">
+                                            <option value=""> - {{ __('default.select.active') }} - </option>
+                                            <option value="1"> {{ __('default.label.yes') }} </option>
+                                            <option value="0"> {{ __('default.label.no') }} </option>
                                         </select>
                                     </div>
                                 </div>
@@ -36,88 +55,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="click" data-kt-dropdown-placement="bottom-end">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true"><i class="ki-filled ki-magnifier"></i></button>
-                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                            <div class="kt-card-header kt-form-label">
-                                <label class="kt-input kt-input-sm">
-                                    <i class="ki-filled ki-magnifier"></i>
-                                    <input id="searchInput" placeholder="Search" type="text" />
-                                </label>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button>
-
-
-
-                    <div class="flex flex-wrap gap-2">
-                        <div class="flex flex-wrap gap-2.5">
-
-
-                        </div>
+                    <div id="checkbox_batch" class="hidden">
+                        <a href=""><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button></a>
                     </div>
                 </div>
             </div>
 
             <div class="kt-scrollable-x-auto">
-                <table id="serverTable" class="kt-table" width="100%">
+                <table id="exilednoname_table" class="kt-table" width="100%">
                     <thead>
                         <tr>
-                            <th class="w-px whitespace-nowrap">
-                                <span class="kt-table-col flex items-center justify-between">
-                                    <span class="kt-table-col-label">
-                                        ID
-                                    </span>
-
-                                </span>
-                            </th>
-                            <th class="w-full whitespace-nowrap">
-                                <span class="kt-table-col flex items-center justify-between">
-                                    <span class="kt-table-col-label">
-                                        Name
-                                    </span>
-                                    <span class="kt-table-col-sort">
-                                    </span>
-                                </span>
-                            </th>
-                            <th class="w-full">
-                                <span class="kt-table-col flex items-center justify-between">
-                                    <span class="kt-table-col-label">
-                                        Description
-                                    </span>
-                                    <span class="kt-table-col-sort">
-                                    </span>
-                                </span>
-                            </th>
-                            <th class="w-full whitespace-nowrap">
-                                <span class="kt-table-col flex items-center justify-between">
-                                    <span class="kt-table-col-label">
-                                        Active
-                                    </span>
-                                    <span class="kt-table-col-sort">
-                                    </span>
-                                </span>
-                            </th>
-                            <th class="w-full whitespace-nowrap">
-                                <span class="kt-table-col flex items-center justify-between">
-                                    <span class="kt-table-col-label">
-                                        Status
-                                    </span>
-                                    <span class="kt-table-col-sort">
-                                    </span>
-                                </span>
-                            </th>
-                            <th>
-                            </th>
+                            <th class="w-px whitespace-nowrap no-export"></th>
+                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> No. </span></span></th>
+                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
+                            <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th>
+                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
+                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th>
+                            <th class="w-px whitespace-nowrap no-export"></th>
                         </tr>
                     </thead>
                 </table>
             </div>
 
             <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
-                <!-- Kiri: Show entries -->
                 <div class="flex items-center gap-2 order-2 md:order-1">
                     <label for="perpage" class="text-sm">Show</label>
                     <select id="perpage" class="kt-select w-16 border rounded px-2 py-1">
@@ -128,131 +88,114 @@
                     </select>
                     <span class="text-sm">entries</span>
                 </div>
-
-                <!-- Kanan: Pagination -->
                 <div class="flex items-center gap-2 order-1 md:order-2">
                     <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
                 </div>
             </div>
 
-
-        </div>
-    </div>
-</div>
-
-<div
-    class="kt-drawer kt-drawer-top hidden h-80"
-    data-kt-drawer="true"
-    id="drawer_filter">
-    <div class="kt-drawer-header">
-        <h3 class="kt-drawer-title"> Filters </h3>
-        <button
-            class="kt-drawer-close"
-            aria-label="Close drawer"
-            data-kt-drawer-dismiss="#alert">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-x"
-                aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-            </svg>
-        </button>
-    </div>
-    <div class="kt-drawer-content kt-scrollable">
-        <div class="flex items-start gap-4">
-            <span class="kt-form-label w-40 pt-2"> Active </span>
-            <div class="kt-form-control flex-1">
-                <select class="kt-select">
-                    <option value="">- Select Active -</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-        </div>
-
-    </div>
-    <!-- <div class="kt-drawer-footer">Footer</div> -->
-</div>
-
-<button onclick="openConfirmModal()" 
-    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-    Hapus Data
-</button>
-<div id="confirmModal" 
-    class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    
-    <!-- Modal -->
-    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-        <!-- Header -->
-        <h2 class="text-lg font-bold text-gray-800 mb-2">
-            Apakah kamu yakin?
-        </h2>
-        <p class="text-sm text-gray-600 mb-4">
-            Data ini akan dihapus permanen, tindakan tidak bisa dibatalkan.
-        </p>
-
-        <!-- Footer -->
-        <div class="flex justify-end gap-2">
-            <button onclick="closeConfirmModal()" 
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg">
-                Batal
-            </button>
-            <button onclick="hapusData()" 
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                Hapus
-            </button>
         </div>
     </div>
 </div>
 @endsection
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" /> -->
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> -->
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> -->
+
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+<!-- <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.pdfmake.min.js"></script> -->
+
+<script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.min.js"></script>
+
+
 <script>
-    Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  }
-});
-</script>
-<script>
-    window.onload = function() {
+    $('<div>', {
+        id: 'tooltip_create',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.create') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_reload',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.reload') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.export') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_filter',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.filter') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_search',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.search') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export_description_copy',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.description.copy') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export_description_csv',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.description.csv') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export_description_excel',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.description.excel') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export_description_pdf',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.description.pdf') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_export_description_print',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.export.description.print') }}"
+    }).appendTo('body');
+
+    // COPY
+    var defaultCopy = $.fn.dataTable.ext.buttons.copyHtml5.action;
+
+    $.fn.dataTable.ext.buttons.copyHtml5.action = function(e, dt, button, config) {
+        // Jalankan action bawaan dengan apply (bukan call biasa)
+        defaultCopy.apply(this, arguments);
+
+        // Hapus notifikasi default bawaan DataTables
+        $('.dt-button-info').remove();
+
+        // Tampilkan custom toast
         KTToast.show({
-            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-            message: 'Success',
+            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-info-icon lucide-info">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
+               </svg>`,
             progress: true,
             pauseOnHover: true,
             maxToasts: 3,
             position: 'bottom-end',
             variant: 'mono',
+            message: "{{ __('default.notification.success.export_copy') }}"
         });
-
     };
-</script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
-<script>
+
     function renderPaginationWindow(dt, container, windowSize = 2) {
         const pageInfo = dt.page.info();
         const totalPages = pageInfo.pages;
@@ -264,8 +207,8 @@
         prevBtn.className = "kt-datatable-pagination-button kt-datatable-pagination-prev";
         prevBtn.disabled = currentPage === 0;
         prevBtn.innerHTML = `<svg class="rtl:transform rtl:rotate-180 size-3.5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8.86501 16.7882V12.8481H21.1459C21.3724 12.8481 21.5897 12.7581 21.7498 12.5979C21.91 12.4378 22 12.2205 22 11.994C22 11.7675 21.91 11.5503 21.7498 11.3901C21.5897 11.2299 21.3724 11.1399 21.1459 11.1399H8.86501V7.2112C8.86628 7.10375 8.83517 6.9984 8.77573 6.90887C8.7163 6.81934 8.63129 6.74978 8.53177 6.70923C8.43225 6.66869 8.32283 6.65904 8.21775 6.68155C8.11267 6.70405 8.0168 6.75766 7.94262 6.83541L2.15981 11.6182C2.1092 11.668 2.06901 11.7274 2.04157 11.7929C2.01413 11.8584 2 11.9287 2 11.9997C2 12.0707 2.01413 12.141 2.04157 12.2065C2.06901 12.272 2.1092 12.3314 2.15981 12.3812L7.94262 17.164C8.0168 17.2417 8.11267 17.2953 8.21775 17.3178C8.32283 17.3403 8.43225 17.3307 8.53177 17.2902C8.63129 17.2496 8.7163 17.18 8.77573 17.0905C8.83517 17.001 8.86628 16.8956 8.86501 16.7882Z" fill="currentColor"></path>
-</svg>`;
+        <path d="M8.86501 16.7882V12.8481H21.1459C21.3724 12.8481 21.5897 12.7581 21.7498 12.5979C21.91 12.4378 22 12.2205 22 11.994C22 11.7675 21.91 11.5503 21.7498 11.3901C21.5897 11.2299 21.3724 11.1399 21.1459 11.1399H8.86501V7.2112C8.86628 7.10375 8.83517 6.9984 8.77573 6.90887C8.7163 6.81934 8.63129 6.74978 8.53177 6.70923C8.43225 6.66869 8.32283 6.65904 8.21775 6.68155C8.11267 6.70405 8.0168 6.75766 7.94262 6.83541L2.15981 11.6182C2.1092 11.668 2.06901 11.7274 2.04157 11.7929C2.01413 11.8584 2 11.9287 2 11.9997C2 12.0707 2.01413 12.141 2.04157 12.2065C2.06901 12.272 2.1092 12.3314 2.15981 12.3812L7.94262 17.164C8.0168 17.2417 8.11267 17.2953 8.21775 17.3178C8.32283 17.3403 8.43225 17.3307 8.53177 17.2902C8.63129 17.2496 8.7163 17.18 8.77573 17.0905C8.83517 17.001 8.86628 16.8956 8.86501 16.7882Z" fill="currentColor"></path>
+        </svg>`;
         prevBtn.addEventListener("click", () => dt.page("previous").draw(false))
         container.appendChild(prevBtn);
 
@@ -319,32 +262,109 @@
         const nextBtn = document.createElement("button");
         nextBtn.className = "kt-datatable-pagination-button kt-datatable-pagination-next";
         nextBtn.disabled = currentPage === totalPages - 1;
-        nextBtn.innerHTML = `<svg class="rtl:transform rtl:rotate-180 size-3.5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15.135 7.21144V11.1516H2.85407C2.62756 11.1516 2.41032 11.2415 2.25015 11.4017C2.08998 11.5619 2 11.7791 2 12.0056C2 12.2321 2.08998 12.4494 2.25015 12.6096C2.41032 12.7697 2.62756 12.8597 2.85407 12.8597H15.135V16.7884C15.1337 16.8959 15.1648 17.0012 15.2243 17.0908C15.2837 17.1803 15.3687 17.2499 15.4682 17.2904C15.5677 17.3309 15.6772 17.3406 15.7822 17.3181C15.8873 17.2956 15.9832 17.242 16.0574 17.1642L21.8402 12.3814C21.8908 12.3316 21.931 12.2722 21.9584 12.2067C21.9859 12.1412 22 12.0709 22 11.9999C22 11.9289 21.9859 11.8586 21.9584 11.7931C21.931 11.7276 21.8908 11.6683 21.8402 11.6185L16.0574 6.83565C15.9832 6.75791 15.8873 6.70429 15.7822 6.68179C15.6772 6.65929 15.5677 6.66893 15.4682 6.70948C15.3687 6.75002 15.2837 6.81959 15.2243 6.90911C15.1648 6.99864 15.1337 7.10399 15.135 7.21144Z" fill="currentColor"></path>
-						</svg>`;
+        nextBtn.innerHTML = `<svg class="rtl:transform rtl:rotate-180 size-3.5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.135 7.21144V11.1516H2.85407C2.62756 11.1516 2.41032 11.2415 2.25015 11.4017C2.08998 11.5619 2 11.7791 2 12.0056C2 12.2321 2.08998 12.4494 2.25015 12.6096C2.41032 12.7697 2.62756 12.8597 2.85407 12.8597H15.135V16.7884C15.1337 16.8959 15.1648 17.0012 15.2243 17.0908C15.2837 17.1803 15.3687 17.2499 15.4682 17.2904C15.5677 17.3309 15.6772 17.3406 15.7822 17.3181C15.8873 17.2956 15.9832 17.242 16.0574 17.1642L21.8402 12.3814C21.8908 12.3316 21.931 12.2722 21.9584 12.2067C21.9859 12.1412 22 12.0709 22 11.9999C22 11.9289 21.9859 11.8586 21.9584 11.7931C21.931 11.7276 21.8908 11.6683 21.8402 11.6185L16.0574 6.83565C15.9832 6.75791 15.8873 6.70429 15.7822 6.68179C15.6772 6.65929 15.5677 6.66893 15.4682 6.70948C15.3687 6.75002 15.2837 6.81959 15.2243 6.90911C15.1648 6.99864 15.1337 7.10399 15.135 7.21144Z" fill="currentColor"></path></svg>`;
         nextBtn.addEventListener("click", () => dt.page("next").draw(false));
         container.appendChild(nextBtn);
     }
 
     $(document).ready(function() {
-        var table = $('#serverTable').DataTable({
+        // var copyHtml5Action = $.fn.dataTable.ext.buttons.copyHtml5.action;
+        var url = "{{ URL::Current() }}";
+        var table = $('#exilednoname_table').DataTable({
 
             "initComplete": function(settings, json) {
-                $('#serverTable_info').appendTo('#kt-pagination');
+                $('#exilednoname_table_info').appendTo('#kt-pagination');
                 $('.dt-paging').appendTo('#kt-pagination');
                 $('#dt-length-0').appendTo('#ex_table_length');
-                $('#serverTable_filter').appendTo('#ex_table_filter');
+                $('#exilednoname_table_filter').appendTo('#ex_table_filter');
             },
 
             processing: true,
             serverSide: true,
             "pagingType": "simple_numbers",
+            pageLength: 25,
+            lengthChange: false,
+            info: false,
+            dom: 't',
+            responsive: true,
+
             ajax: "{{ route('dashboard.system.application.datatable.generals.index') }}",
+            headerCallback: function(thead, data, start, end, display) {
+                thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`;
+            },
+            drawCallback: function() {
+                renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
+            },
+            buttons: [{
+                    extend: 'print',
+                    title: '',
+                    exportOptions: {
+                        rows: function(idx, data, node) {
+                            var selectedCount = table.rows('.selected').count();
+                            if (selectedCount > 0) {
+                                return $(node).hasClass('selected');
+                            }
+                            return true;
+                        },
+                        columns: "thead th:not(.no-export)",
+                        orthogonal: "Export",
+                    },
+                },
+                {
+                    extend: 'copyHtml5',
+                    title: '',
+                    autoClose: 'true',
+                    exportOptions: {
+                        rows: function(idx, data, node) {
+                            var selectedCount = table.rows('.selected').count();
+                            if (selectedCount > 0) {
+                                return $(node).hasClass('selected');
+                            }
+                            return true;
+                        },
+                        columns: "thead th:not(.no-export)",
+                        orthogonal: "Export"
+                    },
+
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: '',
+                    exportOptions: {
+                        columns: "thead th:not(.no-export)",
+                        orthogonal: "Export"
+                    },
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: '',
+                    exportOptions: {
+                        columns: "thead th:not(.no-export)",
+                        orthogonal: "Export",
+                        rows: {
+                            selected: true
+                        }
+                    },
+                },
+            ],
             columns: [{
-                    data: 'id',
-                    name: 'id',
+                    data: 'checkbox',
+                    name: 'checkbox',
+                    searchable: false,
                     orderable: false,
-                    'className': 'text-center text-nowrap',
+                    render: function(data, type, row, meta) {
+                        return '<input type="checkbox" class="kt-checkbox checkable" data-id="' + row.id + '">';
+                    },
+                },
+                {
+                    data: 'autonumber',
+                    orderable: false,
+                    searchable: false,
+                    'className': 'align-middle text-center',
+                    'width': '1',
+                    render: function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
                 },
                 {
                     data: 'name',
@@ -359,20 +379,28 @@
                 {
                     data: 'active',
                     name: 'active',
-                    'className': 'text-center',
-                    orderable: false,
-                    searchable: false,
+                    orderable: true,
+                    'width': '1',
                     render: function(data, type, row) {
-                        return '<span class="kt-badge kt-badge-outline kt-badge-success"><i class="ki-filled ki-check-circle"></i></span>';
-                    },
+                        if (data == 1) {
+                            return '<a class="flex justify-center" id="table_inactive" data-id="' + row.id + '"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" checked="" /></a>';
+                        } else {
+                            return '<a class="flex justify-center" id="table_active" data-id="' + row.id + '"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" /></a>';
+                        }
+                    }
                 },
                 {
                     data: 'status',
                     name: 'status',
                     orderable: false,
                     searchable: false,
+                    className: 'text-center text-nowrap',
                     render: function(data, type, row) {
-                        return '<span class="kt-badge kt-badge-warning"> Pending </span>';
+                        if (data == 1) return '<span class="kt-badge kt-badge-mono"> {{ __("default.label.default") }}</span>';
+                        if (data == 2) return '<span class="kt-badge kt-badge-warning"> {{ __("default.label.pending") }}</span>';
+                        if (data == 3) return '<span class="kt-badge kt-badge-info"> {{ __("default.label.progress") }}</span>';
+                        if (data == 4) return '<span class="kt-badge kt-badge-success"> {{ __("default.label.success") }}</span>';
+                        if (data == 5) return '<span class="kt-badge kt-badge-destructive"> {{ __("default.label.failed") }}</span>';
                     },
                 },
                 {
@@ -381,62 +409,69 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        return `<td>
-              <div class="kt-menu" data-kt-menu="true">
-               <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="click">
-                <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost">
-                 <i class="ki-filled ki-dots-vertical text-lg">
-                 </i>
-                </button>
-                <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]" data-kt-menu-dismiss="true" style="">
-                 <div class="kt-menu-item">
-                  <a class="kt-menu-link" href="#">
-                   <span class="kt-menu-icon">
-                    <i class="ki-filled ki-search-list">
-                    </i>
-                   </span>
-                   <span class="kt-menu-title">
-                    View
-                   </span>
-                  </a>
-                 </div>
-                 <div class="kt-menu-item">
-                  <a class="kt-menu-link" href="#">
-                   <span class="kt-menu-icon">
-                    <i class="ki-filled ki-pencil">
-                    </i>
-                   </span>
-                   <span class="kt-menu-title">
-                    Edit
-                   </span>
-                  </a>
-                 </div>
-                 <div class="kt-menu-item">
-                  <a class="kt-menu-link" href="#">
-                   <span class="kt-menu-icon">
-                    <i class="ki-filled ki-trash">
-                    </i>
-                   </span>
-                   <span class="kt-menu-title">
-                    Delete
-                   </span>
-                  </a>
-                 </div>
-                </div>
-               </div>
-              </div>
-             </td>`;
+                        return `
+                        <td>
+                            <div class="kt-menu" data-kt-menu="true">
+                                <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="click">
+                                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
+                                    <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]" data-kt-menu-dismiss="true" style="">
+                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> View </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-pencil"></i></span><span class="kt-menu-title"> Edit </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" id="single_delete" data-id="${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> Delete </span></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>`;
                     }
                 },
             ],
-            pageLength: 25,
-            lengthChange: false, // 🔒 hide bawaan select length
-            info: false,
-            dom: 't', // hide length dropdown asli
-            responsive: true,
-            drawCallback: function() {
-                renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
-            }
+
+
+        });
+
+        $('#export_copy').on('click', function(e) {
+            e.preventDefault();
+            table.button(1).trigger();
+        });
+        $('#export_csv').on('click', function(e) {
+            e.preventDefault();
+            table.button(1).trigger();
+        });
+        $('#export_print').on('click', function(e) {
+            e.preventDefault();
+            table.button(0).trigger();
+        });
+
+        $('#export_excel').on('click', function(e) {
+            e.preventDefault();
+            table.button(3).trigger();
+        });
+        $('#export_pdf').on('click', function() {
+
+            let info = table.page.info();
+            let columns = [];
+            let selectedIds = [];
+
+            $('#exilednoname_table thead th').each(function() {
+                if (!$(this).hasClass('no-export')) {
+                    columns.push($(this).text().trim());
+                }
+            });
+
+            $('#exilednoname_table .checkable:checked').each(function() {
+                selectedIds.push($(this).data('id'));
+            });
+
+            $.ajax({
+                url: '{{ URL::Current() }}/export-users-pdf',
+                method: 'POST',
+                data: {
+                    ids: selectedIds.join(','),
+                    columns: columns,
+                    length: info.length,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+            });
 
         });
 
@@ -449,6 +484,214 @@
             table.search(this.value).draw();
         });
 
+        $('.filter_active').on('change', function() {
+            table.column('active:name').search(this.value).draw();
+        });
+
+        table.on('draw.dt', function() {
+            $('#checkbox_batch').addClass('hidden');
+        });
+
+    });
+
+    // GROUP CHECKABLE
+    $('#exilednoname_table').on('change', '.group-checkable', function() {
+        var table = $('#exilednoname_table').DataTable();
+        var checked = $(this).is(':checked');
+
+        table.rows().every(function() {
+            var $checkbox = $(this.node()).find('.checkable');
+            $checkbox.prop('checked', checked);
+
+            if (checked) {
+                this.select();
+            } else {
+                this.deselect();
+            }
+        });
+
+        var count = table.rows({
+            selected: true
+        }).count();
+        $('#exilednoname_selected').html(count);
+
+        if (count > 0) {
+            KTToast.show({
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                progress: true,
+                pauseOnHover: true,
+                maxToasts: 3,
+                position: 'top-end',
+                variant: 'mono',
+                message: "{{ __('default.notification.row_checked') }}",
+            });
+            $('#checkbox_batch').removeClass('hidden');
+        } else {
+            KTToast.show({
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                progress: true,
+                pauseOnHover: true,
+                maxToasts: 3,
+                position: 'top-end',
+                variant: 'mono',
+                message: "{{ __('default.notification.row_unchecked') }}",
+            });
+            $('#checkbox_batch').addClass('hidden');
+        }
+
+    });
+
+    // CHECKABLE
+    $('#exilednoname_table').on('change', '.checkable', function() {
+        var $row = $(this).closest('tr');
+        var checkboxEl = document.querySelector('#check');
+        if ($(this).is(':checked')) {
+            $row.addClass('selected');
+        } else {
+            $row.removeClass('selected');
+        }
+        var checkedNodes = $('#exilednoname_table').DataTable().rows('.selected').nodes();
+        var count = checkedNodes.length;
+        $('#exilednoname_selected').html(count);
+        if (count > 0) {
+            $('#checkbox_batch').removeClass('hidden');
+            checkboxEl.indeterminate = true;
+        } else {
+            $('#checkbox_batch').addClass('hidden');
+            checkboxEl.indeterminate = false;
+        }
+    });
+
+    // REFRESH TABLE
+    $(".table_reload").on("click", function() {
+        setTimeout(function() {
+            $('#checkbox_batch').addClass('hidden');
+            $('.filter_form').val('');
+            $('#exilednoname_table').DataTable().search('').columns().search('').draw();
+            $('#exilednoname_table').DataTable().ajax.reload();
+            KTToast.show({
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                progress: true,
+                pauseOnHover: true,
+                maxToasts: 3,
+                position: 'top-end',
+                variant: 'mono',
+                message: "{{ __('default.notification.table_reload') }}",
+            });
+        }, 500);
+    });
+</script>
+
+<script>
+    $('body').on('click', '#table_active', function() {
+        var id = $(this).data("id");
+        $.ajax({
+            type: "get",
+            url: "{{ URL::Current() }}/active/" + id,
+            processing: true,
+            serverSide: true,
+            success: function(data) {
+                $('#exilednoname_table').DataTable().draw(false);
+                KTToast.show({
+                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                    progress: true,
+                    pauseOnHover: true,
+                    maxToasts: 3,
+                    position: 'bottom-end',
+                    variant: 'mono',
+                    message: "{{ __('default.notification.success.item_active') }}",
+                });
+            },
+            error: function(data) {
+                KTToast.show({
+                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                    progress: true,
+                    pauseOnHover: true,
+                    maxToasts: 3,
+                    position: 'bottom-end',
+                    variant: 'mono',
+                    message: "{{ __('default.notification.error.error') }}",
+                }, 500);
+            }
+        });
+    });
+
+    $('body').on('click', '#table_inactive', function() {
+        var id = $(this).data("id");
+        $.ajax({
+            type: "get",
+            url: "{{ URL::Current() }}/inactive/" + id,
+            processing: true,
+            serverSide: true,
+            success: function(data) {
+                if (data.status && data.status === 'error') {
+                    toastr.error(data.message);
+                    return;
+                }
+
+                $('#exilednoname_table').DataTable().draw(false);
+                KTToast.show({
+                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                    progress: true,
+                    pauseOnHover: true,
+                    maxToasts: 3,
+                    position: 'bottom-end',
+                    variant: 'mono',
+                    message: "{{ __('default.notification.success.item_inactive') }}",
+                }, 500);
+            },
+            error: function(data) {
+                KTToast.show({
+                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                    progress: true,
+                    pauseOnHover: true,
+                    maxToasts: 3,
+                    position: 'bottom-end',
+                    variant: 'mono',
+                    message: "{{ __('default.notification.error.error') }}",
+                }, 500);
+            }
+        });
+    });
+
+    $('body').on('click', '#single_delete', function() {
+        var id = $(this).data("id");
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.delete') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ URL::Current() }}/delete/" + id,
+                    success: function(data) {
+                        if (data.status && data.status === 'error') {
+                            toastr.error(data.message);
+                            return;
+                        }
+
+                        $('#exilednoname_table').DataTable().draw(false);
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.success.item_deleted') }}",
+                        }, 500);
+
+                    },
+                    error: function(data) {
+                        toastr.error(translations.default.notification.error.error);
+                    }
+                });
+            }
+        });
     });
 </script>
 @endpush

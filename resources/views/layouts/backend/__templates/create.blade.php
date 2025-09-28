@@ -5,9 +5,9 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title"> Create </h3>
+                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.create') }} </h3>
                 <div class="kt-menu" data-kt-menu="true">
-                    <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-arrow-up-right"></i></button></a>
+                    <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-black-right-line"></i></button></a>
                     <div id="tooltip_back" class="kt-tooltip">
                         Back
                     </div>

@@ -40,12 +40,15 @@ return [
         'download'                      => 'Download',
         'edit'                          => 'Edit',
         'export' => [
+            'export'                    => 'Export',
             'copy'                      => 'Copy',
+            'csv'                       => 'CSV',
             'excel'                     => 'Excel',
             'pdf'                       => 'PDF',
             'print'                     => 'Print',
             'description' => [
                 'copy'                  => 'Copy as Text',
+                'csv'                   => 'Export to CSV',
                 'excel'                 => 'Export to Excel',
                 'pdf'                   => 'Export to PDF',
                 'print'                 => 'Print Data',
@@ -53,9 +56,7 @@ return [
         ],
         'failed'                        => 'Failed',
         'file'                          => 'File',
-        'filter' => [
-            '/'                         => 'Filter',
-        ],
+        'filter'                        => 'Filter',
         'in-progress'                   => 'In Progress',
         'last_updated_by'               => 'Last Updated By',
         'logs'                          => 'Logs',
@@ -75,10 +76,12 @@ return [
         'qr-code'                       => 'QR Code',
         'redirect_login'                => 'Logout This Session, and will be redirected to the login page',
         'refresh'                       => 'Refresh',
+        'reload'                        => 'Reload',
         'reset'                         => 'Reset',
         'reset_password'                => 'Reset Password',
         'restore'                       => 'Restore',
         'save'                          => 'Save',
+        'search'                        => 'Search',
         'selected_active'               => 'Selected Set Active',
         'selected_inactive'             => 'Selected Set Inactive',
         'selected_delete'               => 'Selected Delete',
@@ -131,6 +134,7 @@ return [
         'success' => [
             'create_backup'             => 'Successfully Database Backed Up',
             'customization-updated'     => 'Successfully Customization Updated',
+            'export_copy'               => 'Successfully Copied to Clipboard',
             'item_active'               => 'Successfully Item Activated',
             'item_created'              => 'Successfully Item Created',
             'item_deleted'              => 'Successfully Item Deleted',
@@ -152,6 +156,10 @@ return [
             'reset_backup'              => 'Resetting All Backup Database',
             'table_reset'               => 'Resetting Table Sessions',
         ],
+
+        'row_checked'                   => 'You have checked a row',
+        'row_unchecked'                 => 'You have unchecked a row',
+        'table_reload'                  => 'You have a reloaded',
 
     ],
 

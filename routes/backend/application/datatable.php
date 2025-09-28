@@ -23,6 +23,7 @@ Route::group([
     Route::get('selected-delete-permanent', 'GeneralController@selected_delete_permanent')->name('selected-delete-permanent');
     Route::get('selected-restore', 'GeneralController@selected_restore')->name('selected-restore');
     Route::get('trash', 'GeneralController@trash')->name('trash');
+    Route::post('export-users-pdf', 'GeneralController@exportPdf')->name('export-pdf');
     Route::resource('/', 'GeneralController')->parameters(['' => 'id']);
 });
 
