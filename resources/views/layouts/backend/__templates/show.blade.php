@@ -199,7 +199,7 @@
     </div>
 </div>
 
-<div class="kt-modal" data-kt-modal="true" id="modalScan">
+<div class="kt-modal" data-kt-modal="true" id="modalScan" data-kt-modal-backdrop-static="true">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
         <div class="kt-modal-header">
             <h3 class="kt-modal-title text-sm">
@@ -218,8 +218,8 @@
         <div class="kt-modal-footer">
             <div></div>
             <div class="flex gap-2">
-                <button class="kt-btn kt-btn-sm"><i class="ki-filled ki-printer"></i> Print</button>
-                <button class="kt-btn kt-btn-sm kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
+                <button class="kt-btn"><i class="ki-filled ki-printer"></i> Print</button>
+                <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
             </div>
         </div>
     </div>
