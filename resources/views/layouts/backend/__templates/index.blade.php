@@ -96,6 +96,9 @@
         </div>
     </div>
 </div>
+<a id="deleteBtn" href="#" data-kt-modal-toggle="#modalConfirm">
+    TEST BUTTON
+</a>
 @endsection
 
 @push('js')
