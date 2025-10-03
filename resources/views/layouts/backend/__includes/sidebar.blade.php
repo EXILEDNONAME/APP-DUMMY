@@ -102,7 +102,8 @@
                 </a>
             </div>
             <div class="kt-menu-item">
-                <a id="logout_default" href="javascript:;" class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]">
+                <a href="javascript:;" id="exLogoutButton" data-kt-modal-toggle="#modalLogout" href="javascript:;" class="kt-menu-toggle kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]">
+                <!-- <button class=" kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-scan-barcode"></i></button> -->
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
                         <i class="ki-filled ki-exit-left"></i>
                     </span>

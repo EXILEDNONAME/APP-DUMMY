@@ -287,6 +287,9 @@
             info: false,
             dom: 't',
             responsive: true,
+            language: {
+                loadingRecords: "" // kosongkan teks
+            },
 
             ajax: "{{ route('dashboard.system.application.datatable.generals.index') }}",
             headerCallback: function(thead, data, start, end, display) {

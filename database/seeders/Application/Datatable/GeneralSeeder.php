@@ -12,7 +12,7 @@ class GeneralSeeder extends Seeder {
   public function run(): void {
     $faker = Faker::create('id_ID');
 
-    for($i = 1; $i <= 500; $i++){
+    for($i = 1; $i <= 300000; $i++){
       \DB::table('system_application_table_generals')->insert([
         'name'          => $faker->name,
         'description'   => $faker->name,

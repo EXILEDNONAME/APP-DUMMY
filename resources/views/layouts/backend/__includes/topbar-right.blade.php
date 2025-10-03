@@ -1894,7 +1894,7 @@
                     </span>
                     <input class="kt-switch" data-kt-theme-switch-state="dark" data-kt-theme-switch-toggle="true" name="check" type="checkbox" value="1" />
                 </div>
-                <a id="logout_topbar" class="kt-btn kt-btn-outline justify-center w-full">
+                <a id="exLogoutButton" data-kt-modal-toggle="#modalLogout" class="kt-btn kt-btn-outline justify-center w-full">
                     Log out
                 </a>
             </div>
