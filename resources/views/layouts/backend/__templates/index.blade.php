@@ -1,5 +1,9 @@
 @extends('layouts.backend.default')
 
+@push('head')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
 @section('content')
 <div class="lg:col-span-3">
     <div class="grid">
@@ -25,56 +29,79 @@
                             </div>
                         </div>
                     </div>
+                    <button id="toggle_filters" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
+                    <!-- <div  class="">
+                        <a href=""><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button></a>
+                    </div> -->
                     <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
+                        <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
                         <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                            <div class="kt-card-header kt-form-label"> Filters <button class="kt-btn kt-btn-sm kt-btn-outline kt-btn-destructive" data-kt-dropdown-toggle="true"> RESET </button></div>
-                            <div class="kt-card-body p-5 grid gap-3">
-                                <label class="kt-input">
-                                    <i class="ki-filled ki-magnifier"></i>
-                                    <input id="searchInput" class="filter_form" placeholder="Search" type="text" />
-                                </label>
-                                <div class="flex items-center">
-                                    <div class="kt-form-control flex-1">
-                                        <select class="kt-select filter-form filter_form filter_active">
-                                            <option value=""> - {{ __('default.select.active') }} - </option>
-                                            <option value="1"> {{ __('default.label.yes') }} </option>
-                                            <option value="0"> {{ __('default.label.no') }} </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="kt-form-control flex-1">
-                                        <select class="kt-select">
-                                            <option value="">- Select Status -</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
+                            <div class="kt-card-body grid gap-3">
+                                <div class="flex">
+                                    <div class="kt-menu-default w-px whitespace-nowrap" data-kt-menu-dismiss="true">
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_active" data-kt-tooltip-placement="top-end"><a id="selected-active" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.select.active') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_inactive" data-kt-tooltip-placement="top-end"><a id="selected-inactive" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.select.inactive') }} </span></a></div>
+                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_delete" data-kt-tooltip-placement="top-end"><a id="selected-delete" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.select.delete') }} </span></a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="checkbox_batch" class="hidden">
-                        <a href=""><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button></a>
-                    </div>
                 </div>
             </div>
 
-            <div class="kt-scrollable-x-auto">
-                <table id="exilednoname_table" class="kt-table" width="100%">
-                    <thead>
-                        <tr>
-                            <th class="w-px whitespace-nowrap no-export"></th>
-                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> No. </span></span></th>
-                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
-                            <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th>
-                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
-                            <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th>
-                            <th class="w-px whitespace-nowrap no-export"></th>
-                        </tr>
-                    </thead>
-                </table>
+
+            <div id="filters" class="hidden">
+                <div class="grid gap-2 p-5">
+                    <label class="kt-input">
+                        <i class="ki-filled ki-magnifier"></i>
+                        <input id="searchInput" class="filter_form" placeholder="Search" type="text" />
+                    </label>
+
+                    <select class="kt-select filter_form filter_active">
+                        <option value=""> - {{ __('default.select.active') }} - </option>
+                        <option value="1"> {{ __('default.label.yes') }} </option>
+                        <option value="0"> {{ __('default.label.no') }} </option>
+                    </select>
+
+                    <div class="flex items-center">
+                        <div class="kt-form-control flex-1">
+                            <select class="kt-select filter_form">
+                                <option value="">- Select Status -</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input id="datepicker" name="date" class="kt-input filter_form filter_date" placeholder="- Select Date -" />
+
+                    <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm reset" data-kt-tooltip="#tooltip_reset" data-kt-tooltip-placement="top-end"> {{ __('default.label.reset') }} </button>
+
+                </div>
+
+                <div class="kt-card-footer justify-center"></div>
+            </div>
+
+            <div class="kt-card-content">
+                <div class="kt-scrollable overflow-x-auto p-0.5">
+                    
+                    <table id="exilednoname_table" class="kt-table" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="w-px whitespace-nowrap no-export"></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> No. </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Date </span><span class="kt-table-col-sort"></span></span></th>
+                                <!-- <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
+                            <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th> -->
+                                @yield('table-header')
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th>
+                                <th class="w-px whitespace-nowrap no-export"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
 
             <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
@@ -114,60 +141,19 @@
 <!-- <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.pdfmake.min.js"></script> -->
 
 <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#datepicker", {
+        dateFormat: "Y-m-d", // format YYYY-MM-DD
+        altInput: true, // tampil lebih human readable
+        altFormat: "d F Y", // format alternatif (contoh: 03 Oktober 2025)
+        allowInput: false, // bisa manual ketik juga
+        disableMobile: true
+    });
+</script>
 
 
 <script>
-    $('<div>', {
-        id: 'tooltip_create',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.create') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_reload',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.reload') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.export') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_filter',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.filter') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_search',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.search') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export_description_copy',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.description.copy') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export_description_csv',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.description.csv') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export_description_excel',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.description.excel') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export_description_pdf',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.description.pdf') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_export_description_print',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.export.description.print') }}"
-    }).appendTo('body');
-
     // COPY
     var defaultCopy = $.fn.dataTable.ext.buttons.copyHtml5.action;
 
@@ -279,7 +265,7 @@
                 $('#exilednoname_table_filter').appendTo('#ex_table_filter');
             },
 
-            processing: true,
+            processing: false,
             serverSide: true,
             "pagingType": "simple_numbers",
             pageLength: 25,
@@ -291,7 +277,12 @@
                 loadingRecords: "" // kosongkan teks
             },
 
-            ajax: "{{ route('dashboard.system.application.datatable.generals.index') }}",
+            ajax: {
+                url: "{{ URL::Current() }}",
+                "data": function(ex) {
+                    ex.date = $('.filter_date').val();
+                }
+            },
             headerCallback: function(thead, data, start, end, display) {
                 thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`;
             },
@@ -370,16 +361,10 @@
                     }
                 },
                 {
-                    data: 'name',
-                    name: 'name',
-                    'className': 'text-nowrap',
+                    data: 'date',
+                    'className': 'text-nowrap'
                 },
-                {
-                    data: 'description',
-                    name: 'description',
-                    'className': 'text-nowrap',
-                },
-                {
+                @yield('table-body') {
                     data: 'active',
                     name: 'active',
                     orderable: true,
@@ -417,10 +402,10 @@
                             <div class="kt-menu" data-kt-menu="true">
                                 <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
                                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
-                                    <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]" data-kt-menu-dismiss="true" style="">
-                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> View </span></a></div>
-                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-pencil"></i></span><span class="kt-menu-title"> Edit </span></a></div>
-                                        <div class="kt-menu-item"><a class="kt-menu-link" id="single_delete" data-id="${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> Delete </span></a></div>
+                                    <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
+                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> {{ __('default.label.view') }} </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-message-edit"></i></span><span class="kt-menu-title"> {{ __('default.label.edit') }} </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" id="single_delete" data-id="${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-trash-square"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.delete') }} </span></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -491,8 +476,21 @@
             table.column('active:name').search(this.value).draw();
         });
 
+        // FILTER DATE
+        $('.filter_date').change(function() {
+            $('#exilednoname_table').DataTable().draw();
+        });
+
         table.on('draw.dt', function() {
             $('#checkbox_batch').addClass('hidden');
+        });
+
+        $("#toggle_filters").on("click", function() {
+            if ($("#filters").hasClass("hidden")) {
+                $('#filters').removeClass('hidden');
+            } else {
+                $('#filters').addClass('hidden');
+            }
         });
 
     });
@@ -524,7 +522,7 @@
                 progress: true,
                 pauseOnHover: true,
                 maxToasts: 3,
-                position: 'top-end',
+                position: 'bottom-end',
                 variant: 'mono',
                 message: "{{ __('default.notification.row_checked') }}",
             });
@@ -535,7 +533,7 @@
                 progress: true,
                 pauseOnHover: true,
                 maxToasts: 3,
-                position: 'top-end',
+                position: 'bottom-end',
                 variant: 'mono',
                 message: "{{ __('default.notification.row_unchecked') }}",
             });
@@ -577,10 +575,20 @@
                 progress: true,
                 pauseOnHover: true,
                 maxToasts: 3,
-                position: 'top-end',
+                position: 'bottom-end',
                 variant: 'mono',
                 message: "{{ __('default.notification.table_reload') }}",
             });
+        }, 500);
+    });
+
+    // RESET TABLE
+    $(".reset").on("click", function() {
+        setTimeout(function() {
+            $('#checkbox_batch').addClass('hidden');
+            $('.filter_form').val('');
+            $('#exilednoname_table').DataTable().search('').columns().search('').draw();
+            $('#exilednoname_table').DataTable().ajax.reload();
         }, 500);
     });
 </script>
@@ -690,7 +698,184 @@
 
                     },
                     error: function(data) {
-                        toastr.error(translations.default.notification.error.error);
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.error.error') }}",
+                        }, 500);
+                    }
+                });
+            }
+        });
+    });
+
+    // SELECTED ACTIVE
+    $('#selected-active').on('click', function(e) {
+        var exilednonameArr = [];
+        $(".checkable:checked").each(function() {
+            exilednonameArr.push($(this).attr('data-id'));
+        });
+        var strEXILEDNONAME = exilednonameArr.join(",");
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.selected_active') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ URL::Current() }}/selected-active",
+                    type: 'get',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                    success: function(data) {
+                        if (data.status && data.status === 'error') {
+                            toastr.error(data.message);
+                            return;
+                        }
+
+                        $('#checkbox_batch').addClass('hidden');
+                        $('#exilednoname_table').DataTable().draw(false);
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.success.selected_active') }}",
+                        }, 500);
+                    },
+                    error: function(data) {
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.error.error') }}",
+                        }, 500);
+                    }
+                });
+            }
+        });
+    });
+
+    // SELECTED INACTIVE
+    $('#selected-inactive').on('click', function(e) {
+        var exilednonameArr = [];
+        $(".checkable:checked").each(function() {
+            exilednonameArr.push($(this).attr('data-id'));
+        });
+        var strEXILEDNONAME = exilednonameArr.join(",");
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.selected_inactive') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ URL::Current() }}/selected-inactive",
+                    type: 'get',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                    success: function(data) {
+                        if (data.status && data.status === 'error') {
+                            toastr.error(data.message);
+                            return;
+                        }
+                        $('#checkbox_batch').addClass('hidden');
+                        $('#exilednoname_table').DataTable().draw(false);
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.success.selected_inactive') }}",
+                        }, 500);
+                    },
+                    error: function(data) {
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.error.error') }}",
+                        }, 500);
+                    }
+                });
+            }
+        });
+    });
+
+    // SELECTED DELETE
+    $('#selected-delete').on('click', function(e) {
+        var exilednonameArr = [];
+        $(".checkable:checked").each(function() {
+            exilednonameArr.push($(this).attr('data-id'));
+        });
+        var strEXILEDNONAME = exilednonameArr.join(",");
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.selected_delete') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ URL::Current() }}/selected-delete",
+                    type: 'get',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                    success: function(data) {
+                        if (data.status && data.status === 'error') {
+                            toastr.error(data.message);
+                            return;
+                        }
+                        $('#checkbox_batch').addClass('hidden');
+                        $('#exilednoname_table').DataTable().draw(false);
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.success.selected_inactive') }}",
+                        }, 500);
+                    },
+                    error: function(data) {
+                        KTToast.show({
+                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                            progress: true,
+                            pauseOnHover: true,
+                            maxToasts: 3,
+                            position: 'bottom-end',
+                            variant: 'mono',
+                            message: "{{ __('default.notification.error.error') }}",
+                        }, 500);
                     }
                 });
             }

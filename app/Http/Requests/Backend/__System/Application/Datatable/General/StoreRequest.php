@@ -11,7 +11,6 @@ class StoreRequest extends BaseFormRequest
     {
         return [
             'name' => ['required', 'max:15', 'unique:system_application_table_generals,name'],
-            'description' => ['required', 'max:15', 'unique:system_application_table_generals,name'],
         ];
     }
 

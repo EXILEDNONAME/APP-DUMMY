@@ -165,6 +165,8 @@ return [
 
     'select' => [
         'active'                        => 'Select Active',
+        'inactive'                      => 'Select Inactive',
+        'delete'                        => 'Select Delete',
         'date'                          => 'Select Date',
         'datetime'                      => 'Select Date & Time',
         'date-start'                    => 'Select Date Start',

@@ -19,6 +19,11 @@
                 <div class="kt-card-content p-7.5 grid gap-5">
 
                     @include($path . 'form', ['formMode' => 'edit'])
+                    @include('layouts.backend.__extensions.form.date')
+                    @include('layouts.backend.__extensions.form.daterange')
+                    @include('layouts.backend.__extensions.form.status')
+                    @include('layouts.backend.__extensions.form.active')
+                    @include('layouts.backend.__extensions.form.file', ['formMode' => 'edit'])
 
                     <div class="flex justify-end" bis_skin_checked="1">
                         <button type="submit" class="kt-btn kt-btn-primary">
@@ -27,6 +32,28 @@
                     </div>
                 </div>
             </form>
+
+            <div class="kt-modal" data-kt-modal="true" id="modalPicture">
+                <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+                    <div class="kt-modal-header">
+                        <h3 class="kt-modal-title text-sm"> Preview </h3>
+                        <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true"><i class="ki-filled ki-cross"></i></button>
+                    </div>
+                    <div class="kt-modal-body grid gap-5 px-0 py-5">
+                        <div class="flex flex-col items-center px-5 gap-2.5">
+                            <img data-src="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" class="lazy-img" loading="lazy" alt="Preview">
+                        </div>
+                    </div>
+                    <div class="kt-modal-footer">
+                        <div></div>
+                        <div class="flex gap-2">
+                            <a href="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" download="{{ $data->file }}"><button class="kt-btn kt-btn-sm"><i class="ki-filled ki-cloud-download"></i> Download </button></a>
+                            <button class="kt-btn kt-btn-sm kt-btn-mono" data-kt-modal-dismiss="#modalPicture"> Close </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -17,16 +17,11 @@
                 {{ csrf_field() }}
                 <div class="kt-card-content p-7.5 grid gap-5">
                     @include($path . 'form', ['formMode' => 'create'])
-                    
-                    <div class="kt-form-item">
-                        <div class="flex items-start gap-4">
-                            <span class="kt-form-label w-40 pt-2"> Name </span>
-                            <div class="kt-form-control flex-1">
-                                {{ Html::file('file')->class(['kt-input w-full'])->required() }}
-                            </div>
-                        </div>
-                    </div>
-
+                    @include('layouts.backend.__extensions.form.date')
+                    @include('layouts.backend.__extensions.form.daterange')
+                    @include('layouts.backend.__extensions.form.status')
+                    @include('layouts.backend.__extensions.form.active')
+                    @include('layouts.backend.__extensions.form.file', ['formMode' => 'create'])
                     <div class="flex justify-end">
                         <button type="submit" class="kt-btn kt-btn-primary">
                             Save Changes

@@ -79,7 +79,7 @@ trait IndexController
             if ($this->table_relation_5 instanceof \Closure) {
                 $datatable = ($this->table_relation_5)($datatable);
             }
-            return $datatable->rawColumns(['file'])->make(true);
+            return $datatable->rawColumns(['description', 'file'])->make(true);
         }
         return view($this->path . 'index', compact(['attributes', 'model', 'sort']));
     }

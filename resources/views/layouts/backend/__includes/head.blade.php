@@ -30,6 +30,7 @@
     <!-- <link href="/assets/backend/vendors/apexcharts/apexcharts.css" rel="stylesheet" /> -->
     <link href="/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
     <link href="/assets/backend/css/styles.css" rel="stylesheet" />
+    @stack('head')
 
     
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css"> -->

@@ -72,3 +72,5 @@
 
     });
 </script>
+
+@include('layouts.backend.__includes.tooltip')

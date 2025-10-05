@@ -2,11 +2,11 @@
 @section('title', 'Datatable Generals')
 
 @section('table-header')
-<th> Name </th>
-<th> Description </th>
+<th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
+<th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th>
 @endsection
 
 @section('table-body')
-{ data: 'name' },
+{ data: 'name', 'className': 'text-nowrap' },
 { data: 'description' },
 @endsection
