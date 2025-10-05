@@ -21,6 +21,10 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - CHARTS
     - ACTIVITIES
     - [OK] BATCH ACTION
-- PAGE SHOW (PRINT DATA, PRINT QR, PRINT ACTIVITIES & REFRESH ACTIVITIES)
+- PAGE SHOW
+    - [OK] PRINT DATA
+    - [OK] PRINT QR
+    - [OK] PRINT ACTIVITIES
+    - REFRESH ACTIVITIES
 - PAGE CREATE
 - PAGE EDIT

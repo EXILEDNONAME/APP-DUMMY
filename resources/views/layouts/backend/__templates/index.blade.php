@@ -85,7 +85,7 @@
 
             <div class="kt-card-content">
                 <div class="kt-scrollable overflow-x-auto p-0.5">
-                    
+
                     <table id="exilednoname_table" class="kt-table" width="100%">
                         <thead>
                             <tr>
@@ -123,6 +123,56 @@
         </div>
     </div>
 </div>
+
+<div class="lg:col-span-1">
+    <div class="grid">
+        <div id="printData">
+            <div class="kt-card kt-card-grid w-full">
+                <div class="kt-card-header">
+                    <h3 class="kt-card-title text-sm grid gap-5"> Activities </h3>
+                    <div class="kt-menu" data-kt-menu="true">
+                        <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-pencil"></i></button></a>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
+                        <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
+                    </div>
+                </div>
+
+                <div class="kt-card-body p-1 w-full">
+                    <div class="kt-scrollable-x-auto">
+
+                    </div>
+                </div>
+
+                <!-- <div class="kt-card-footer"></div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="lg:col-span-2">
+    <div class="grid">
+        <div id="printData">
+            <div class="kt-card kt-card-grid w-full">
+                <div class="kt-card-header">
+                    <h3 class="kt-card-title text-sm grid gap-5"> Charts </h3>
+                    <div class="kt-menu" data-kt-menu="true">
+                        <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-pencil"></i></button></a>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
+                        <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
+                    </div>
+                </div>
+
+                <div class="kt-card-body p-1 w-full">
+                    <div id="area_chart"></div>
+                </div>
+
+                <!-- <div class="kt-card-footer"></div> -->
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
@@ -141,6 +191,9 @@
 <!-- <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.pdfmake.min.js"></script> -->
 
 <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.min.js"></script>
+<script src="/assets/backend/vendors/apexcharts/apexcharts.min.js">
+</script>
+<!--Custom script -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr("#datepicker", {
@@ -149,6 +202,198 @@
         altFormat: "d F Y", // format alternatif (contoh: 03 Oktober 2025)
         allowInput: false, // bisa manual ketik juga
         disableMobile: true
+    });
+</script>
+
+<script>
+    class KTExampleAreaChart {
+        static init() {
+            const created = [75, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
+            const updated = [20, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
+            const deleted = [45, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
+            const categories = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+            ];
+
+            const options = {
+                series: [{
+                        name: 'Created',
+                        data: created,
+                    },
+                    {
+                        name: 'Updated',
+                        data: updated,
+                    },
+                    {
+                        name: 'Deleted',
+                        data: deleted,
+                    },
+                ],
+                chart: {
+                    height: 250,
+                    type: 'area',
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                legend: {
+                    show: true,
+                },
+                stroke: {
+                    curve: 'smooth',
+                    show: true,
+                    width: 3,
+                    colors: ['var(--color-primary)', 'var(--color-mono)', 'var(--color-destructive)'],
+                },
+                xaxis: {
+                    categories: categories,
+                    axisBorder: {
+                        show: false,
+                    },
+                    maxTicks: 12,
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        style: {
+                            colors: 'var(--color-secondary-foreground)',
+                            fontSize: '12px',
+                        },
+                    },
+                    crosshairs: {
+                        position: 'front',
+                        stroke: {
+                            color: 'var(--color-primary)',
+                            width: 1,
+                            dashArray: 3,
+                        },
+                    },
+                    tooltip: {
+                        enabled: false,
+                        formatter: undefined,
+                        offsetY: 0,
+                        style: {
+                            fontSize: '12px',
+                        },
+                    },
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100,
+                    tickAmount: 5, // This will create 5 ticks: 0, 20, 40, 60, 80, 100
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        style: {
+                            colors: 'var(--color-secondary-foreground)',
+                            fontSize: '12px',
+                        },
+                        formatter: (value) => {
+                            return `${value}`;
+                        },
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    // custom({ series, seriesIndex, dataPointIndex, w }) {
+                    // 	const number = parseInt(series[seriesIndex][dataPointIndex]) * 1000;
+                    // 	const month = w.globals.seriesX[seriesIndex][dataPointIndex];
+                    // 	const monthName = categories[month];
+
+                    // 	const formatter = new Intl.NumberFormat('en-US', {
+                    // 		style: 'currency',
+                    // 		currency: 'USD',
+                    // 	});
+
+                    // 	const formattedNumber = formatter.format(number);
+
+                    // 	return `
+                    //         <div class="flex flex-col gap-2 p-3.5">
+                    //         <div class="font-medium text-2sm text-white">
+                    //         ${monthName}, 2025 Sales
+                    //         </div>
+                    //         <div class="flex items-center gap-1.5">
+                    //         <div class="font-semibold text-md text-mono">
+                    //         ${formattedNumber}
+                    //         </div>
+                    //         <span class="kt-kt-badge kt-kt-badge-outline kt-kt-badge-success kt-badge-sm">
+                    //         +24%
+                    //         </span>
+                    //         </div>
+                    //         </div>
+                    //     `;
+                    // },
+                },
+                markers: {
+                    size: 0,
+                    colors: 'var(--color-primary)',
+                    strokeColors: 'var(--color-primary)',
+                    strokeWidth: 4,
+                    strokeOpacity: 1,
+                    strokeDashArray: 0,
+                    fillOpacity: 1,
+                    discrete: [],
+                    shape: 'circle',
+                    radius: 2,
+                    offsetX: 0,
+                    offsetY: 0,
+                    onClick: undefined,
+                    onDblClick: undefined,
+                    showNullDataPoints: true,
+                    hover: {
+                        size: 8,
+                        sizeOffset: 0,
+                    },
+                },
+                fill: {
+                    gradient: {
+                        enabled: true,
+                        opacityFrom: 0.25,
+                        opacityTo: 0,
+                    },
+                },
+                grid: {
+                    borderColor: 'var(--color-border)',
+                    strokeDashArray: 5,
+                    clipMarkers: false,
+                    yaxis: {
+                        lines: {
+                            show: true,
+                        },
+                    },
+                    xaxis: {
+                        lines: {
+                            show: false,
+                        },
+                    },
+                },
+            };
+
+            const element = document.querySelector('#area_chart');
+            if (!element) return;
+
+            const chart = new ApexCharts(element, options);
+            chart.render();
+        }
+    }
+
+    KTDom.ready(() => {
+        KTExampleAreaChart.init();
     });
 </script>
 
