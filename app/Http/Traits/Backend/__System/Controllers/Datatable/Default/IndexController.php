@@ -20,7 +20,7 @@ trait IndexController
         $sort = $this->sort;
 
         if (request()->ajax()) {
-            $query = $this->model::query();
+            $query = $this->model::orderBy('id', 'desc')->limit(50000);
 
             if (request('date')) {
                 $query->whereDate('date', request('date'));
@@ -50,17 +50,32 @@ trait IndexController
                     $imgUrl = env("APP_URL") . '/storage/files/form-uploads/' . $order->file;
                     $modalId = 'modal-file-' . $order->id;
                     return <<<HTML
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#$modalId"><span class="fas fa-file-image text-success"></span></a>
-                        <div class="modal fade" id="$modalId" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content">
-                        <div class="modal-header"><h5 class="modal-title">Preview Image</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><i aria-hidden="true" class="ki ki-close"></i></button></div>
-                        <div class="modal-body"><img width="100%" data-src="$imgUrl" class="lazy-img" loading="lazy" alt="Preview"></div>
-                        <div class="modal-footer">
-                            <a href="$imgUrl" class="btn btn-primary" download="{$order->file}">Download</a>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+                        <a href="javascript:void(0);" data-kt-modal-toggle="#$modalId"><i class="ki-filled ki-picture"></i></a>
+                            <div class="kt-modal" data-kt-modal="true" id="$modalId" data-kt-modal-backdrop-static="true">
+                                <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+                                    <div class="kt-modal-header">
+                                        <h3 class="kt-modal-title text-sm">
+                                            Preview
+                                        </h3>
+                                        <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true">
+                                            <i class="ki-filled ki-cross">
+                                            </i>
+                                        </button>
+                                    </div>
+                                    <div class="kt-modal-body grid gap-5 px-0 py-5">
+                                        <div class="flex flex-col items-center px-5 gap-2.5">
+                                            <img width="100%" src="/assets/backend/media/images/image-placeholder.jpg" data-src="$imgUrl" class="lazy-img" loading="lazy" alt="Preview">
+                                        </div>
+                                    </div>
+                                    <div class="kt-modal-footer">
+                                        <div></div>
+                                        <div class="flex gap-2">
+                                            <a href="$imgUrl" download="{$order->file}"><button class="kt-btn"> Download </button></a>
+                                            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         HTML;
                     return $html;
                 });

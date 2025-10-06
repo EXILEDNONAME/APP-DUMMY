@@ -3,7 +3,7 @@
 
 @include('layouts.backend.__includes.head')
 
-<body class="antialiased flex h-full text-base text-foreground bg-background demo1 kt-sidebar-fixed kt-header-fixed">
+<body class="antialiased flex h-full text-base text-foreground bg-background exilednoname kt-sidebar-fixed kt-header-fixed">
 
     <div class="flex grow">
         <div class="kt-sidebar bg-background border-e border-e-border fixed top-0 bottom-0 z-20 hidden lg:flex flex-col items-stretch shrink-0 [--kt-drawer-enable:true] lg:[--kt-drawer-enable:false]" data-kt-drawer="true" data-kt-drawer-class="kt-drawer kt-drawer-start top-0 bottom-0" id="sidebar">

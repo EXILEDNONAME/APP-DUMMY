@@ -90,13 +90,15 @@
                         <thead>
                             <tr>
                                 <th class="w-px whitespace-nowrap no-export"></th>
+                                <th style="display: none"> {{ __('default.label.created_at') }} </th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> No. </span></span></th>
+                                @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th> @endif
+                                @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> File </span></span></th> @endif
                                 @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
                                 <!-- <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
                             <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th> -->
                                 @yield('table-header')
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
-                                @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th> @endif
                                 <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
                         </thead>
@@ -177,235 +179,22 @@
 @endsection
 
 @push('js')
-
-
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" /> -->
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> -->
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> -->
-
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
-<!-- <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.pdfmake.min.js"></script> -->
-
-<script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.min.js"></script>
-<script src="/assets/backend/vendors/apexcharts/apexcharts.min.js">
-</script>
-<!--Custom script -->
+<script src="/assets/backend/js/datatables/dataTables.min.js"></script>
+<script src="/assets/backend/js/datatables/buttons.min.js"></script>
+<script src="/assets/backend/js/datatables/buttons.html5.min.js"></script>
+<script src="/assets/backend/js/datatables/buttons.print.min.js"></script>
+<script src="/assets/backend/js/datatables/select.min.js"></script>
+<script src="/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr("#datepicker", {
-        dateFormat: "Y-m-d", // format YYYY-MM-DD
-        altInput: true, // tampil lebih human readable
-        altFormat: "d F Y", // format alternatif (contoh: 03 Oktober 2025)
-        allowInput: false, // bisa manual ketik juga
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d F Y",
+        allowInput: false,
         disableMobile: true
     });
 </script>
-
-<script>
-    class KTExampleAreaChart {
-        static init() {
-            const created = [75, 25, 25, 55, 25, 15, 30, 25, 35, 15, 45, 30];
-            const updated = [20, 15, 35, 65, 45, 45, 20, 25, 35, 15, 45, 30];
-            const deleted = [45, 29, 42, 75, 85, 55, 60, 25, 35, 15, 45, 30];
-            const categories = [
-                "{{ __('default.month.january') }}",
-                "{{ __('default.month.february') }}",
-                "{{ __('default.month.march') }}",
-                "{{ __('default.month.april') }}",
-                "{{ __('default.month.may') }}",
-                "{{ __('default.month.june') }}",
-                "{{ __('default.month.july') }}",
-                "{{ __('default.month.august') }}",
-                "{{ __('default.month.september') }}",
-                "{{ __('default.month.october') }}",
-                "{{ __('default.month.november') }}",
-                "{{ __('default.month.december') }}",
-            ];
-
-            const options = {
-                series: [{
-                        name: 'Created',
-                        data: created,
-                    },
-                    {
-                        name: 'Updated',
-                        data: updated,
-                    },
-                    {
-                        name: 'Deleted',
-                        data: deleted,
-                    },
-                ],
-                chart: {
-                    height: 250,
-                    type: 'area',
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                legend: {
-                    show: false,
-                },
-                stroke: {
-                    curve: 'smooth',
-                    show: true,
-                    width: 3,
-                    colors: ['var(--color-primary)', 'var(--color-mono)', 'var(--color-destructive)'],
-                },
-                xaxis: {
-                    categories: categories,
-                    axisBorder: {
-                        show: false,
-                    },
-                    maxTicks: 12,
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        style: {
-                            colors: 'var(--color-secondary-foreground)',
-                            fontSize: '12px',
-                        },
-                    },
-                    crosshairs: {
-                        position: 'front',
-                        stroke: {
-                            color: 'var(--color-primary)',
-                            width: 1,
-                            dashArray: 3,
-                        },
-                    },
-                    tooltip: {
-                        enabled: false,
-                        formatter: undefined,
-                        offsetY: 0,
-                        style: {
-                            fontSize: '12px',
-                        },
-                    },
-                },
-                yaxis: {
-                    min: 0,
-                    max: 100,
-                    tickAmount: 5, // This will create 5 ticks: 0, 20, 40, 60, 80, 100
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        style: {
-                            colors: 'var(--color-secondary-foreground)',
-                            fontSize: '12px',
-                        },
-                        formatter: (value) => {
-                            return `${value}`;
-                        },
-                    },
-                },
-                tooltip: {
-                    enabled: true,
-                    // custom({ series, seriesIndex, dataPointIndex, w }) {
-                    // 	const number = parseInt(series[seriesIndex][dataPointIndex]) * 1000;
-                    // 	const month = w.globals.seriesX[seriesIndex][dataPointIndex];
-                    // 	const monthName = categories[month];
-
-                    // 	const formatter = new Intl.NumberFormat('en-US', {
-                    // 		style: 'currency',
-                    // 		currency: 'USD',
-                    // 	});
-
-                    // 	const formattedNumber = formatter.format(number);
-
-                    // 	return `
-                    //         <div class="flex flex-col gap-2 p-3.5">
-                    //         <div class="font-medium text-2sm text-white">
-                    //         ${monthName}, 2025 Sales
-                    //         </div>
-                    //         <div class="flex items-center gap-1.5">
-                    //         <div class="font-semibold text-md text-mono">
-                    //         ${formattedNumber}
-                    //         </div>
-                    //         <span class="kt-kt-badge kt-kt-badge-outline kt-kt-badge-success kt-badge-sm">
-                    //         +24%
-                    //         </span>
-                    //         </div>
-                    //         </div>
-                    //     `;
-                    // },
-                },
-                markers: {
-                    size: 0,
-                    colors: 'var(--color-primary)',
-                    strokeColors: 'var(--color-primary)',
-                    strokeWidth: 4,
-                    strokeOpacity: 1,
-                    strokeDashArray: 0,
-                    fillOpacity: 1,
-                    discrete: [],
-                    shape: 'circle',
-                    radius: 2,
-                    offsetX: 0,
-                    offsetY: 0,
-                    onClick: undefined,
-                    onDblClick: undefined,
-                    showNullDataPoints: true,
-                    hover: {
-                        size: 8,
-                        sizeOffset: 0,
-                    },
-                },
-                fill: {
-                    gradient: {
-                        enabled: true,
-                        opacityFrom: 0.25,
-                        opacityTo: 0,
-                    },
-                },
-                grid: {
-                    borderColor: 'var(--color-border)',
-                    strokeDashArray: 5,
-                    clipMarkers: false,
-                    yaxis: {
-                        lines: {
-                            show: true,
-                        },
-                    },
-                    xaxis: {
-                        lines: {
-                            show: false,
-                        },
-                    },
-                },
-            };
-
-            const element = document.querySelector('#area_chart');
-            if (!element) return;
-
-            const chart = new ApexCharts(element, options);
-            chart.render();
-        }
-    }
-
-    KTDom.ready(() => {
-        KTExampleAreaChart.init();
-    });
-
-    function printDataCharts(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-</script>
-
 
 <script>
     // COPY
@@ -433,6 +222,9 @@
     $(document).ready(function() {
         // var copyHtml5Action = $.fn.dataTable.ext.buttons.copyHtml5.action;
         var url = "{{ URL::Current() }}";
+        var defaultSort = sort.split(',').map((item, index) => {
+            return index === 0 ? parseInt(item.trim()) : item.trim();
+        });
         var table = $('#exilednoname_table').DataTable({
 
             "initComplete": function(settings, json) {
@@ -441,7 +233,6 @@
                 $('#dt-length-0').appendTo('#ex_table_length');
                 $('#exilednoname_table_filter').appendTo('#ex_table_filter');
             },
-
             processing: false,
             serverSide: true,
             "pagingType": "simple_numbers",
@@ -533,15 +324,27 @@
                     },
                 },
                 {
+                    data: 'created_at',
+                    name: 'created_at',
+                    visible: false
+                },
+                {
                     data: 'autonumber',
                     orderable: false,
                     searchable: false,
-                    'className': 'align-middle text-center',
+                    'className': 'text-center',
                     'width': '1',
                     render: function(data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
+
+                ...(file ? [{
+                    data: 'file',
+                    orderable: false,
+                    'className': 'text-center text-nowrap ',
+                    'width': '1'
+                }, ] : []),
 
                 ...(date ? [{
                     data: 'date',
@@ -609,8 +412,7 @@
                     }
                 },
             ],
-
-
+            order: [defaultSort]
         });
 
         $('#export_copy').on('click', function(e) {
@@ -659,10 +461,10 @@
 
         });
 
-        // $('#perpage').on('change', function() {
-        //     let perPage = $(this).val();
-        //     table.page.len(perPage).draw();
-        // });
+        $('#perpage').on('change', function() {
+            let perPage = $(this).val();
+            table.page.len(perPage).draw();
+        });
 
         $('#searchInput').on('keyup', function() {
             table.search(this.value).draw();
@@ -1143,5 +945,293 @@
             }
         });
     });
+</script>
+
+<script>
+    class KTExampleAreaChart {
+        static init() {
+            const created = [75, 25, 25, 55, 25, 15, 30, 25, 35, 15, 45, 30];
+            const updated = [20, 15, 35, 65, 45, 45, 20, 25, 35, 15, 45, 30];
+            const deleted = [45, 29, 42, 75, 85, 55, 60, 25, 35, 15, 45, 30];
+            const categories = [
+                "{{ __('default.month.january') }}",
+                "{{ __('default.month.february') }}",
+                "{{ __('default.month.march') }}",
+                "{{ __('default.month.april') }}",
+                "{{ __('default.month.may') }}",
+                "{{ __('default.month.june') }}",
+                "{{ __('default.month.july') }}",
+                "{{ __('default.month.august') }}",
+                "{{ __('default.month.september') }}",
+                "{{ __('default.month.october') }}",
+                "{{ __('default.month.november') }}",
+                "{{ __('default.month.december') }}",
+            ];
+
+            const options = {
+                series: [{
+                        name: 'Created',
+                        data: created,
+                    },
+                    {
+                        name: 'Updated',
+                        data: updated,
+                    },
+                    {
+                        name: 'Deleted',
+                        data: deleted,
+                    },
+                ],
+                chart: {
+                    height: 250,
+                    type: 'area',
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                legend: {
+                    show: false,
+                },
+                stroke: {
+                    curve: 'smooth',
+                    show: true,
+                    width: 3,
+                    colors: ['var(--color-primary)', 'var(--color-mono)', 'var(--color-destructive)'],
+                },
+                xaxis: {
+                    categories: categories,
+                    axisBorder: {
+                        show: false,
+                    },
+                    maxTicks: 12,
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        style: {
+                            colors: 'var(--color-secondary-foreground)',
+                            fontSize: '12px',
+                        },
+                    },
+                    crosshairs: {
+                        position: 'front',
+                        stroke: {
+                            color: 'var(--color-primary)',
+                            width: 1,
+                            dashArray: 3,
+                        },
+                    },
+                    tooltip: {
+                        enabled: false,
+                        formatter: undefined,
+                        offsetY: 0,
+                        style: {
+                            fontSize: '12px',
+                        },
+                    },
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100,
+                    tickAmount: 5, // This will create 5 ticks: 0, 20, 40, 60, 80, 100
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        style: {
+                            colors: 'var(--color-secondary-foreground)',
+                            fontSize: '12px',
+                        },
+                        formatter: (value) => {
+                            return `${value}`;
+                        },
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    // custom({ series, seriesIndex, dataPointIndex, w }) {
+                    // 	const number = parseInt(series[seriesIndex][dataPointIndex]) * 1000;
+                    // 	const month = w.globals.seriesX[seriesIndex][dataPointIndex];
+                    // 	const monthName = categories[month];
+
+                    // 	const formatter = new Intl.NumberFormat('en-US', {
+                    // 		style: 'currency',
+                    // 		currency: 'USD',
+                    // 	});
+
+                    // 	const formattedNumber = formatter.format(number);
+
+                    // 	return `
+                    //         <div class="flex flex-col gap-2 p-3.5">
+                    //         <div class="font-medium text-2sm text-white">
+                    //         ${monthName}, 2025 Sales
+                    //         </div>
+                    //         <div class="flex items-center gap-1.5">
+                    //         <div class="font-semibold text-md text-mono">
+                    //         ${formattedNumber}
+                    //         </div>
+                    //         <span class="kt-kt-badge kt-kt-badge-outline kt-kt-badge-success kt-badge-sm">
+                    //         +24%
+                    //         </span>
+                    //         </div>
+                    //         </div>
+                    //     `;
+                    // },
+                },
+                markers: {
+                    size: 0,
+                    colors: 'var(--color-primary)',
+                    strokeColors: 'var(--color-primary)',
+                    strokeWidth: 4,
+                    strokeOpacity: 1,
+                    strokeDashArray: 0,
+                    fillOpacity: 1,
+                    discrete: [],
+                    shape: 'circle',
+                    radius: 2,
+                    offsetX: 0,
+                    offsetY: 0,
+                    onClick: undefined,
+                    onDblClick: undefined,
+                    showNullDataPoints: true,
+                    hover: {
+                        size: 8,
+                        sizeOffset: 0,
+                    },
+                },
+                fill: {
+                    gradient: {
+                        enabled: true,
+                        opacityFrom: 0.25,
+                        opacityTo: 0,
+                    },
+                },
+                grid: {
+                    borderColor: 'var(--color-border)',
+                    strokeDashArray: 5,
+                    clipMarkers: false,
+                    yaxis: {
+                        lines: {
+                            show: true,
+                        },
+                    },
+                    xaxis: {
+                        lines: {
+                            show: false,
+                        },
+                    },
+                },
+            };
+
+            const element = document.querySelector('#area_chart');
+            if (!element) return;
+
+            const chart = new ApexCharts(element, options);
+            chart.render();
+        }
+    }
+
+    KTDom.ready(() => {
+        KTExampleAreaChart.init();
+    });
+
+    function printDataCharts(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+<script>
+    ! function(t, e) {
+        "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : t.lozad = e()
+    }(this, function() {
+        "use strict";
+        var g = "undefined" != typeof document && document.documentMode,
+            f = {
+                rootMargin: "0px",
+                threshold: 0,
+                load: function(t) {
+                    if ("picture" === t.nodeName.toLowerCase()) {
+                        var e = t.querySelector("img"),
+                            r = !1;
+                        null === e && (e = document.createElement("img"), r = !0), g && t.getAttribute("data-iesrc") && (e.src = t.getAttribute("data-iesrc")), t.getAttribute("data-alt") && (e.alt = t.getAttribute("data-alt")), r && t.append(e)
+                    }
+                    if ("video" === t.nodeName.toLowerCase() && !t.getAttribute("data-src") && t.children) {
+                        for (var a = t.children, o = void 0, i = 0; i <= a.length - 1; i++)(o = a[i].getAttribute("data-src")) && (a[i].src = o);
+                        t.load()
+                    }
+                    t.getAttribute("data-poster") && (t.poster = t.getAttribute("data-poster")), t.getAttribute("data-src") && (t.src = t.getAttribute("data-src")), t.getAttribute("data-srcset") && t.setAttribute("srcset", t.getAttribute("data-srcset"));
+                    var n = ",";
+                    if (t.getAttribute("data-background-delimiter") && (n = t.getAttribute("data-background-delimiter")), t.getAttribute("data-background-image")) t.style.backgroundImage = "url('" + t.getAttribute("data-background-image").split(n).join("'),url('") + "')";
+                    else if (t.getAttribute("data-background-image-set")) {
+                        var d = t.getAttribute("data-background-image-set").split(n),
+                            u = d[0].substr(0, d[0].indexOf(" ")) || d[0]; // Substring before ... 1x
+                        u = -1 === u.indexOf("url(") ? "url(" + u + ")" : u, 1 === d.length ? t.style.backgroundImage = u : t.setAttribute("style", (t.getAttribute("style") || "") + "background-image: " + u + "; background-image: -webkit-image-set(" + d + "); background-image: image-set(" + d + ")")
+                    }
+                    t.getAttribute("data-toggle-class") && t.classList.toggle(t.getAttribute("data-toggle-class"))
+                },
+                loaded: function() {}
+            };
+
+        function A(t) {
+            t.setAttribute("data-loaded", !0)
+        }
+        var m = function(t) {
+                return "true" === t.getAttribute("data-loaded")
+            },
+            v = function(t) {
+                var e = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : document;
+                return t instanceof Element ? [t] : t instanceof NodeList ? t : e.querySelectorAll(t)
+            };
+        return function() {
+            var r, a, o = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : ".lozad",
+                t = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : {},
+                e = Object.assign({}, f, t),
+                i = e.root,
+                n = e.rootMargin,
+                d = e.threshold,
+                u = e.load,
+                g = e.loaded,
+                s = void 0;
+            "undefined" != typeof window && window.IntersectionObserver && (s = new IntersectionObserver((r = u, a = g, function(t, e) {
+                t.forEach(function(t) {
+                    (0 < t.intersectionRatio || t.isIntersecting) && (e.unobserve(t.target), m(t.target) || (r(t.target), A(t.target), a(t.target)))
+                })
+            }), {
+                root: i,
+                rootMargin: n,
+                threshold: d
+            }));
+            for (var c, l = v(o, i), b = 0; b < l.length; b++)(c = l[b]).getAttribute("data-placeholder-background") && (c.style.background = c.getAttribute("data-placeholder-background"));
+            return {
+                observe: function() {
+                    for (var t = v(o, i), e = 0; e < t.length; e++) m(t[e]) || (s ? s.observe(t[e]) : (u(t[e]), A(t[e]), g(t[e])))
+                },
+                triggerLoad: function(t) {
+                    m(t) || (u(t), A(t), g(t))
+                },
+                observer: s
+            }
+        }
+    });
+
+    $(document).on('shown.bs.modal', '.kt-modal', function() {
+    $(this).find('img.lazy-img').each(function() {
+        var $img = $(this);
+        var realSrc = $img.attr('data-src');
+        var currentSrc = $img.attr('src');
+
+        // Ganti src hanya kalau masih pakai placeholder
+        if (realSrc && currentSrc !== realSrc) {
+            $img.attr('src', realSrc);
+        }
+    });
+});
 </script>
 @endpush

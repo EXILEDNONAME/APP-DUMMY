@@ -28,11 +28,7 @@
     <link href="/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="/assets/backend/vendors/apexcharts/apexcharts.css" rel="stylesheet" />
-    <link href="/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+    <!-- <link href="/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" /> -->
     <link href="/assets/backend/css/styles.css" rel="stylesheet" />
     @stack('head')
-
-    
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css"> -->
-
 </head>
