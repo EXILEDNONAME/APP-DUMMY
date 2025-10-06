@@ -152,20 +152,21 @@
 
 <div class="lg:col-span-2">
     <div class="grid">
-        <div id="printData">
-            <div class="kt-card kt-card-grid w-full">
-                <div class="kt-card-header">
-                    <h3 class="kt-card-title text-sm grid gap-5"> Charts </h3>
-                    <div class="kt-menu" data-kt-menu="true">
-                        <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-pencil"></i></button></a>
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
-                        <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
-                    </div>
+
+        <div class="kt-card kt-card-grid w-full">
+            <div class="kt-card-header">
+                <h3 class="kt-card-title text-sm grid gap-5"> Charts </h3>
+                <div class="kt-menu" data-kt-menu="true">
+                    <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-pencil"></i></button></a>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printDataCharts('printDataCharts')"><i class="ki-filled ki-printer"></i></button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
+                    <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
                 </div>
+            </div>
+            <div id="printDataCharts">
 
                 <div class="kt-card-body p-1 w-full">
-                    <div id="area_chart"></div>
+                    <div id="area_chart" class="w-full"></div>
                 </div>
 
                 <!-- <div class="kt-card-footer"></div> -->
@@ -208,22 +209,22 @@
 <script>
     class KTExampleAreaChart {
         static init() {
-            const created = [75, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
-            const updated = [20, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
-            const deleted = [45, 25, 45, 15, 85, 35, 70, 25, 35, 15, 45, 30];
+            const created = [75, 25, 25, 55, 25, 15, 30, 25, 35, 15, 45, 30];
+            const updated = [20, 15, 35, 65, 45, 45, 20, 25, 35, 15, 45, 30];
+            const deleted = [45, 29, 42, 75, 85, 55, 60, 25, 35, 15, 45, 30];
             const categories = [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
+                "{{ __('default.month.january') }}",
+                "{{ __('default.month.february') }}",
+                "{{ __('default.month.march') }}",
+                "{{ __('default.month.april') }}",
+                "{{ __('default.month.may') }}",
+                "{{ __('default.month.june') }}",
+                "{{ __('default.month.july') }}",
+                "{{ __('default.month.august') }}",
+                "{{ __('default.month.september') }}",
+                "{{ __('default.month.october') }}",
+                "{{ __('default.month.november') }}",
+                "{{ __('default.month.december') }}",
             ];
 
             const options = {
@@ -251,7 +252,7 @@
                     enabled: false,
                 },
                 legend: {
-                    show: true,
+                    show: false,
                 },
                 stroke: {
                     curve: 'smooth',
@@ -395,6 +396,14 @@
     KTDom.ready(() => {
         KTExampleAreaChart.init();
     });
+
+    function printDataCharts(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
 </script>
 
 
