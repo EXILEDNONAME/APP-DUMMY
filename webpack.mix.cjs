@@ -22,14 +22,28 @@ mix.scripts([
     'public/assets/backend/css/flatpickr.min.css',
 ], 'public/assets/backend/mix/css/app-core.css');
 
+// mix.js('resources/js/app-core.js', 'public/assets/backend/mix/js')
+//    .minify('public/assets/backend/mix/js/app-core.js')
+//    .setPublicPath('public/assets/backend/mix/js');
+
 // DATATABLE
 mix.scripts([
-    'public/assets/backend/js/datatables/dataTables.min.js',
+    'public/assets/backend/js/core.bundle.js',
+    'public/assets/backend/vendors/ktui/ktui.min.js',
+    'public/assets/backend/js/jquery-3.7.1.min.js',
+    'public/assets/backend/js/sweetalert.js',
+    'public/assets/backend/js/flatpickr.js',
+    // 'public/assets/backend/vendors/apexcharts/apexcharts.min.js',
+], 'public/assets/backend/mix/js/app-core.js');
+
+// DATATABLE
+mix.scripts([
+'public/assets/backend/js/datatables/dataTables.min.js',
     'public/assets/backend/js/datatables/buttons.min.js',
     'public/assets/backend/js/datatables/buttons.html5.min.js',
     'public/assets/backend/js/datatables/buttons.print.min.js',
     'public/assets/backend/js/datatables/select.min.js',
-], 'public/assets/backend/mix/js/datatable-extensions.js');
+    ], 'public/assets/backend/mix/js/datatable-extensions.js');
 
 // // APP JS
 // mix.scripts([

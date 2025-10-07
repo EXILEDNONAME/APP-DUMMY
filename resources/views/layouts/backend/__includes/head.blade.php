@@ -13,11 +13,11 @@
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
-    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/fonts/inter.css" />
-    <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.css"  />
-    <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/vendors/keenicons/styles.bundle.css" />
-    <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/css/styles.css" />
-    <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/css/flatpickr.min.css" /> -->
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/fonts/inter.css" /> -->
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.css"  /> -->
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/vendors/keenicons/styles.bundle.css" /> -->
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/css/styles.css" /> -->
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/css/flatpickr.min.css" /> -->
     <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/mix/css/app-core.css" />
     @stack('head')
 </head>

@@ -163,7 +163,6 @@
 
 @push('js')
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-extensions.js"></script>
-<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 
 
 <script>
