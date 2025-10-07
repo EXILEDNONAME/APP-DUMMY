@@ -43,7 +43,7 @@
                                 @if(Auth::User()->avatar)
                                 <div class="image-input-wrapper" style="background-image: url({{ env('APP_URL') }}/storage/avatar/{{ Auth::User()->id }}/{{ Auth::User()->avatar }})"></div>
                                 @else
-                                <div class="image-input-wrapper" style="background-image: url({{ env('APP_URL') }}/assets/backend/media/users/blank.png)"></div>
+                                <div class="image-input-wrapper" style="background-image: url({{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/users/blank.png)"></div>
                                 @endif
 
                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
@@ -155,5 +155,5 @@
         e.clearSelection();
     });
 </script>
-<script src="{{ env('APP_URL') }}/assets/backend/mix/js/profile.js"></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/profile.js"></script>
 @endpush

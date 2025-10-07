@@ -5,8 +5,8 @@
     <title> EXILEDNONAME - Register </title>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link href="/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
-    <link href="/assets/backend/css/styles.css" rel="stylesheet" />
+    <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
+    <link href="{{ env('APP_URL') }}/assets/backend/css/styles.css" rel="stylesheet" />
 </head>
 
 <body class="antialiased flex h-full text-base text-foreground bg-background">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="grid grid-cols-1 gap-2.5">
                         <a class="kt-btn kt-btn-outline justify-center" href="#">
-                            <img alt="" class="size-3.5 shrink-0" src="/assets/backend/media/brand-logos/google.svg" />
+                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg" />
                             Use Google
                         </a>
                     </div>

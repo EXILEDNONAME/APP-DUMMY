@@ -182,7 +182,7 @@
                                     <div class="kt-menu-link flex items-center jistify-between gap-2">
                                         <div class="flex items-center grow gap-2">
                                             <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                                <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/jira.svg" />
+                                                <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/jira.svg" />
                                             </div>
                                             <div class="flex flex-col gap-0.5">
                                                 <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -196,13 +196,13 @@
                                         <div class="flex justify-end shrink-0">
                                             <div class="flex -space-x-2">
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-4.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-4.png" />
                                                 </div>
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-1.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-1.png" />
                                                 </div>
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-2.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-2.png" />
                                                 </div>
                                                 <div class="flex">
                                                     <span class="hover:z-5 relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-6 text-white size-6 ring-background bg-green-500">
@@ -217,7 +217,7 @@
                                     <div class="kt-menu-link flex items-center jistify-between gap-2">
                                         <div class="flex items-center grow gap-2">
                                             <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                                <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/inferno.svg" />
+                                                <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/inferno.svg" />
                                             </div>
                                             <div class="flex flex-col gap-0.5">
                                                 <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -231,13 +231,13 @@
                                         <div class="flex justify-end shrink-0">
                                             <div class="flex -space-x-2">
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-14.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-14.png" />
                                                 </div>
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-12.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-12.png" />
                                                 </div>
                                                 <div class="flex">
-                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-9.png" />
+                                                    <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-9.png" />
                                                 </div>
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@
                                     <div class="kt-menu-item">
                                         <div class="kt-menu-link flex justify-between gap-2">
                                             <div class="flex items-center gap-2.5">
-                                                <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-3.png" />
+                                                <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-3.png" />
                                                 <div class="flex flex-col">
                                                     <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                         Tyler Hero
@@ -282,7 +282,7 @@
                                     <div class="kt-menu-item">
                                         <div class="kt-menu-link flex justify-between gap-2">
                                             <div class="flex items-center gap-2.5">
-                                                <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-1.png" />
+                                                <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-1.png" />
                                                 <div class="flex flex-col">
                                                     <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                         Esther Howard
@@ -425,7 +425,7 @@
                             <div class="kt-menu-link flex items-center jistify-between gap-2">
                                 <div class="flex items-center grow gap-2">
                                     <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                        <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/jira.svg" />
+                                        <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/jira.svg" />
                                     </div>
                                     <div class="flex flex-col gap-0.5">
                                         <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -439,13 +439,13 @@
                                 <div class="flex justify-end shrink-0">
                                     <div class="flex -space-x-2">
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-4.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-4.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-1.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-1.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-2.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-2.png" />
                                         </div>
                                         <div class="flex">
                                             <span class="hover:z-5 relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-6 text-white size-6 ring-background bg-green-500">
@@ -460,7 +460,7 @@
                             <div class="kt-menu-link flex items-center jistify-between gap-2">
                                 <div class="flex items-center grow gap-2">
                                     <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                        <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/inferno.svg" />
+                                        <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/inferno.svg" />
                                     </div>
                                     <div class="flex flex-col gap-0.5">
                                         <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -474,13 +474,13 @@
                                 <div class="flex justify-end shrink-0">
                                     <div class="flex -space-x-2">
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-14.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-14.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-12.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-12.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-9.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-9.png" />
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +490,7 @@
                             <div class="kt-menu-link flex items-center jistify-between gap-2">
                                 <div class="flex items-center grow gap-2">
                                     <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                        <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/evernote.svg" />
+                                        <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/evernote.svg" />
                                     </div>
                                     <div class="flex flex-col gap-0.5">
                                         <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -504,16 +504,16 @@
                                 <div class="flex justify-end shrink-0">
                                     <div class="flex -space-x-2">
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-6.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-6.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-3.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-3.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-1.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-1.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-8.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-8.png" />
                                         </div>
                                     </div>
                                 </div>
@@ -523,7 +523,7 @@
                             <div class="kt-menu-link flex items-center jistify-between gap-2">
                                 <div class="flex items-center grow gap-2">
                                     <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                        <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/gitlab.svg" />
+                                        <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/gitlab.svg" />
                                     </div>
                                     <div class="flex flex-col gap-0.5">
                                         <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -537,10 +537,10 @@
                                 <div class="flex justify-end shrink-0">
                                     <div class="flex -space-x-2">
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-18.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-18.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-17.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-17.png" />
                                         </div>
                                     </div>
                                 </div>
@@ -550,7 +550,7 @@
                             <div class="kt-menu-link flex items-center jistify-between gap-2">
                                 <div class="flex items-center grow gap-2">
                                     <div class="flex items-center justify-center size-10 shrink-0 rounded-full border border-border bg-accent/60">
-                                        <img alt="" class="size-6 shrink-0" src="/assets/backend/media/brand-logos/google-webdev.svg" />
+                                        <img alt="" class="size-6 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google-webdev.svg" />
                                     </div>
                                     <div class="flex flex-col gap-0.5">
                                         <a class="text-sm font-semibold text-mono hover:text-primary" href="#">
@@ -564,13 +564,13 @@
                                 <div class="flex justify-end shrink-0">
                                     <div class="flex -space-x-2">
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-14.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-14.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-20.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-20.png" />
                                         </div>
                                         <div class="flex">
-                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="/assets/backend/media/avatars/300-21.png" />
+                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-6" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-21.png" />
                                         </div>
                                     </div>
                                 </div>
@@ -589,7 +589,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex justify-between gap-2">
                                     <div class="flex items-center gap-2.5">
-                                        <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-3.png" />
+                                        <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-3.png" />
                                         <div class="flex flex-col">
                                             <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                 Tyler Hero
@@ -615,7 +615,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex justify-between gap-2">
                                     <div class="flex items-center gap-2.5">
-                                        <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-1.png" />
+                                        <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-1.png" />
                                         <div class="flex flex-col">
                                             <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                 Esther Howard
@@ -641,7 +641,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex justify-between gap-2">
                                     <div class="flex items-center gap-2.5">
-                                        <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-11.png" />
+                                        <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-11.png" />
                                         <div class="flex flex-col">
                                             <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                 Jacob Jones
@@ -667,7 +667,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex justify-between gap-2">
                                     <div class="flex items-center gap-2.5">
-                                        <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-5.png" />
+                                        <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-5.png" />
                                         <div class="flex flex-col">
                                             <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                 TLeslie Alexander
@@ -693,7 +693,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex justify-between gap-2">
                                     <div class="flex items-center gap-2.5">
-                                        <img alt="" class="rounded-full size-9 shrink-0" src="/assets/backend/media/avatars/300-2.png" />
+                                        <img alt="" class="rounded-full size-9 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/avatars/300-2.png" />
                                         <div class="flex flex-col">
                                             <a class="text-sm font-semibold text-mono hover:text-primary mb-px" href="#">
                                                 Cody Fisher
@@ -730,7 +730,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex items-center">
                                     <div class="flex items-center grow gap-2.5">
-                                        <img src="/assets/backend/media/file-types/pdf.svg" />
+                                        <img src="{{ env('APP_URL') }}/assets/backend/media/file-types/pdf.svg" />
                                         <div class="flex flex-col">
                                             <span class="text-sm font-semibold text-mono cursor-pointer hover:text-primary mb-px">
                                                 Project-pitch.pdf
@@ -749,7 +749,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex items-center">
                                     <div class="flex items-center grow gap-2.5">
-                                        <img src="/assets/backend/media/file-types/doc.svg" />
+                                        <img src="{{ env('APP_URL') }}/assets/backend/media/file-types/doc.svg" />
                                         <div class="flex flex-col">
                                             <span class="text-sm font-semibold text-mono cursor-pointer hover:text-primary mb-px">
                                                 Report-v1.docx
@@ -768,7 +768,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex items-center">
                                     <div class="flex items-center grow gap-2.5">
-                                        <img src="/assets/backend/media/file-types/javascript.svg" />
+                                        <img src="{{ env('APP_URL') }}/assets/backend/media/file-types/javascript.svg" />
                                         <div class="flex flex-col">
                                             <span class="text-sm font-semibold text-mono cursor-pointer hover:text-primary mb-px">
                                                 Framework-App.js
@@ -787,7 +787,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex items-center">
                                     <div class="flex items-center grow gap-2.5">
-                                        <img src="/assets/backend/media/file-types/ai.svg" />
+                                        <img src="{{ env('APP_URL') }}/assets/backend/media/file-types/ai.svg" />
                                         <div class="flex flex-col">
                                             <span class="text-sm font-semibold text-mono cursor-pointer hover:text-primary mb-px">
                                                 Framework-App.js
@@ -806,7 +806,7 @@
                             <div class="kt-menu-item">
                                 <div class="kt-menu-link flex items-center">
                                     <div class="flex items-center grow gap-2.5">
-                                        <img src="/assets/backend/media/file-types/php.svg" />
+                                        <img src="{{ env('APP_URL') }}/assets/backend/media/file-types/php.svg" />
                                         <div class="flex flex-col">
                                             <span class="text-sm font-semibold text-mono cursor-pointer hover:text-primary mb-px">
                                                 appController.js
@@ -833,8 +833,8 @@
                 <div class="hidden" id="search_modal_empty">
                     <div class="flex flex-col text-center py-9 gap-5">
                         <div class="flex justify-center">
-                            <img alt="image" class="dark:hidden max-h-[113px]" src="/assets/backend/media/illustrations/33.svg" />
-                            <img alt="image" class="light:hidden max-h-[113px]" src="/assets/backend/media/illustrations/33-dark.svg" />
+                            <img alt="image" class="dark:hidden max-h-[113px]" src="{{ env('APP_URL') }}/assets/backend/media/illustrations/33.svg" />
+                            <img alt="image" class="light:hidden max-h-[113px]" src="{{ env('APP_URL') }}/assets/backend/media/illustrations/33-dark.svg" />
                         </div>
                         <div class="flex flex-col gap-1.5">
                             <h3 class="text-base font-semibold text-mono text-center">
@@ -856,8 +856,8 @@
                 <div class="hidden" id="search_modal_no-results">
                     <div class="flex flex-col text-center py-9 gap-5">
                         <div class="flex justify-center">
-                            <img alt="image" class="dark:hidden max-h-[113px]" src="/assets/backend/media/illustrations/33.svg" />
-                            <img alt="image" class="light:hidden max-h-[113px]" src="/assets/backend/media/illustrations/33-dark.svg" />
+                            <img alt="image" class="dark:hidden max-h-[113px]" src="{{ env('APP_URL') }}/assets/backend/media/illustrations/33.svg" />
+                            <img alt="image" class="light:hidden max-h-[113px]" src="{{ env('APP_URL') }}/assets/backend/media/illustrations/33-dark.svg" />
                         </div>
                         <div class="flex flex-col gap-1.5">
                             <h3 class="text-base font-semibold text-mono text-center">

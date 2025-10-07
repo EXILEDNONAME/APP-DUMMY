@@ -21,11 +21,11 @@
     ];
 </script>
 
-<script src="/assets/backend/js/core.bundle.js"></script>
-<script src="/assets/backend/vendors/ktui/ktui.min.js"></script>
-<!-- <script src="/assets/backend/vendors/apexcharts/apexcharts.min.js"></script> -->
-<!-- <script src="/assets/backend/js/widgets/general.js"></script> -->
-<!-- <script src="/assets/backend/js/layouts/demo1.js"></script> -->
+<script src="{{ env('APP_URL') }}/assets/backend/js/core.bundle.js"></script>
+<script src="{{ env('APP_URL') }}/assets/backend/vendors/ktui/ktui.min.js"></script>
+<!-- <script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script> -->
+<!-- <script src="{{ env('APP_URL') }}/assets/backend/js/widgets/general.js"></script> -->
+<!-- <script src="{{ env('APP_URL') }}/assets/backend/js/layouts/demo1.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

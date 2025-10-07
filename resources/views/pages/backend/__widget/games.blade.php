@@ -65,8 +65,8 @@
 </div>
 
 @push('js')
-<script src="{{ env('APP_URL') }}/assets/backend/games/word-scramble/js/words.js" defer></script>
-<script src="{{ env('APP_URL') }}/assets/backend/games/word-scramble/js/script.js" defer></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/games/word-scramble/js/words.js" defer></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/games/word-scramble/js/script.js" defer></script>
 <script>
   var input = document.getElementById("gameInput");
   input.addEventListener("keypress", function(event) { if (event.key === "Enter") { checkWord(); } });

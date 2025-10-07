@@ -166,8 +166,8 @@
 @endsection
 
 @push('js')
-<script src="/assets/backend/mix/js/datatable-extensions.js"></script>
-<script src="/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
+<script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-extensions.js"></script>
+<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 
 
 <script>

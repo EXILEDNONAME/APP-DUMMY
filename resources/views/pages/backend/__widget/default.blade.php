@@ -5,7 +5,7 @@
         <div class="d-flex flex-column flex-grow-1 py-lg-5">
           <a class="card-title font-weight-bolder text-dark-75 mb-2 text-hover-danger"> Welcome, {{ Auth::User()->name }} </a>
         </div>
-        <img src="{{ env('APP_URL') }}/assets/backend/media/svg/avatars/029-boy-11.svg" alt="" class="align-self-end h-100px">
+        <img src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/svg/avatars/029-boy-11.svg" alt="" class="align-self-end h-100px">
       </div>
     </div>
   </div>

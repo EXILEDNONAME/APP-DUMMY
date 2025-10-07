@@ -109,7 +109,7 @@
 <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.min.js"></script>
-<script src="/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
+<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 <script>
     var defaultCopy = $.fn.dataTable.ext.buttons.copyHtml5.action;
 

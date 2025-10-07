@@ -2,7 +2,7 @@
 @section('title', 'File Manager')
 
 @push('head')
-<link rel="stylesheet" href="{{ env('APP_URL') }}/assets/backend/mix/css/file-manager.css">
+<link rel="stylesheet" href="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/css/file-manager.css">
 @endpush
 
 @section('content')
@@ -10,7 +10,7 @@
 @endsection
 
 @push('js')
-<script src="{{ env('APP_URL') }}/assets/backend/mix/js/file-manager.js"></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/file-manager.js"></script>
 <script type="text/javascript" charset="utf-8">
     $().ready(function() {
         $('#elfinder').elfinder({

@@ -54,6 +54,6 @@
 @endsection
 
 @push('js')
-<script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable.js"></script>
-<script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-session.js"></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/datatable.js"></script>
+<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/datatable-session.js"></script>
 @endpush
