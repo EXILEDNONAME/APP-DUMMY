@@ -30,9 +30,6 @@
                         </div>
                     </div>
                     <button id="toggle_filters" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
-                    <!-- <div  class="">
-                        <a href=""><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical"></i></button></a>
-                    </div> -->
                     <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
                         <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
                         <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
@@ -49,7 +46,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div id="filters" class="hidden">
                 <div class="grid gap-2 p-5">
@@ -75,7 +71,6 @@
                     </div>
 
                     <input id="datepicker" name="date" class="kt-input filter_form filter_date" placeholder="- Select Date -" />
-
                     <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm reset" data-kt-tooltip="#tooltip_reset" data-kt-tooltip-placement="top-end"> {{ __('default.label.reset') }} </button>
 
                 </div>
@@ -95,8 +90,6 @@
                                 @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th> @endif
                                 @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> File </span></span></th> @endif
                                 @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
-                                <!-- <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Name </span><span class="kt-table-col-sort"></span></span></th>
-                            <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Description </span><span class="kt-table-col-sort"></span></span></th> -->
                                 @yield('table-header')
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
                                 <th class="w-px whitespace-nowrap no-export"></th>
@@ -139,14 +132,9 @@
                         <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
                     </div>
                 </div>
-
                 <div class="kt-card-body p-1 w-full">
-                    <div class="kt-scrollable-x-auto">
-
-                    </div>
+                    <div class="kt-scrollable-x-auto"></div>
                 </div>
-
-                <!-- <div class="kt-card-footer"></div> -->
             </div>
         </div>
     </div>
@@ -166,12 +154,9 @@
                 </div>
             </div>
             <div id="printDataCharts">
-
                 <div class="kt-card-body p-1 w-full">
                     <div id="area_chart" class="w-full"></div>
                 </div>
-
-                <!-- <div class="kt-card-footer"></div> -->
             </div>
         </div>
     </div>
@@ -179,22 +164,9 @@
 @endsection
 
 @push('js')
-<script src="/assets/backend/js/datatables/dataTables.min.js"></script>
-<script src="/assets/backend/js/datatables/buttons.min.js"></script>
-<script src="/assets/backend/js/datatables/buttons.html5.min.js"></script>
-<script src="/assets/backend/js/datatables/buttons.print.min.js"></script>
-<script src="/assets/backend/js/datatables/select.min.js"></script>
+<script src="/assets/backend/mix/js/datatable-extensions.js"></script>
 <script src="/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-    flatpickr("#datepicker", {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d F Y",
-        allowInput: false,
-        disableMobile: true
-    });
-</script>
+
 
 <script>
     // COPY
@@ -1222,16 +1194,16 @@
     });
 
     $(document).on('shown.bs.modal', '.kt-modal', function() {
-    $(this).find('img.lazy-img').each(function() {
-        var $img = $(this);
-        var realSrc = $img.attr('data-src');
-        var currentSrc = $img.attr('src');
+        $(this).find('img.lazy-img').each(function() {
+            var $img = $(this);
+            var realSrc = $img.attr('data-src');
+            var currentSrc = $img.attr('src');
 
-        // Ganti src hanya kalau masih pakai placeholder
-        if (realSrc && currentSrc !== realSrc) {
-            $img.attr('src', realSrc);
-        }
+            // Ganti src hanya kalau masih pakai placeholder
+            if (realSrc && currentSrc !== realSrc) {
+                $img.attr('src', realSrc);
+            }
+        });
     });
-});
 </script>
 @endpush

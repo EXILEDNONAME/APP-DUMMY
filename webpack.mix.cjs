@@ -13,6 +13,15 @@ mix.browserSync({
     injectChanges: true
 });
 
+// // DATATABLE
+mix.scripts([
+    'public/assets/backend/js/datatables/dataTables.min.js',
+    'public/assets/backend/js/datatables/buttons.min.js',
+    'public/assets/backend/js/datatables/buttons.html5.min.js',
+    'public/assets/backend/js/datatables/buttons.print.min.js',
+    'public/assets/backend/js/datatables/select.min.js',
+], 'public/assets/backend/mix/js/datatable-extensions.js');
+
 // // APP JS
 // mix.scripts([
 //     'public/assets/backend/js/core.js',
@@ -55,3 +64,4 @@ mix.browserSync({
 //     'public/assets/backend/elfinder/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js',
 //     'public/assets/backend/elfinder/js/elfinder.full.js',
 // ], 'public/assets/backend/mix/js/file-manager.js');
+

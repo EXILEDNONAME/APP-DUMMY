@@ -18,7 +18,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 - [OK] EDIT LANGUAGE
 - [OK] LOGOUT BUTTON
 - PAGE INDEX ->
-    - CHARTS
+    - [OK] CHARTS
     - ACTIVITIES
     - [OK] BATCH ACTION
 - PAGE SHOW

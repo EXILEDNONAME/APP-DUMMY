@@ -20,7 +20,7 @@ trait IndexController
         $sort = $this->sort;
 
         if (request()->ajax()) {
-            $query = $this->model::orderBy('id', 'desc')->limit(50000);
+            $query = $this->model::query();
 
             if (request('date')) {
                 $query->whereDate('date', request('date'));
