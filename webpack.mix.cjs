@@ -43,7 +43,7 @@ mix.scripts([
     'public/assets/backend/js/datatables/buttons.html5.min.js',
     'public/assets/backend/js/datatables/buttons.print.min.js',
     'public/assets/backend/js/datatables/select.min.js',
-    ], 'public/assets/backend/mix/js/datatable-extensions.js');
+    ], 'public/assets/backend/mix/js/datatable-plugins.js');
 
 // // APP JS
 // mix.scripts([

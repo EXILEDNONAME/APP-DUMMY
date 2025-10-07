@@ -14,6 +14,9 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
+# TO DO 
+- STYLES FONT BOLD
+
 # EDIT TEMPLATE
 - [OK] EDIT LANGUAGE
 - [OK] LOGOUT BUTTON

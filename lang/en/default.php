@@ -63,6 +63,7 @@ return [
         'logout'                        => 'Logout',
         'main'                          => 'Main',
         'no'                            => 'No',
+        'no_data_available'             => 'No Data Available',
         'optimizations'                 => 'Optimizations',
         'pending'                       => 'Pending',
         'please_wait'                   => 'Please Wait',

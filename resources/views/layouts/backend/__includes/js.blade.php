@@ -4,6 +4,13 @@
     }).then(data => {
         translations = data;
     });
+    window.translations = {
+        default: {
+            label: {
+                no_data_available: "{{ __('default.label.no_data_available') }}"
+            }
+        }
+    };
 </script>
 
 <script>
