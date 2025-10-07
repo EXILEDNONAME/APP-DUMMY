@@ -1,9 +1,5 @@
 @extends('layouts.backend.default')
 
-@push('head')
-
-@endpush
-
 @section('content')
 <div class="lg:col-span-3">
     <div class="grid">
@@ -545,6 +541,62 @@
             });
         });
 
+        // SELECTED DELETE
+        $('#selected-delete').on('click', function(e) {
+            var exilednonameArr = [];
+            $(".checkable:checked").each(function() {
+                exilednonameArr.push($(this).attr('data-id'));
+            });
+            var strEXILEDNONAME = exilednonameArr.join(",");
+            Swal.fire({
+                text: "{{ __('default.notification.confirm.selected_delete') }}?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "{{ __('default.label.yes') }}",
+                cancelButtonText: "{{ __('default.label.no') }}",
+                reverseButtons: false
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{ URL::Current() }}/selected-delete",
+                        type: 'get',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                        success: function(data) {
+                            if (data.status && data.status === 'error') {
+                                toastr.error(data.message);
+                                return;
+                            }
+                            $('#checkbox_batch').addClass('hidden');
+                            table.draw(false);
+                            KTToast.show({
+                                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                                progress: true,
+                                pauseOnHover: true,
+                                maxToasts: 3,
+                                position: 'bottom-end',
+                                variant: 'mono',
+                                message: "{{ __('default.notification.success.selected_inactive') }}",
+                            }, 500);
+                        },
+                        error: function(data) {
+                            KTToast.show({
+                                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+                                progress: true,
+                                pauseOnHover: true,
+                                maxToasts: 3,
+                                position: 'bottom-end',
+                                variant: 'mono',
+                                message: "{{ __('default.notification.error.error') }}",
+                            }, 500);
+                        }
+                    });
+                }
+            });
+        });
+
     });
 
     function toast_notification(message) {
@@ -753,62 +805,6 @@
             if (result.value) {
                 $.ajax({
                     url: "{{ URL::Current() }}/selected-inactive",
-                    type: 'get',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
-                    success: function(data) {
-                        if (data.status && data.status === 'error') {
-                            toastr.error(data.message);
-                            return;
-                        }
-                        $('#checkbox_batch').addClass('hidden');
-                        table.draw(false);
-                        KTToast.show({
-                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                            progress: true,
-                            pauseOnHover: true,
-                            maxToasts: 3,
-                            position: 'bottom-end',
-                            variant: 'mono',
-                            message: "{{ __('default.notification.success.selected_inactive') }}",
-                        }, 500);
-                    },
-                    error: function(data) {
-                        KTToast.show({
-                            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                            progress: true,
-                            pauseOnHover: true,
-                            maxToasts: 3,
-                            position: 'bottom-end',
-                            variant: 'mono',
-                            message: "{{ __('default.notification.error.error') }}",
-                        }, 500);
-                    }
-                });
-            }
-        });
-    });
-
-    // SELECTED DELETE
-    $('#selected-delete').on('click', function(e) {
-        var exilednonameArr = [];
-        $(".checkable:checked").each(function() {
-            exilednonameArr.push($(this).attr('data-id'));
-        });
-        var strEXILEDNONAME = exilednonameArr.join(",");
-        Swal.fire({
-            text: "{{ __('default.notification.confirm.selected_delete') }}?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "{{ __('default.label.yes') }}",
-            cancelButtonText: "{{ __('default.label.no') }}",
-            reverseButtons: false
-        }).then(function(result) {
-            if (result.value) {
-                $.ajax({
-                    url: "{{ URL::Current() }}/selected-delete",
                     type: 'get',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

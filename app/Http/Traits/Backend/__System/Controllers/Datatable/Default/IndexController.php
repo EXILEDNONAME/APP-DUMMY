@@ -64,7 +64,7 @@ trait IndexController
                                     </div>
                                     <div class="kt-modal-body grid gap-5 px-0 py-5">
                                         <div class="flex flex-col items-center px-5 gap-2.5">
-                                            <img width="100%" src="/assets/backend/media/images/image-placeholder.jpg" data-src="$imgUrl" class="lazy-img" loading="lazy" alt="Preview">
+                                            <img width="100%" src="{{ env('APP_URL') }}/assets/backend/media/images/image-placeholder.jpg" data-src="$imgUrl" class="lazy-img" loading="lazy" alt="Preview">
                                         </div>
                                     </div>
                                     <div class="kt-modal-footer">

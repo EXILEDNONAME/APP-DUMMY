@@ -13,7 +13,16 @@ mix.browserSync({
     injectChanges: true
 });
 
-// // DATATABLE
+// APP BUNDLE CSS
+mix.scripts([
+    'public/assets/backend/fonts/inter.css',
+    'public/assets/backend/vendors/apexcharts/apexcharts.css',
+    'public/assets/backend/vendors/keenicons/styles.bundle.css',
+    'public/assets/backend/css/styles.css',
+    'public/assets/backend/css/flatpickr.min.css',
+], 'public/assets/backend/mix/css/app-core.css');
+
+// DATATABLE
 mix.scripts([
     'public/assets/backend/js/datatables/dataTables.min.js',
     'public/assets/backend/js/datatables/buttons.min.js',
