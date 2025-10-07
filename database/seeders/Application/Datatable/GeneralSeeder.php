@@ -2,10 +2,9 @@
 
 namespace database\seeders\Application\Datatable;
 
-use Carbon\Carbon as Carbon;
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class GeneralSeeder extends Seeder {
 
@@ -13,7 +12,7 @@ class GeneralSeeder extends Seeder {
     $faker = Faker::create('id_ID');
 
     for($i = 1; $i <= 300000; $i++){
-      \DB::table('system_application_table_generals')->insert([
+      DB::table('system_application_table_generals')->insert([
         'name'          => $faker->name,
         'description'   => $faker->name,
         'created_at'    => $faker->dateTime,
