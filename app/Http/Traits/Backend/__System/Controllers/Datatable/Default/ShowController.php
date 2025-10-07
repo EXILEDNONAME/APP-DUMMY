@@ -7,7 +7,7 @@ trait ShowController
     public function show($id)
     {
         $trash = $this->model::withTrashed()->find($id);
-        if ($trash) {
+        if (!$trash) {
             return redirect('/dashboard')->with('error', __('default.notification.error.item_not_found'));
         }
 

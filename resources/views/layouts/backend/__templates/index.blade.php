@@ -1,7 +1,7 @@
 @extends('layouts.backend.default')
 
 @push('head')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 @endpush
 
 @section('content')
@@ -51,7 +51,7 @@
                 <div class="grid gap-2 p-5">
                     <label class="kt-input">
                         <i class="ki-filled ki-magnifier"></i>
-                        <input id="searchInput" class="filter_form" placeholder="Search" type="text" />
+                        <input id="table_search" class="filter_form" placeholder="Search" type="text" />
                     </label>
 
                     <select class="kt-select filter_form filter_active">
@@ -70,7 +70,9 @@
                         </div>
                     </div>
 
+                    @if (!empty($date) && $date == 'true')
                     <input id="datepicker" name="date" class="kt-input filter_form filter_date" placeholder="- Select Date -" />
+                    @endif
                     <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm reset" data-kt-tooltip="#tooltip_reset" data-kt-tooltip-placement="top-end"> {{ __('default.label.reset') }} </button>
 
                 </div>
@@ -88,7 +90,7 @@
                                 <th style="display: none"> {{ __('default.label.created_at') }} </th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> No. </span></span></th>
                                 @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Status </span></span></th> @endif
-                                @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> File </span></span></th> @endif
+                                @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> File </span></span></th> @endif
                                 @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-bold"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
                                 @yield('table-header')
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-bold"> Active </span></span></th>
@@ -205,14 +207,21 @@
                 $('#dt-length-0').appendTo('#ex_table_length');
                 $('#exilednoname_table_filter').appendTo('#ex_table_filter');
             },
+            dom: 't',
+            info: false,
+            lengthChange: false,
+            pageLength: 25,
             processing: false,
             serverSide: true,
+            searchDelay: 2000,
             "pagingType": "simple_numbers",
-            pageLength: 25,
-            lengthChange: false,
-            info: false,
-            dom: 't',
-            responsive: true,
+            // responsive: true,
+            ajax: {
+                url: this_url,
+                "data": function(ex) {
+                    ex.date = $('.filter_date').val();
+                }
+            },
             language: {
                 loadingRecords: "",
                 emptyTable: `
@@ -221,18 +230,11 @@
                     </div>
                 `
             },
-
-            ajax: {
-                url: this_url,
-                "data": function(ex) {
-                    ex.date = $('.filter_date').val();
-                }
+            drawCallback: function() {
+                renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
             },
             headerCallback: function(thead, data, start, end, display) {
                 thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`;
-            },
-            drawCallback: function() {
-                renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
             },
             buttons: [{
                     extend: 'print',
@@ -347,6 +349,7 @@
                         }
                     }
                 },
+
                 ...(status ? [{
                     data: 'status',
                     name: 'status',
@@ -433,22 +436,23 @@
 
         });
 
-        $('#perpage').on('change', function() {
-            let perPage = $(this).val();
-            table.page.len(perPage).draw();
-        });
+        // $('#perpage').on('change', function() {
+        //     let perPage = $(this).val();
+        //     table.page.len(perPage).draw();
+        // });
 
-        $('#searchInput').on('keyup', function() {
+        $('#table_search').on('keyup', function() {
             table.search(this.value).draw();
         });
 
+        // FILTER ACTIVE / INACTIVE
         $('.filter_active').on('change', function() {
             table.column('active:name').search(this.value).draw();
         });
 
         // FILTER DATE
         $('.filter_date').change(function() {
-            $('#exilednoname_table').DataTable().draw();
+            table.draw();
         });
 
         table.on('draw.dt', function() {
@@ -465,69 +469,31 @@
 
         // GROUP CHECKABLE
         table.on('change', '.group-checkable', function() {
-            var checked = $(this).is(':checked');
+            const checked = $(this).is(':checked');
 
             table.rows().every(function() {
-                var $checkbox = $(this.node()).find('.checkable');
+                const $checkbox = $(this.node()).find('.checkable');
                 $checkbox.prop('checked', checked);
-
-                if (checked) {
-                    this.select();
-                } else {
-                    this.deselect();
-                }
+                checked ? this.select() : this.deselect();
             });
 
-            var count = table.rows({
+            const count = table.rows({
                 selected: true
             }).count();
-            $('#exilednoname_selected').html(count);
 
-            if (count > 0) {
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.row_checked') }}",
-                });
-                $('#checkbox_batch').removeClass('hidden');
-            } else {
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.row_unchecked') }}",
-                });
-                $('#checkbox_batch').addClass('hidden');
-            }
+            $('#exilednoname_selected').text(count);
 
+            const isChecked = count > 0;
+            $('#checkbox_batch').toggleClass('hidden', !isChecked);
+            toast_notification(isChecked ? "{{ __('default.notification.row_checked') }}" : "{{ __('default.notification.row_unchecked') }}");
         });
 
         // CHECKABLE
         table.on('change', '.checkable', function() {
-            var $row = $(this).closest('tr');
-            var checkboxEl = document.querySelector('#check');
-            if ($(this).is(':checked')) {
-                $row.addClass('selected');
-            } else {
-                $row.removeClass('selected');
-            }
-            var checkedNodes = $('#exilednoname_table').DataTable().rows('.selected').nodes();
-            var count = checkedNodes.length;
-            $('#exilednoname_selected').html(count);
-            if (count > 0) {
-                $('#checkbox_batch').removeClass('hidden');
-                checkboxEl.indeterminate = true;
-            } else {
-                $('#checkbox_batch').addClass('hidden');
-                checkboxEl.indeterminate = false;
-            }
+            $(this).closest('tr').toggleClass('selected', $(this).is(':checked'));
+            $('#exilednoname_selected').html(table.rows('.selected').nodes().length);
+            $('#checkbox_batch').toggleClass('hidden', table.rows('.selected').nodes().length === 0);
+            document.querySelector('#check').indeterminate = table.rows('.selected').nodes().length > 0;
         });
 
         // REFRESH TABLE
@@ -536,28 +502,62 @@
             $('.filter_form').val('');
             table.search('').columns().search('').draw();
             table.ajax.reload();
-            KTToast.show({
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                progress: true,
-                pauseOnHover: true,
-                maxToasts: 3,
-                position: 'bottom-end',
-                variant: 'mono',
-                message: "{{ __('default.notification.table_reload') }}",
-            });
+            toast_notification("{{ __('default.notification.table_reload') }}")
         });
 
         // RESET TABLE
         $(".reset").on("click", function() {
-            setTimeout(function() {
-                $('#checkbox_batch').addClass('hidden');
-                $('.filter_form').val('');
-                table.search('').columns().search('').draw();
-                table.ajax.reload();
-            }, 500);
+            $('#checkbox_batch').addClass('hidden');
+            $('.filter_form').val('');
+            table.search('').columns().search('').draw();
+            table.ajax.reload();
+        });
+
+        // TABLE ACTIVE
+        $('body').on('click', '#table_active', function() {
+            var id = $(this).data("id");
+            $.ajax({
+                type: "get",
+                url: "{{ URL::Current() }}/active/" + id,
+                success: function(data) {
+                    table.ajax.reload();
+                    toast_notification("{{ __('default.notification.success.item_active') }}");
+                },
+                error: function(data) {
+                    toast_notification("{{ __('default.notification.error.error') }}");
+                }
+            });
+        });
+
+        // TABLE INACTIVE
+        $('body').on('click', '#table_inactive', function() {
+            var id = $(this).data("id");
+            $.ajax({
+                type: "get",
+                url: "{{ URL::Current() }}/inactive/" + id,
+                success: function(data) {
+                    table.ajax.reload();
+                    toast_notification("{{ __('default.notification.success.item_inactive') }}");
+                },
+                error: function(data) {
+                    toast_notification("{{ __('default.notification.error.error') }}");
+                }
+            });
         });
 
     });
+
+    function toast_notification(message) {
+        KTToast.show({
+            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+            progress: true,
+            pauseOnHover: true,
+            maxToasts: 3,
+            position: 'bottom-end',
+            variant: 'mono',
+            message: message
+        });
+    }
 
     function renderPaginationWindow(dt, container, windowSize = 2) {
         const pageInfo = dt.page.info();
@@ -630,77 +630,6 @@
 </script>
 
 <script>
-    $('body').on('click', '#table_active', function() {
-        var id = $(this).data("id");
-        $.ajax({
-            type: "get",
-            url: "{{ URL::Current() }}/active/" + id,
-            processing: true,
-            serverSide: true,
-            success: function(data) {
-                $('#exilednoname_table').DataTable().draw(false);
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.success.item_active') }}",
-                });
-            },
-            error: function(data) {
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.error.error') }}",
-                }, 500);
-            }
-        });
-    });
-
-    $('body').on('click', '#table_inactive', function() {
-        var id = $(this).data("id");
-        $.ajax({
-            type: "get",
-            url: "{{ URL::Current() }}/inactive/" + id,
-            processing: true,
-            serverSide: true,
-            success: function(data) {
-                if (data.status && data.status === 'error') {
-                    toastr.error(data.message);
-                    return;
-                }
-
-                $('#exilednoname_table').DataTable().draw(false);
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.success.item_inactive') }}",
-                }, 500);
-            },
-            error: function(data) {
-                KTToast.show({
-                    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-                    progress: true,
-                    pauseOnHover: true,
-                    maxToasts: 3,
-                    position: 'bottom-end',
-                    variant: 'mono',
-                    message: "{{ __('default.notification.error.error') }}",
-                }, 500);
-            }
-        });
-    });
-
     $('body').on('click', '#single_delete', function() {
         var id = $(this).data("id");
         Swal.fire({
@@ -721,7 +650,7 @@
                             return;
                         }
 
-                        $('#exilednoname_table').DataTable().draw(false);
+                        table.draw(false);
                         KTToast.show({
                             icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
                             progress: true,
@@ -779,7 +708,7 @@
                         }
 
                         $('#checkbox_batch').addClass('hidden');
-                        $('#exilednoname_table').DataTable().draw(false);
+                        table.draw(false);
                         KTToast.show({
                             icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
                             progress: true,
@@ -835,7 +764,7 @@
                             return;
                         }
                         $('#checkbox_batch').addClass('hidden');
-                        $('#exilednoname_table').DataTable().draw(false);
+                        table.draw(false);
                         KTToast.show({
                             icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
                             progress: true,
@@ -891,7 +820,7 @@
                             return;
                         }
                         $('#checkbox_batch').addClass('hidden');
-                        $('#exilednoname_table').DataTable().draw(false);
+                        table.draw(false);
                         KTToast.show({
                             icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
                             progress: true,

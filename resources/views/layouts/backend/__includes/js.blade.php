@@ -34,7 +34,7 @@
         dateFormat: "Y-m-d",
         altInput: true,
         altFormat: "d F Y",
-        allowInput: false,
+        allowInput: true,
         disableMobile: true
     });
 </script>

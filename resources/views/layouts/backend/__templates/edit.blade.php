@@ -7,7 +7,7 @@
             <div class="kt-card-header">
                 <h3 class="kt-card-title"> Edit </h3>
                 <div class="kt-menu" data-kt-menu="true">
-                    <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-arrow-up-right"></i></button></a>
+                    <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-black-right-line"></i></button></a>
                     <div id="tooltip_back" class="kt-tooltip">
                         Back
                     </div>

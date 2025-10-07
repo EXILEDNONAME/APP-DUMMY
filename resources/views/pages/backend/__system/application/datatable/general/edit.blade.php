@@ -1,2 +1,2 @@
-@extends('layouts.backend.__templates.edit', ['active' => 'true', 'file' => 'true'])
+@extends('layouts.backend.__templates.edit', ['active' => 'true', 'date' => 'true', 'file' => 'true'])
 @section('title', 'Datatable Generals')
