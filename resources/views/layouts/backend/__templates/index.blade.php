@@ -167,7 +167,7 @@
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-index.js"></script>
 
 @if (!empty($charts) && $charts == 'true')
-<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script> 
+<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 <script>
     fetch(this_url + '/chart')
         .then(response => response.json())
@@ -258,7 +258,7 @@
                 yaxis: {
                     min: 0,
                     max: 100,
-                    tickAmount: 5, // This will create 5 ticks: 0, 20, 40, 60, 80, 100
+                    tickAmount: 5,
                     axisTicks: {
                         show: false,
                     },
@@ -417,7 +417,6 @@
             var realSrc = $img.attr('data-src');
             var currentSrc = $img.attr('src');
 
-            // Ganti src hanya kalau masih pakai placeholder
             if (realSrc && currentSrc !== realSrc) {
                 $img.attr('src', realSrc);
             }

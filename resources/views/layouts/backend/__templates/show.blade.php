@@ -125,8 +125,6 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- <div class="kt-card-footer"></div> -->
             </div>
         </div>
     </div>
@@ -139,8 +137,8 @@
                 <div class="kt-card-header">
                     <h3 class="kt-card-title text-sm grid gap-5"> Activities </h3>
                     <div class="kt-menu">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" onclick="printData('printDataActivities')"><i class="ki-filled ki-printer"></i></button>
-                        <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-black-right-line"></i></button></a>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printDataActivities')"><i class="ki-filled ki-printer"></i></button>
+                        <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
                         <div id="tooltip_back" class="kt-tooltip">
                             Back
                         </div>

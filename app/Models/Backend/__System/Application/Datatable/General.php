@@ -17,6 +17,7 @@ class General extends Model
     protected $guarded = ['id'];
     protected static $logAttributes = ['*'];
     protected static $recordEvents = ['created', 'deleted', 'updated'];
+    protected $casts = ['date' => 'date'];
 
     public function getActivitylogOptions(): LogOptions
     {

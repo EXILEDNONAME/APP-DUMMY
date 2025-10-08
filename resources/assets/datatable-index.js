@@ -324,6 +324,11 @@ $(document).ready(function () {
             type: "get",
             url: this_url + "/active/" + id,
             success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    table.ajax.reload();
+                    return;
+                }
                 var scrollTop = $(window).scrollTop();
                 table.ajax.reload(function () {
                     $(window).scrollTop(scrollTop);
@@ -343,6 +348,11 @@ $(document).ready(function () {
             type: "get",
             url: this_url + "/inactive/" + id,
             success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    table.ajax.reload();
+                    return;
+                }
                 var scrollTop = $(window).scrollTop();
                 table.ajax.reload(function () {
                     $(window).scrollTop(scrollTop);
@@ -379,6 +389,11 @@ $(document).ready(function () {
                     },
                     data: 'EXILEDNONAME=' + strEXILEDNONAME,
                     success: function (data) {
+                        if (data.status && data.status === 'error') {
+                            toast_notification(data.message);
+                            table.ajax.reload();
+                            return;
+                        }
                         $('#checkbox_batch').addClass('hidden');
                         table.draw(false);
                         toast_notification(translations.default.notification.success.selected_active);
@@ -416,7 +431,8 @@ $(document).ready(function () {
                     data: 'EXILEDNONAME=' + strEXILEDNONAME,
                     success: function (data) {
                         if (data.status && data.status === 'error') {
-                            toastr.error(data.message);
+                            toast_notification(data.message);
+                            table.ajax.reload();
                             return;
                         }
                         $('#checkbox_batch').addClass('hidden');
@@ -455,6 +471,11 @@ $(document).ready(function () {
                     },
                     data: 'EXILEDNONAME=' + strEXILEDNONAME,
                     success: function (data) {
+                        if (data.status && data.status === 'error') {
+                            toast_notification(data.message);
+                            table.ajax.reload();
+                            return;
+                        }
                         $('#checkbox_batch').addClass('hidden');
                         table.draw(false);
                         toast_notification(translations.default.notification.success.selected_delete);
@@ -483,6 +504,11 @@ $(document).ready(function () {
                     type: "get",
                     url: this_url + "/delete/" + id,
                     success: function (data) {
+                        if (data.status && data.status === 'error') {
+                            toast_notification(data.message);
+                            table.ajax.reload();
+                            return;
+                        }
                         table.draw(false);
                         toast_notification(translations.default.notification.success.item_deleted);
                     },

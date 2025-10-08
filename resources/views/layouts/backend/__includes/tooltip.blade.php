@@ -1,5 +1,15 @@
 <script>
     $('<div>', {
+        id: 'tooltip_activities',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.activities') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_back',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.back') }}"
+    }).appendTo('body');
+    $('<div>', {
         id: 'tooltip_create',
         class: 'kt-tooltip',
         text: "{{ __('default.label.create') }}"
@@ -13,6 +23,11 @@
         id: 'tooltip_print',
         class: 'kt-tooltip',
         text: "{{ __('default.label.print') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_preview',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.preview') }}"
     }).appendTo('body');
     $('<div>', {
         id: 'tooltip_reload',
@@ -78,5 +93,10 @@
         id: 'tooltip_reset',
         class: 'kt-tooltip',
         text: "{{ __('default.label.reset') }}"
+    }).appendTo('body');
+    $('<div>', {
+        id: 'tooltip_trash',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.trash') }}"
     }).appendTo('body');
 </script>
