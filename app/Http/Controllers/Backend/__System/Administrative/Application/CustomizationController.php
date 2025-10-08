@@ -50,13 +50,10 @@ class CustomizationController extends Controller implements HasMiddleware
     public function update(Request $request)
     {
         $updated = $this->model::where('id', 1)->update([
-            'topbar_cart'          => $request->get('topbar_cart'),
-            'topbar_chat'          => $request->get('topbar_chat'),
-            'topbar_notifications' => $request->get('topbar_notifications'),
-            'topbar_panel'         => $request->get('topbar_panel'),
-            'topbar_quick_actions' => $request->get('topbar_quick_actions'),
-            'topbar_search'        => $request->get('topbar_search'),
-            'sticky_toolbar'       => $request->get('sticky_toolbar'),
+            'topbar_application'    => $request->get('topbar_application'),
+            'topbar_chat'           => $request->get('topbar_chat'),
+            'topbar_notification'   => $request->get('topbar_notification'),            
+            'topbar_search'         => $request->get('topbar_search'),
         ]);
 
         Artisan::call('cache:clear');

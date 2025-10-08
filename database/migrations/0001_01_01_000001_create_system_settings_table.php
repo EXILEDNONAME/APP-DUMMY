@@ -10,13 +10,10 @@ return new class extends Migration
     {
         Schema::create('system_customizations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('topbar_cart')->default(1);
+            $table->integer('topbar_application')->default(1);
             $table->integer('topbar_chat')->default(1);
-            $table->integer('topbar_notifications')->default(1);
-            $table->integer('topbar_panel')->default(1);
-            $table->integer('topbar_quick_actions')->default(1);
+            $table->integer('topbar_notification')->default(1);
             $table->integer('topbar_search')->default(1);
-            $table->integer('sticky_toolbar')->default(1);
             $table->timestamps();
         });
         Schema::create('system_optimizations', function (Blueprint $table) {

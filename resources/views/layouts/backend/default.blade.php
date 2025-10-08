@@ -41,8 +41,8 @@
             @include('layouts.backend.__includes.footer')
         </div>
     </div>
-
-    <!-- @!include('layouts.backend.__includes.modal-search') -->
+    
+    @include('layouts.backend.__includes.modal-search')
     @include('layouts.backend.__includes.js')
 
     <div class="kt-modal" data-kt-modal="true" id="modalLogout">

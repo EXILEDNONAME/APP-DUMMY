@@ -73,17 +73,17 @@ class OptimizationController extends Controller implements HasMiddleware
     public function start_optimizing($id)
     {
         if ($id == 1) {
-            $data_1 = Artisan::call('optimize:clear');
-            $data_2 = Artisan::call('config:clear');
-            return Response::json([$data_1, $data_2]);
-        }
-        if ($id == 3) {
-            $data = Artisan::call('cache:clear');
+            $data = system('composer dump-autoload');
             return Response::json($data);
         }
         if ($id == 2) {
-            $data = system('composer dump-autoload');
+            $data = Artisan::call('cache:clear');
             return Response::json($data);
+        }
+        if ($id == 3) {
+            $data_1 = Artisan::call('optimize:clear');
+            $data_2 = Artisan::call('config:clear');
+            return Response::json([$data_1, $data_2]);
         }
     }
 }

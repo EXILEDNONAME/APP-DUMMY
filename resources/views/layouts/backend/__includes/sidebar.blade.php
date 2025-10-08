@@ -196,7 +196,7 @@
                     </div>
                 </div>
             </div>
-                <div class="kt-menu-item {{ (request()->is('dashboard/administratives/managements*')) ? 'show' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
+            <div class="kt-menu-item {{ (request()->is('dashboard/administratives/managements*')) ? 'show' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <div class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-paintbucket text-lg"></i></span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
@@ -227,9 +227,7 @@
                     <div class="kt-menu-item {{ (request()->is('dashboard/administratives/managements/users*')) ? 'active' : '' }}">
                         <a href="/dashboard/administratives/managements/users" class="kt-menu-link border border-transparent items-center grow kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 hover:rounded-lg gap-[14px] ps-[10px] pe-[10px] py-[8px]">
                             <span class="kt-menu-bullet flex w-[6px] -start-[3px] rtl:start-0 relative before:absolute before:top-0 before:size-[6px] before:rounded-full rtl:before:translate-x-1/2 before:-translate-y-1/2 kt-menu-item-active:before:bg-primary kt-menu-item-hover:before:bg-primary"></span>
-                            <span class="kt-menu-title text-2sm font-normal text-foreground kt-menu-item-active:text-primary kt-menu-item-active:font-semibold kt-menu-link-hover:!text-primary">
-                                Users
-                            </span>
+                            <span class="kt-menu-title text-2sm font-normal text-foreground kt-menu-item-active:text-primary kt-menu-item-active:font-semibold kt-menu-link-hover:!text-primary"> Users </span>
                         </a>
                     </div>
                 </div>

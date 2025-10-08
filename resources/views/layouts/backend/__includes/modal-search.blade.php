@@ -1,3 +1,4 @@
+@if($customizations?->topbar_search)
 <div class="kt-modal" data-kt-modal="true" id="search_modal">
     <div class="kt-modal-content max-w-[600px] top-[15%]">
         <div class="kt-modal-header py-4 px-5">
@@ -878,3 +879,4 @@
         </div>
     </div>
 </div>
+@endif
