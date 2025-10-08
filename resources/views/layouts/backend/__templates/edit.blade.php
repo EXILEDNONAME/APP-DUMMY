@@ -17,7 +17,6 @@
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
                 <div class="kt-card-content p-7.5 grid gap-5">
-
                     @include($path . 'form', ['formMode' => 'edit'])
                     @include('layouts.backend.__extensions.form.date')
                     @include('layouts.backend.__extensions.form.daterange')

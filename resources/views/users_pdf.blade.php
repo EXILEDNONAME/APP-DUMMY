@@ -43,7 +43,7 @@
         <tbody>
             @foreach($data as $row)
             <tr>
-                <td>{{ $row['autonumber'] }}</td>
+                <td>{{ $row->autonumber }}</td>
                 @foreach($columns as $col)
                 @php
                 $value = $row[$col['field']] ?? '-';

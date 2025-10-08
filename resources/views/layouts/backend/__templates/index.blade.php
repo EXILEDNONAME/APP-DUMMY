@@ -84,7 +84,7 @@
                             <tr>
                                 <th class="w-px whitespace-nowrap no-export"></th>
                                 <th style="display: none"> {{ __('default.label.created_at') }} </th>
-                                <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
                                 @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> Status </span></span></th> @endif
                                 @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> File </span></span></th> @endif
                                 @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label kt-card-title text-sm"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
@@ -138,9 +138,9 @@
     </div>
 </div>
 
+@if (!empty($charts) && $charts == 'true')
 <div class="lg:col-span-2">
     <div class="grid">
-
         <div class="kt-card kt-card-grid w-full">
             <div class="kt-card-header">
                 <h3 class="kt-card-title text-sm grid gap-5"> Charts </h3>
@@ -159,21 +159,22 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 @push('js')
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-plugins.js"></script>
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/datatable-index.js"></script>
-<script>
-    
-</script>
 
+@if (!empty($charts) && $charts == 'true')
+<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script> 
 <script>
-    class KTExampleAreaChart {
-        static init() {
-            const created = [75, 25, 25, 55, 25, 15, 30, 25, 35, 15, 45, 30];
-            const updated = [20, 15, 35, 65, 45, 45, 20, 25, 35, 15, 45, 30];
-            const deleted = [45, 29, 42, 75, 85, 55, 60, 25, 35, 15, 45, 30];
+    fetch(this_url + '/chart')
+        .then(response => response.json())
+        .then(data => {
+            const created = data.created;
+            const updated = data.updated;
+            const deleted = data.deleted;
             const categories = [
                 "{{ __('default.month.january') }}",
                 "{{ __('default.month.february') }}",
@@ -273,34 +274,6 @@
                 },
                 tooltip: {
                     enabled: true,
-                    // custom({ series, seriesIndex, dataPointIndex, w }) {
-                    // 	const number = parseInt(series[seriesIndex][dataPointIndex]) * 1000;
-                    // 	const month = w.globals.seriesX[seriesIndex][dataPointIndex];
-                    // 	const monthName = categories[month];
-
-                    // 	const formatter = new Intl.NumberFormat('en-US', {
-                    // 		style: 'currency',
-                    // 		currency: 'USD',
-                    // 	});
-
-                    // 	const formattedNumber = formatter.format(number);
-
-                    // 	return `
-                    //         <div class="flex flex-col gap-2 p-3.5">
-                    //         <div class="font-medium text-2sm text-white">
-                    //         ${monthName}, 2025 Sales
-                    //         </div>
-                    //         <div class="flex items-center gap-1.5">
-                    //         <div class="font-semibold text-md text-mono">
-                    //         ${formattedNumber}
-                    //         </div>
-                    //         <span class="kt-kt-badge kt-kt-badge-outline kt-kt-badge-success kt-badge-sm">
-                    //         +24%
-                    //         </span>
-                    //         </div>
-                    //         </div>
-                    //     `;
-                    // },
                 },
                 markers: {
                     size: 0,
@@ -352,12 +325,7 @@
 
             const chart = new ApexCharts(element, options);
             chart.render();
-        }
-    }
-
-    KTDom.ready(() => {
-        KTExampleAreaChart.init();
-    });
+        })
 
     function printDataCharts(divName) {
         var printContents = document.getElementById(divName).innerHTML;
@@ -367,6 +335,7 @@
         document.body.innerHTML = originalContents;
     }
 </script>
+@endif
 
 <script>
     ! function(t, e) {

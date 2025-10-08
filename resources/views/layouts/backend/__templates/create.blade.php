@@ -35,7 +35,6 @@
 @endsection
 
 @push('js')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     $('#exilednoname-form').on('submit', function(e) {
         e.preventDefault();
@@ -54,7 +53,6 @@
             xhr: function() {
                 let xhr = new window.XMLHttpRequest();
 
-                // ✅ progress hanya ditrigger kalau ada file
                 if (hasFile) {
                     xhr.upload.addEventListener("progress", function(evt) {
                         if (evt.lengthComputable) {
@@ -80,41 +78,29 @@
                     progressBar.show();
                     bar.css('width', '0%').text('0%');
                 } else {
-                    progressBar.hide(); // ⛔ kalau tidak ada file, pastikan progress disembunyikan
+                    progressBar.hide();
                 }
             },
 
             success: function(res) {
                 $('.kt-form-message').remove();
                 $('[aria-invalid="true"]').attr('aria-invalid', 'false').removeClass('border-red-500');
-
-                if (res.status === 'success') {
+                if (['success', 'error'].includes(res.status)) {
                     window.location.href = res.redirect_url;
-                } else if (res.status === 'error') {
-                    window.location.href = res.redirect_url;
-                } else {
-                    alert(res.message);
                 }
             },
 
             error: function(xhr) {
                 if (xhr.status === 422) {
-                    // hapus pesan error lama
                     $('.kt-form-message').remove();
                     $('[aria-invalid="true"]').attr('aria-invalid', 'false').removeClass('border-red-500');
 
                     let errors = xhr.responseJSON.errors;
                     $.each(errors, function(key, value) {
                         let input = $('[name="' + key + '"]');
-
-                        // kasih tanda invalid
                         input.attr('aria-invalid', 'true');
                         input.addClass('border-red-500');
-
-                        // tambahin pesan error custom
-                        input.closest('.kt-form-control')
-                            .next('.kt-form-message')
-                            .text(value[0]);
+                        input.closest('.kt-form-control').next('.kt-form-message').text(value[0]);
                         input.after('<div class="kt-form-message">' + value[0] + '</div>');
                     });
                 }

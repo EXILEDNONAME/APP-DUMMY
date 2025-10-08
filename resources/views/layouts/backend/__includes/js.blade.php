@@ -33,7 +33,8 @@
 <script src="{{ env('APP_URL') }}/assets/backend/js/jquery-3.7.1.min.js"></script>
 <script src="{{ env('APP_URL') }}/assets/backend/js/sweetalert.js"></script>
 <script src="{{ env('APP_URL') }}/assets/backend/js/flatpickr.js"></script>
-<script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script> -->
+-->
+
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/app-core.js"></script>
 <script>
     flatpickr("#datepicker", {
