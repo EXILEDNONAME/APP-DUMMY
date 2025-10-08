@@ -212,9 +212,10 @@ $(document).ready(function () {
         e.preventDefault();
         table.button(3).trigger();
     });
-    $('#export_pdf').on('click', function () {
 
+    $('#export_pdf').on('click', function () {
         let info = table.page.info();
+        let order = table.order()[0]; // [ [columnIndex, direction] ]
         let columns = [];
         let selectedIds = [];
 
@@ -229,16 +230,18 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: '{{ URL::Current() }}/export-users-pdf',
+            url: this_url + '/export-users-pdf',
             method: 'POST',
             data: {
                 ids: selectedIds.join(','),
                 columns: columns,
-                length: info.length,
+                page: info.page + 1, // current page (1-based)
+                length: info.length, // per-page length
+                order_by: table.settings()[0].aoColumns[order[0]].data, // ambil nama kolom aktif
+                order_dir: order[1],
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
         });
-
     });
 
     // TABLE SEARCH
@@ -413,6 +416,11 @@ $(document).ready(function () {
                 });
             }
         });
+    });
+
+    $('#perpage').on('change', function () {
+        let perPage = $(this).val();
+        table.page.len(perPage).draw();
     });
 
 });

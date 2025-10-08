@@ -7,6 +7,7 @@ trait ExtensionController
     // CONTROLLER EXTENSIONS
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\ActiveController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\ChartController;
+    use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\ExportController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\InactiveController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\SelectedActiveController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\SelectedInactiveController;

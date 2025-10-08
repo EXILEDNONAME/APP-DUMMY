@@ -34,7 +34,7 @@
     <table>
         <thead>
             <tr>
-                <!-- <th>No</th> -->
+                <th>No</th>
                 @foreach($columns as $col)
                 <th>{{ $col['label'] }}</th>
                 @endforeach
@@ -43,14 +43,14 @@
         <tbody>
             @foreach($data as $row)
             <tr>
-
+                <td>{{ $row['autonumber'] }}</td>
                 @foreach($columns as $col)
                 @php
                 $value = $row[$col['field']] ?? '-';
 
                 // mapping otomatis kolom active
                 if ($col['field'] === 'active') {
-                $value = ($value == 1) ? 'Active' : 'Inactive';
+                $value = ($value == 1) ? 'Yes' : 'No';
                 }
 
                 if ($col['field'] === 'status') {
