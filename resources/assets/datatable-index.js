@@ -215,7 +215,7 @@ $(document).ready(function () {
 
     $('#export_pdf').on('click', function () {
         let info = table.page.info();
-        let order = table.order()[0]; // [ [columnIndex, direction] ]
+        let order = table.order()[0];
         let columns = [];
         let selectedIds = [];
 
@@ -235,9 +235,9 @@ $(document).ready(function () {
             data: {
                 ids: selectedIds.join(','),
                 columns: columns,
-                page: info.page + 1, // current page (1-based)
-                length: info.length, // per-page length
-                order_by: table.settings()[0].aoColumns[order[0]].data, // ambil nama kolom aktif
+                page: info.page + 1,
+                length: info.length,
+                order_by: table.settings()[0].aoColumns[order[0]].data,
                 order_dir: order[1],
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
@@ -351,6 +351,82 @@ $(document).ready(function () {
             },
             error: function (data) {
                 toast_notification(translations.default.notification.error.error);
+            }
+        });
+    });
+
+    // SELECTED ACTIVE
+    $('#selected-active').on('click', function (e) {
+        var exilednonameArr = [];
+        $(".checkable:checked").each(function () {
+            exilednonameArr.push($(this).attr('data-id'));
+        });
+        var strEXILEDNONAME = exilednonameArr.join(",");
+        Swal.fire({
+            text: translations.default.notification.confirm.selected_active + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: translations.default.label.yes,
+            cancelButtonText: translations.default.label.no,
+            reverseButtons: false
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    url: this_url + "/selected-active",
+                    type: 'get',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                    success: function (data) {
+                        $('#checkbox_batch').addClass('hidden');
+                        table.draw(false);
+                        toast_notification(translations.default.notification.success.selected_active);
+                    },
+                    error: function (data) {
+                        toast_notification(translations.default.notification.error.error);
+                    }
+                });
+            }
+        });
+    });
+
+    // SELECTED INACTIVE
+    $('#selected-inactive').on('click', function (e) {
+        var exilednonameArr = [];
+        $(".checkable:checked").each(function () {
+            exilednonameArr.push($(this).attr('data-id'));
+        });
+        var strEXILEDNONAME = exilednonameArr.join(",");
+        Swal.fire({
+            text: translations.default.notification.confirm.selected_inactive + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: translations.default.label.yes,
+            cancelButtonText: translations.default.label.no,
+            reverseButtons: false
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    url: this_url + "/selected-inactive",
+                    type: 'get',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
+                    success: function (data) {
+                        if (data.status && data.status === 'error') {
+                            toastr.error(data.message);
+                            return;
+                        }
+                        $('#checkbox_batch').addClass('hidden');
+                        table.draw(false);
+                        toast_notification(translations.default.notification.success.selected_inactive);
+                    },
+                    error: function (data) {
+                        toast_notification(translations.default.notification.error.error);
+                    }
+                });
             }
         });
     });
