@@ -33,6 +33,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - CONFIRM SELECTED ACTIVE
     - CONFIRM SELECTED INACTIVE
     - CONFIRM SELECTED DELETE
+    - EXPORT FULL (COPY, CSV, EXCEL, PDF & PRINT)
 - PAGE SHOW
     - REFRESH ACTIVITIES
     - CONFIRM DELETE
