@@ -5,7 +5,7 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title text-sm grid gap-5"> Main </h3>
+                <h3 class="kt-card-title text-sm grid gap-5"> Trash </h3>
 
                 <div class="kt-menu">
                     <a href="{{ URL::Current() }}/create"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-plus"></i></button></a>
@@ -183,13 +183,13 @@
     <!-- <div class="kt-drawer-footer">Footer</div> -->
 </div>
 
-<button onclick="openConfirmModal()" 
+<button onclick="openConfirmModal()"
     class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
     Hapus Data
 </button>
-<div id="confirmModal" 
+<div id="confirmModal"
     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    
+
     <!-- Modal -->
     <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
         <!-- Header -->
@@ -202,11 +202,11 @@
 
         <!-- Footer -->
         <div class="flex justify-end gap-2">
-            <button onclick="closeConfirmModal()" 
+            <button onclick="closeConfirmModal()"
                 class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg">
                 Batal
             </button>
-            <button onclick="hapusData()" 
+            <button onclick="hapusData()"
                 class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
                 Hapus
             </button>
@@ -216,72 +216,43 @@
 @endsection
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  }
-});
-</script>
-<script>
-    window.onload = function() {
-        KTToast.show({
-            icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
-            message: 'Success',
-            progress: true,
-            pauseOnHover: true,
-            maxToasts: 3,
-            position: 'bottom-end',
-            variant: 'mono',
-        });
-
-    };
-</script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
 <script>
-    $('body').on('click', '#restore', function () {
-    var id = $(this).data("id");
-    Swal.fire({ text: "{{ __('default.notification.confirm.restore') }}?", icon: "warning", showCancelButton: true, 
-        confirmButtonText: "{{ __('default.label.yes') }}", 
-        cancelButtonText: "{{ __('default.label.no') }}", reverseButtons: false }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "get", url:  "{{ URL::Current() }}/../restore/" + id,
-                success: function (data) {
-                    // KTApp.block('#exilednoname_body', {
-                    //     overlayColor: '#000000',
-                    //     state: 'info',
-                    //     message: "{{ __('default.label.processing') }} ..."
-                    // });
-                    setTimeout(function () {
-                        KTApp.unblock('#exilednoname_body');
-                        var oTable = $('#exilednoname_table').dataTable();
-                        oTable.fnDraw(false);
-                        // toastr.success(__('default.notification.success.item_restored'));
-                    }, 500);
-                },
-                error: function (data) {
-                    // toastr.error(translations.default.notification.error.error);
-                }
-            });
-        }
+    $('body').on('click', '#restore', function() {
+        var id = $(this).data("id");
+        Swal.fire({
+            text: "{{ __('default.notification.confirm.restore') }}?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "{{ __('default.label.yes') }}",
+            cancelButtonText: "{{ __('default.label.no') }}",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ URL::Current() }}/../restore/" + id,
+                    success: function(data) {
+                        // KTApp.block('#exilednoname_body', {
+                        //     overlayColor: '#000000',
+                        //     state: 'info',
+                        //     message: "{{ __('default.label.processing') }} ..."
+                        // });
+                        setTimeout(function() {
+                            KTApp.unblock('#exilednoname_body');
+                            var oTable = $('#exilednoname_table').dataTable();
+                            oTable.fnDraw(false);
+                            // toastr.success(__('default.notification.success.item_restored'));
+                        }, 500);
+                    },
+                    error: function(data) {
+                        // toastr.error(translations.default.notification.error.error);
+                    }
+                });
+            }
+        });
     });
-});
-    </script>
+</script>
 <script>
     function renderPaginationWindow(dt, container, windowSize = 2) {
         const pageInfo = dt.page.info();
@@ -307,7 +278,6 @@
         firstBtn.addEventListener("click", () => dt.page(0).draw(false));
         container.appendChild(firstBtn);
 
-        // ... sebelum window
         if (currentPage - windowSize > 1) {
             const dots = document.createElement("span");
             dots.textContent = "...";
@@ -315,7 +285,6 @@
             container.appendChild(dots);
         }
 
-        // Window sekitar current page
         const start = Math.max(1, currentPage - windowSize);
         const end = Math.min(totalPages - 2, currentPage + windowSize);
         for (let i = start; i <= end; i++) {
@@ -327,7 +296,6 @@
             container.appendChild(btn);
         }
 
-        // ... setelah window
         if (currentPage + windowSize < totalPages - 2) {
             const dots = document.createElement("span");
             dots.textContent = "...";
@@ -335,7 +303,6 @@
             container.appendChild(dots);
         }
 
-        // Halaman terakhir
         if (totalPages > 1) {
             const lastBtn = document.createElement("button");
             lastBtn.className = "kt-datatable-pagination-button";
@@ -345,7 +312,6 @@
             container.appendChild(lastBtn);
         }
 
-        // Next
         const nextBtn = document.createElement("button");
         nextBtn.className = "kt-datatable-pagination-button kt-datatable-pagination-next";
         nextBtn.disabled = currentPage === totalPages - 1;

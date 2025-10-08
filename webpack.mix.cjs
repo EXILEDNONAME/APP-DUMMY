@@ -33,7 +33,6 @@ mix.scripts([
     'public/assets/backend/js/jquery-3.7.1.min.js',
     'public/assets/backend/js/sweetalert.js',
     'public/assets/backend/js/flatpickr.js',
-    // 'public/assets/backend/vendors/apexcharts/apexcharts.min.js',
 ], 'public/assets/backend/mix/js/app-core.js');
 
 // DATATABLE
@@ -43,7 +42,8 @@ mix.scripts([
     'public/assets/backend/js/datatables/buttons.html5.min.js',
     'public/assets/backend/js/datatables/buttons.print.min.js',
     'public/assets/backend/js/datatables/select.min.js',
-], 'public/assets/backend/mix/js/datatable-plugins.js');
+    'public/assets/backend/js/datatables/render-pagination.js',
+], 'public/assets/backend/mix/js/exilednoname-dt-plugins.js');
 
 // // APP JS
 // mix.scripts([

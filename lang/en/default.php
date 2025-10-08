@@ -82,6 +82,7 @@ return [
         'reset_password'                => 'Reset Password',
         'restore'                       => 'Restore',
         'save'                          => 'Save',
+        'save_changes'                  => 'Save Changes',
         'search'                        => 'Search',
         'selected_active'               => 'Selected Set Active',
         'selected_inactive'             => 'Selected Set Inactive',
