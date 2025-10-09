@@ -1,3 +1,5 @@
+// DELETE
+
 var defaultCopy = $.fn.dataTable.ext.buttons.copyHtml5.action;
 $.fn.dataTable.ext.buttons.copyHtml5.action = function (e, dt, button, config) {
     defaultCopy.apply(this, arguments);
@@ -6,6 +8,41 @@ $.fn.dataTable.ext.buttons.copyHtml5.action = function (e, dt, button, config) {
 };
 
 $(document).ready(function () {
+
+    let selectedIds = [];
+
+    function safeStrip(data, node) {
+        // Jika cell mengandung checkbox (switch), kembalikan Active/Inactive
+        if (node && $(node).find('input[type="checkbox"]').length) {
+            return $(node).find('input[type="checkbox"]').is(':checked') ? translations.default.label.yes : translations.default.label.no;
+        }
+
+        // Jika data null/undefined, kembalikan empty string
+        if (data === null || data === undefined) return '';
+
+        // Jika data sudah berupa string, bersihkan HTML dan trim
+        if (typeof data === 'string') {
+            return data.replace(/<[^>]*>?/gm, '').trim();
+        }
+
+        // Jika data adalah number / boolean, konversi ke string
+        if (typeof data === 'number' || typeof data === 'boolean') {
+            return String(data);
+        }
+
+        // Kalau data adalah objek (mis. node), coba ambil textContent dari node parameter
+        if (node && node.textContent) {
+            return String(node.textContent).trim();
+        }
+
+        // Fallback aman
+        try {
+            return String(data).replace(/<[^>]*>?/gm, '').trim();
+        } catch (e) {
+            return '';
+        }
+    }
+
     var defaultSort = sort.split(',').map((item, index) => {
         return index === 0 ? parseInt(item.trim()) : item.trim();
     });
@@ -32,7 +69,7 @@ $(document).ready(function () {
         },
         language: {
             loadingRecords: "",
-            emptyTable: '<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center">' + translations.default.label.no_data_available + '</span></div>'
+            emptyTable: '<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center">' + translations.default.label.no_data_available + ' ... </span></div>'
         },
         drawCallback: function () {
             renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
@@ -131,7 +168,7 @@ $(document).ready(function () {
                             <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
                                 <div class="kt-menu-item"><a class="kt-menu-link" href="${this_url}/${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> ${translations.default.label.view} </span></a></div>
                                 <div class="kt-menu-item"><a class="kt-menu-link" href="${this_url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-message-edit"></i></span><span class="kt-menu-title"> ${translations.default.label.edit} </span></a></div>
-                                <div class="kt-menu-item"><a class="kt-menu-link" id="single_delete" data-id="${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-trash-square"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.delete} </span></a></div>
+                                <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalDelete"><span class="kt-menu-icon"><i class="ki-filled ki-trash-square"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.delete} </span></a></div>
                             </div>
                         </div>
                     </div>
@@ -139,109 +176,132 @@ $(document).ready(function () {
             }
         },
         ],
-        buttons: [{
-            extend: 'print',
-            title: '',
-            exportOptions: {
-                rows: function (idx, data, node) {
-                    var selectedCount = table.rows('.selected').count();
-                    if (selectedCount > 0) {
-                        return $(node).hasClass('selected');
+        buttons: [
+            {
+                extend: 'print',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
                     }
-                    return true;
-                },
-                columns: "thead th:not(.no-export)",
-                orthogonal: "Export",
-            },
-        },
-        {
-            extend: 'copyHtml5',
-            title: '',
-            autoClose: 'true',
-            exportOptions: {
-                rows: function (idx, data, node) {
-                    var selectedCount = table.rows('.selected').count();
-                    if (selectedCount > 0) {
-                        return $(node).hasClass('selected');
-                    }
-                    return true;
-                },
-                columns: "thead th:not(.no-export)",
-                orthogonal: "Export"
-            },
-
-        },
-        {
-            extend: 'pdfHtml5',
-            title: '',
-            exportOptions: {
-                columns: "thead th:not(.no-export)",
-                orthogonal: "Export"
-            },
-        },
-        {
-            extend: 'excelHtml5',
-            title: '',
-            exportOptions: {
-                columns: "thead th:not(.no-export)",
-                orthogonal: "Export",
-                rows: {
-                    selected: true
                 }
             },
-        },
+            {
+                extend: 'copyHtml5',
+                title: '',
+                autoClose: true,
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+
+            // --- versi SELECTED ROWS ---
+            {
+                extend: 'print',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    rows: { selected: true },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'copyHtml5',
+                title: '',
+                autoClose: true,
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    rows: { selected: true },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    rows: { selected: true },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                title: '',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    rows: { selected: true },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
         ],
+        rowId: 'Collocation',
+        select: {
+            style: 'multi',
+            selector: 'td:first-child .checkable',
+        },
         order: [defaultSort]
     });
 
-    $('#export_copy').on('click', function (e) {
-        e.preventDefault();
-        table.button(1).trigger();
-    });
-    $('#export_csv').on('click', function (e) {
-        e.preventDefault();
-        table.button(2).trigger();
-    });
-    $('#export_print').on('click', function (e) {
-        e.preventDefault();
-        table.button(0).trigger();
-    });
-
-    $('#export_excel').on('click', function (e) {
-        e.preventDefault();
-        table.button(3).trigger();
-    });
-
-    $('#export_pdf').on('click', function () {
-        let info = table.page.info();
-        let order = table.order()[0];
-        let columns = [];
-        let selectedIds = [];
-
-        $('#exilednoname_table thead th').each(function () {
-            if (!$(this).hasClass('no-export')) {
-                columns.push($(this).text().trim());
-            }
-        });
-
-        $('#exilednoname_table .checkable:checked').each(function () {
-            selectedIds.push($(this).data('id'));
-        });
-
-        $.ajax({
-            url: this_url + '/export-users-pdf',
-            method: 'POST',
-            data: {
-                ids: selectedIds.join(','),
-                columns: columns,
-                page: info.page + 1,
-                length: info.length,
-                order_by: table.settings()[0].aoColumns[order[0]].data,
-                order_dir: order[1],
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-        });
-    });
+    $('#export_print').on('click', function (e) { e.preventDefault(); table.button(0).trigger(); });
+    $('#export_copy').on('click', function (e) { e.preventDefault(); table.button(1).trigger(); });
+    $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
+    $('#export_pdf').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
 
     // TABLE SEARCH
     $('#table_search').on('keyup', function () {
@@ -352,42 +412,30 @@ $(document).ready(function () {
     });
 
     // SELECTED ACTIVE
-    $('#selected-active').on('click', function (e) {
-        var exilednonameArr = [];
-        $(".checkable:checked").each(function () {
-            exilednonameArr.push($(this).attr('data-id'));
-        });
-        var strEXILEDNONAME = exilednonameArr.join(",");
-        Swal.fire({
-            text: translations.default.notification.confirm.selected_active + "?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: translations.default.label.yes,
-            cancelButtonText: translations.default.label.no,
-            reverseButtons: false
-        }).then(function (result) {
-            if (result.value) {
-                $.ajax({
-                    url: this_url + "/selected-active",
-                    type: 'get',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
-                    success: function (data) {
-                        if (data.status && data.status === 'error') {
-                            toast_notification(data.message);
-                            table.ajax.reload();
-                            return;
-                        }
-                        $('#checkbox_batch').addClass('hidden');
-                        table.draw(false);
-                        toast_notification(translations.default.notification.success.selected_active);
-                    },
-                    error: function (data) {
-                        toast_notification(translations.default.notification.error.error);
-                    }
-                });
+    $('body').on('click', '[data-kt-modal-toggle="#modalSelectedActive"]', function () {
+        selectedIds = [];
+        $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+        $('#modalSelectedActive').attr('data-ids', selectedIds.join(','));
+    });
+
+    $('body').on('click', '.btn-confirm-selected-active', function () {
+        let modal = KTModal.getInstance(document.querySelector('#modalSelectedActive'));
+        let ids = $('#modalSelectedActive').attr('data-ids');
+        $.ajax({
+            data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/selected-active`,
+            success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    modal.hide();
+                    table.draw(false);
+                    return;
+                }
+                toast_notification(translations.default.notification.success.selected_active);
+                modal.hide();
+                table.draw(false);
+            },
+            error: function () {
+                toast_notification(translations.default.notification.error.error);
             }
         });
     });
@@ -433,6 +481,33 @@ $(document).ready(function () {
         });
     });
 
+    // DELETE
+    $('body').on('click', '[data-kt-modal-toggle="#modalDelete"]', function () {
+        $('#modalDelete').attr('data-id', $(this).data('id'));
+    });
+
+    $('body').on('click', '.btn-confirm-delete', function () {
+        let id = $('#modalDelete').attr('data-id');
+        let modal = KTModal.getInstance(document.querySelector('#modalDelete'));
+        $.ajax({
+            type: 'GET', url: `${this_url}/delete/${id}`,
+            success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    modal.hide();
+                    table.draw(false);
+                    return;
+                }
+                toast_notification(translations.default.notification.success.item_deleted);
+                modal.hide();
+                table.draw(false);
+            },
+            error: function () {
+                toast_notification(translations.default.notification.error.error);
+            }
+        });
+    });
+
     // SELECTED DELETE
     $('#selected-delete').on('click', function (e) {
         var exilednonameArr = [];
@@ -465,38 +540,6 @@ $(document).ready(function () {
                         $('#checkbox_batch').addClass('hidden');
                         table.draw(false);
                         toast_notification(translations.default.notification.success.selected_delete);
-                    },
-                    error: function (data) {
-                        toast_notification(translations.default.notification.error.error);
-                    }
-                });
-            }
-        });
-    });
-
-    // SINGLE DELETE
-    $('body').on('click', '#single_delete', function () {
-        var id = $(this).data("id");
-        Swal.fire({
-            text: translations.default.notification.confirm.delete + "?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: translations.default.label.yes,
-            cancelButtonText: translations.default.label.no,
-            reverseButtons: false
-        }).then(function (result) {
-            if (result.value) {
-                $.ajax({
-                    type: "get",
-                    url: this_url + "/delete/" + id,
-                    success: function (data) {
-                        if (data.status && data.status === 'error') {
-                            toast_notification(data.message);
-                            table.ajax.reload();
-                            return;
-                        }
-                        table.draw(false);
-                        toast_notification(translations.default.notification.success.item_deleted);
                     },
                     error: function (data) {
                         toast_notification(translations.default.notification.error.error);

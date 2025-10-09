@@ -57,6 +57,7 @@ return [
         'failed'                        => 'Failed',
         'file'                          => 'File',
         'filter'                        => 'Filter',
+        'inactive'                      => 'Inactive',
         'in-progress'                   => 'In Progress',
         'last_updated_by'               => 'Last Updated By',
         'logs'                          => 'Logs',
