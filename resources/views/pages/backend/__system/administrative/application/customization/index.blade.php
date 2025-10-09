@@ -53,14 +53,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="flex justify-end">
-                        <button type="submit" class="kt-btn kt-btn-primary">
-                            Save Changes
-                        </button>
-                    </div>
                 </div>
             </form>
+            <div class="kt-card-footer flex justify-end space-x-2">
+                <button type="submit" form="exilednoname-form" class="kt-btn kt-btn-primary"> {{ __('default.label.save_changes') }} </button>
+            </div>
         </div>
     </div>
 </div>

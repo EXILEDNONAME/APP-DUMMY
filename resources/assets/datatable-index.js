@@ -10,7 +10,6 @@ $(document).ready(function () {
         return index === 0 ? parseInt(item.trim()) : item.trim();
     });
     var table = $('#exilednoname_table').DataTable({
-
         "initComplete": function (settings, json) {
             $('#exilednoname_table_info').appendTo('#kt-pagination');
             $('.dt-paging').appendTo('#kt-pagination');
@@ -288,12 +287,11 @@ $(document).ready(function () {
         document.querySelector('#check').indeterminate = table.rows('.selected').nodes().length > 0;
     });
 
-    // REFRESH TABLE
-    $(".table_reload").on("click", function () {
+    // TABLE RELOAD
+    $("#table_reload").on("click", function () {
         $('#checkbox_batch').addClass('hidden');
         $('.filter_form').val('');
-        table.search('').columns().search('').draw();
-        table.ajax.reload();
+        table.ajax.reload(null, false);
         toast_notification(translations.default.notification.table_reload)
     });
 

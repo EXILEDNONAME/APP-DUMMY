@@ -12,16 +12,13 @@
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
                         <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
-
                         <form method="POST" action="{{ URL::current() }}/../{{ $data->id }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf
                             <button id="delete" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_delete" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
                             <div id="tooltip_delete" class="kt-tooltip"> Delete </div>
                         </form>
-
                         <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
-                        <div id="tooltip_back" class="kt-tooltip"> Back </div>
                     </div>
                 </div>
 

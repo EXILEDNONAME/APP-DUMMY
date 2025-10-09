@@ -18,8 +18,8 @@
             </ol>
 
             <div class="flex">
-                <button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_activities" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-graph-3"></i></button>
-                <button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_trash" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
+                <a href="{{ URL::Current() }}/activities"><button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_activities" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-graph-3"></i></button></a>
+                <a href="{{ URL::Current() }}/trash"><button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_trash" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button></a>
             </div>
 
         </div>

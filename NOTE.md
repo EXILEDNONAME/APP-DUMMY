@@ -7,7 +7,7 @@
 - [COMMAND] - php artisan serve
 
 # OBFUSCATOR
-npx javascript-obfuscator resources/assets/datatable-index.js --output public/assets/backend/mix/js/datatable-index.js --compact true --control-flow-flattening true
+npx javascript-obfuscator resources/assets/datatable-index.js --output public/assets/backend/mix/js/exilednoname-dt-index.js --compact true --control-flow-flattening true
 
 # SAMPLE CRUD
 php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.json"
