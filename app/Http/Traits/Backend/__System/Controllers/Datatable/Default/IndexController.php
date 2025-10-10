@@ -32,7 +32,7 @@ trait IndexController
             $datatable = DataTables::of($query)
                 ->addIndexColumn()
                 ->editColumn('date', function ($order) {
-                    return empty($order->date) ? NULL : \Carbon\Carbon::parse($order->date)->format('d F Y, H:i');
+                    return empty($order->date) ? NULL : \Carbon\Carbon::parse($order->date)->format('d F Y');
                 })
                 ->editColumn('date_start', function ($order) {
                     return empty($order->date_start) ? NULL : \Carbon\Carbon::parse($order->date_start)->format('d F Y');

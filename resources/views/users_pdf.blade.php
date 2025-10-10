@@ -43,30 +43,12 @@
         <tbody>
             @foreach($data as $row)
             <tr>
-                <td>{{ $row->autonumber }}</td>
+                <td>{{ $row['autonumber'] }}</td>
                 @foreach($columns as $col)
                 @php
-                $value = $row[$col['field']] ?? '-';
-
-                // mapping otomatis kolom active
-                if ($col['field'] === 'active') {
-                $value = ($value == 1) ? 'Yes' : 'No';
-                }
-
-                if ($col['field'] === 'status') {
-                if ($value == 1) {
-                $value = '<span class="kt-badge kt-badge-primary"> Pending </span>';
-                } elseif ($value == 2) {
-                $value = '<span class="kt-badge kt-badge-success"> Success </span>';
-                } elseif ($value == 3) {
-                $value = 'Failed';
-                } else {
-                $value = '-';
-                }
-                }
+                $field = $col['field'];
+                $value = $row[$field] ?? '-'; // Ganti dari $row->$field jadi $row[$field]
                 @endphp
-
-
                 <td>{!! $value !!}</td>
                 @endforeach
             </tr>

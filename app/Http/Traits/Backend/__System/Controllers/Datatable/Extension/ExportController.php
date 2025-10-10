@@ -33,8 +33,51 @@ trait ExportController
 
         $data = $query->get();
 
+        $data->each(function ($item) {
+            $item->makeVisible($item->getHidden());
+            $item->append([]);
+        });
+
+        $dataArray = [];
         foreach ($data as $index => $item) {
-            $item->autonumber = $index + 1;
+            $rowData = [];
+
+            $rowData['autonumber'] = ($request->page - 1) * $request->length + $index + 1;
+
+            foreach ($columns as $col) {
+                $field = strtolower(str_replace(' ', '_', $col));
+
+                $value = $item->getAttributes()[$field] ?? null;
+
+                if ($value !== null) {
+                    if (strpos($field, 'date') !== false || strpos($field, '_at') !== false || strpos($field, 'time') !== false) {
+                        try {
+                            $carbon = \Carbon\Carbon::parse($value);
+                            // $carbon->locale('id');
+                            $value = $carbon->format('d F Y');
+                        } catch (\Exception $e) {
+                            // 
+                        }
+                    }
+
+                    if ($field === 'active') {
+                        $value = $value == 1 ? 'Yes' : 'No';
+                    }
+
+                    if ($field === 'status') {
+                        $value = match ((int)$value) {
+                            1 => 'Pending',
+                            2 => 'Success',
+                            3 => 'Failed',
+                            default => '-',
+                        };
+                    }
+                }
+
+                $rowData[$field] = $value ?? '-';
+            }
+
+            $dataArray[] = $rowData;
         }
 
         $fields = array_map(fn($col) => [
@@ -44,7 +87,7 @@ trait ExportController
 
         $pdf = PDF::loadView('users_pdf', [
             'title' => 'Export Data',
-            'data' => $data,
+            'data' => $dataArray,
             'columns' => $fields
         ]);
 

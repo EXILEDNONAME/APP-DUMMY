@@ -10,6 +10,11 @@
         text: "{{ __('default.label.back') }}"
     }).appendTo('body');
     $('<div>', {
+        id: 'tooltip_batch_action',
+        class: 'kt-tooltip',
+        text: "{{ __('default.label.batch_action') }}"
+    }).appendTo('body');
+    $('<div>', {
         id: 'tooltip_create',
         class: 'kt-tooltip',
         text: "{{ __('default.label.create') }}"

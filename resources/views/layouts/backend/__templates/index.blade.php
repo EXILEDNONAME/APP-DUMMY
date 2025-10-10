@@ -11,44 +11,30 @@
                     <button id="table_reload" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
                     <button id="toggle_filters" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
                     <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-exit-down"></i></button>
-                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                            <div class="kt-card-body grid gap-3">
-                                <div class="flex">
-                                    <div class="kt-menu-default w-px whitespace-nowrap" data-kt-menu-dismiss="true">
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_copy" data-kt-tooltip-placement="top-end"><a id="export_copy" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-copy"></i></span><span class="kt-menu-title"> {{ __('default.label.export.copy') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_csv" data-kt-tooltip-placement="top-end"><a id="export_csv" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-notepad"></i></span><span class="kt-menu-title"> {{ __('default.label.export.csv') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_excel" data-kt-tooltip-placement="top-end"><a id="export_excel" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-tablet-text-up"></i></span><span class="kt-menu-title"> {{ __('default.label.export.excel') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_pdf" data-kt-tooltip-placement="top-end"><a id="export_pdf" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-document"></i></span><span class="kt-menu-title"> {{ __('default.label.export.pdf') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_print" data-kt-tooltip-placement="top-end"><a id="export_print" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-printer"></i></span><span class="kt-menu-title"> {{ __('default.label.export.print') }} </span></a></div>
-                                    </div>
+                        <div class="kt-menu" data-kt-menu="true">
+                            <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
+                                <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-exit-down"></i></button>
+                                <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
+                                    <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_copy" data-kt-tooltip-placement="top-end"><a id="export_copy" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-copy"></i></span><span class="kt-menu-title"> {{ __('default.label.export.copy') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_csv" data-kt-tooltip-placement="top-end"><a id="export_csv" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-notepad"></i></span><span class="kt-menu-title"> {{ __('default.label.export.csv') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_excel" data-kt-tooltip-placement="top-end"><a id="export_excel" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-tablet-text-up"></i></span><span class="kt-menu-title"> {{ __('default.label.export.excel') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_pdf" data-kt-tooltip-placement="top-end"><a id="export_pdf" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-document"></i></span><span class="kt-menu-title"> {{ __('default.label.export.pdf') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-tooltip="#tooltip_export_description_print" data-kt-tooltip-placement="top-end"><a id="export_print" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-printer"></i></span><span class="kt-menu-title"> {{ __('default.label.export.print') }} </span></a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
-                        <!-- <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-dropdown-toggle="true" data-kt-tooltip="#tooltip_export" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
-                        <div class="kt-dropdown text-sm" data-kt-dropdown-menu="true">
-                            <div class="kt-card-body grid gap-3">
-                                <div class="flex">
-                                    <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_active" data-kt-tooltip-placement="top-end"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.select.active') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_inactive" data-kt-tooltip-placement="top-end"><a id="selected-inactive" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.select.inactive') }} </span></a></div>
-                                        <div class="kt-menu-item" data-kt-tooltip="#tooltip_select_delete" data-kt-tooltip-placement="top-end"><a id="selected-delete" class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.select.delete') }} </span></a></div>
-                                    </div>
+                        <div class="kt-menu" data-kt-menu="true">
+                            <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
+                                <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-tooltip="#tooltip_batch_action" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
+                                <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.label.active') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedInactive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.label.inactive') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDelete"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.delete') }} </span></a></div>
                                 </div>
                             </div>
-                        </div> -->
-                        <div class="kt-menu" data-kt-menu="true">
-                        <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
-                            <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
-                            <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive" ><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> {{ __('default.selected.active') }} </span></a></div>
-                                <div class="kt-menu-item"><a class="kt-menu-link" href="${this_url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-message-edit"></i></span><span class="kt-menu-title"> ${translations.default.label.edit} </span></a></div>
-                                <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalDelete"><span class="kt-menu-icon"><i class="ki-filled ki-trash-square"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.delete} </span></a></div>
-                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -69,9 +55,9 @@
                     <div class="flex items-center">
                         <div class="kt-form-control flex-1">
                             <select class="kt-select filter_form">
-                                <option value="">- Select Status -</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="">- {{ __('default.select.status') }} -</option>
+                                <option value="yes"> {{ __('default.label.yes') }} </option>
+                                <option value="no"> {{ __('default.label.no') }} </option>
                             </select>
                         </div>
                     </div>
@@ -178,10 +164,34 @@
 <div class="kt-modal" data-kt-modal="true" id="modalSelectedActive">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
         <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Active This Selected Item? </h3>
+            <h3 class="kt-modal-title text-sm"> Are You Sure Set Active This Selected Item? </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
             <button class="kt-btn flex items-center gap-2 btn-confirm-selected-active"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalSelectedInactive">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Set Inactive This Selected Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-inactive"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalSelectedDelete">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Delete This Selected Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete"> Yes </button>
             <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
         </div>
     </div>

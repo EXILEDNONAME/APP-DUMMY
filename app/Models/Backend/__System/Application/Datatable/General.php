@@ -17,10 +17,15 @@ class General extends Model
     protected $guarded = ['id'];
     protected static $logAttributes = ['*'];
     protected static $recordEvents = ['created', 'deleted', 'updated'];
-    protected $casts = ['date' => 'date'];
+    protected $casts = ['date' => 'datetime'];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logOnly(['*']);
+    }
+
+    public function getDateAttribute($value)
+    {
+        return $value; // Return raw value, formatting di controller
     }
 }

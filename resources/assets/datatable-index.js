@@ -178,60 +178,39 @@ $(document).ready(function () {
         ],
         buttons: [
             {
-                extend: 'print',
-                title: '',
-                exportOptions: {
-                    columns: "thead th:not(.no-export)",
-                    orthogonal: "Export",
-                    format: {
-                        body: function (data, row, column, node) {
-                            return safeStrip(data, node);
-                        }
-                    }
+                extend: 'print', title: '', exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
                 }
             },
             {
-                extend: 'copyHtml5',
-                title: '',
-                autoClose: true,
-                exportOptions: {
-                    columns: "thead th:not(.no-export)",
-                    orthogonal: "Export",
-                    format: {
-                        body: function (data, row, column, node) {
-                            return safeStrip(data, node);
-                        }
-                    }
+                extend: 'copyHtml5', title: '', autoClose: true, exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
                 }
             },
             {
-                extend: 'excelHtml5',
-                title: '',
-                exportOptions: {
-                    columns: "thead th:not(.no-export)",
-                    orthogonal: "Export",
-                    format: {
-                        body: function (data, row, column, node) {
-                            return safeStrip(data, node);
-                        }
-                    }
+                extend: 'csvHtml5', title: '', exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
                 }
             },
             {
-                extend: 'pdfHtml5',
-                title: '',
-                exportOptions: {
-                    columns: "thead th:not(.no-export)",
-                    orthogonal: "Export",
-                    format: {
-                        body: function (data, row, column, node) {
-                            return safeStrip(data, node);
-                        }
-                    }
+                extend: 'excelHtml5', title: '', exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                }
+            },
+            {
+                extend: 'pdfHtml5', title: '', exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
                 }
             },
 
+
             // --- versi SELECTED ROWS ---
+
             {
                 extend: 'print',
                 title: '',
@@ -246,10 +225,25 @@ $(document).ready(function () {
                     }
                 }
             },
+
             {
                 extend: 'copyHtml5',
                 title: '',
                 autoClose: true,
+                exportOptions: {
+                    columns: "thead th:not(.no-export)",
+                    orthogonal: "Export",
+                    rows: { selected: true },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return safeStrip(data, node);
+                        }
+                    }
+                }
+            },
+            {
+                extend: 'csvHtml5',
+                title: '',
                 exportOptions: {
                     columns: "thead th:not(.no-export)",
                     orthogonal: "Export",
@@ -300,8 +294,41 @@ $(document).ready(function () {
 
     $('#export_print').on('click', function (e) { e.preventDefault(); table.button(0).trigger(); });
     $('#export_copy').on('click', function (e) { e.preventDefault(); table.button(1).trigger(); });
-    $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
-    $('#export_pdf').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
+    $('#export_csv').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
+    $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
+    $('#export_pdf').on('click', function () {
+        let info = table.page.info(); // ambil info page
+        let order = table.order()[0];
+        let columns = [];
+        let selectedIds = [];
+
+        $('#exilednoname_table thead th').each(function () {
+            const text = $(this).text().trim();
+            if (!$(this).hasClass('no-export') && text && text.toLowerCase() !== 'no.' && text.toLowerCase() !== '#') {
+                columns.push(text);
+            }
+        });
+
+        // Ambil selected ID
+        $('#exilednoname_table .checkable:checked').each(function () {
+            selectedIds.push($(this).data('id'));
+        });
+
+        // Kirim ke server
+        $.ajax({
+            url: this_url + '/export-users-pdf',
+            method: 'POST',
+            data: {
+                ids: selectedIds.join(','),
+                columns: columns,
+                page: info.page + 1,       // page aktif
+                length: info.length,        // jumlah row per page
+                order_by: table.settings()[0].aoColumns[order[0]].data,
+                order_dir: order[1],
+                _token: $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
 
     // TABLE SEARCH
     $('#table_search').on('keyup', function () {
@@ -350,7 +377,6 @@ $(document).ready(function () {
     // TABLE RELOAD
     $("#table_reload").on("click", function () {
         $('#checkbox_batch').addClass('hidden');
-        $('.filter_form').val('');
         table.ajax.reload(null, false);
         toast_notification(translations.default.notification.table_reload)
     });
@@ -441,42 +467,30 @@ $(document).ready(function () {
     });
 
     // SELECTED INACTIVE
-    $('#selected-inactive').on('click', function (e) {
-        var exilednonameArr = [];
-        $(".checkable:checked").each(function () {
-            exilednonameArr.push($(this).attr('data-id'));
-        });
-        var strEXILEDNONAME = exilednonameArr.join(",");
-        Swal.fire({
-            text: translations.default.notification.confirm.selected_inactive + "?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: translations.default.label.yes,
-            cancelButtonText: translations.default.label.no,
-            reverseButtons: false
-        }).then(function (result) {
-            if (result.value) {
-                $.ajax({
-                    url: this_url + "/selected-inactive",
-                    type: 'get',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
-                    success: function (data) {
-                        if (data.status && data.status === 'error') {
-                            toast_notification(data.message);
-                            table.ajax.reload();
-                            return;
-                        }
-                        $('#checkbox_batch').addClass('hidden');
-                        table.draw(false);
-                        toast_notification(translations.default.notification.success.selected_inactive);
-                    },
-                    error: function (data) {
-                        toast_notification(translations.default.notification.error.error);
-                    }
-                });
+    $('body').on('click', '[data-kt-modal-toggle="#modalSelectedInactive"]', function () {
+        selectedIds = [];
+        $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+        $('#modalSelectedInactive').attr('data-ids', selectedIds.join(','));
+    });
+
+    $('body').on('click', '.btn-confirm-selected-inactive', function () {
+        let modal = KTModal.getInstance(document.querySelector('#modalSelectedInactive'));
+        let ids = $('#modalSelectedInactive').attr('data-ids');
+        $.ajax({
+            data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/selected-inactive`,
+            success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    modal.hide();
+                    table.draw(false);
+                    return;
+                }
+                toast_notification(translations.default.notification.success.selected_inactive);
+                modal.hide();
+                table.draw(false);
+            },
+            error: function () {
+                toast_notification(translations.default.notification.error.error);
             }
         });
     });
@@ -509,42 +523,30 @@ $(document).ready(function () {
     });
 
     // SELECTED DELETE
-    $('#selected-delete').on('click', function (e) {
-        var exilednonameArr = [];
-        $(".checkable:checked").each(function () {
-            exilednonameArr.push($(this).attr('data-id'));
-        });
-        var strEXILEDNONAME = exilednonameArr.join(",");
-        Swal.fire({
-            text: translations.default.notification.confirm.selected_delete + "?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: translations.default.label.yes,
-            cancelButtonText: translations.default.label.no,
-            reverseButtons: false
-        }).then(function (result) {
-            if (result.value) {
-                $.ajax({
-                    url: this_url + "/selected-delete",
-                    type: 'get',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: 'EXILEDNONAME=' + strEXILEDNONAME,
-                    success: function (data) {
-                        if (data.status && data.status === 'error') {
-                            toast_notification(data.message);
-                            table.ajax.reload();
-                            return;
-                        }
-                        $('#checkbox_batch').addClass('hidden');
-                        table.draw(false);
-                        toast_notification(translations.default.notification.success.selected_delete);
-                    },
-                    error: function (data) {
-                        toast_notification(translations.default.notification.error.error);
-                    }
-                });
+    $('body').on('click', '[data-kt-modal-toggle="#modalSelectedDelete"]', function () {
+        selectedIds = [];
+        $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+        $('#modalSelectedDelete').attr('data-ids', selectedIds.join(','));
+    });
+
+    $('body').on('click', '.btn-confirm-selected-delete', function () {
+        let modal = KTModal.getInstance(document.querySelector('#modalSelectedDelete'));
+        let ids = $('#modalSelectedDelete').attr('data-ids');
+        $.ajax({
+            data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/selected-delete`,
+            success: function (data) {
+                if (data.status && data.status === 'error') {
+                    toast_notification(data.message);
+                    modal.hide();
+                    table.draw(false);
+                    return;
+                }
+                toast_notification(translations.default.notification.success.selected_delete);
+                modal.hide();
+                table.draw(false);
+            },
+            error: function () {
+                toast_notification(translations.default.notification.error.error);
             }
         });
     });
