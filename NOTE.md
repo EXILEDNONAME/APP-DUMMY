@@ -15,6 +15,18 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
+- PAGE INDEX ->
+    - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
+    - OBFUCASTOR JS
+    - ACTIVITIES
+    - FILTER DATERANGE
+    - [OK] FILTER STATUS
+    - [OK] CONFIRM DELETE
+    - [OK] CONFIRM SELECTED ACTIVE
+    - [OK] CONFIRM SELECTED INACTIVE
+    - [OK] CONFIRM SELECTED DELETE
+    - [OK] EXPORT FULL (COPY, CSV, EXCEL, PDF & PRINT)
+    
 - BUTTON ACTIVITIES & TRASH FOR ADMINISTRATOR
 - PAGE ACTIVITIES
 - PAGE TRASH
@@ -27,18 +39,6 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 - PAGE PROFILES -> EDIT AVATAR
 - PAGE SETTINGS -> EDIT LOGO DESKTOP/MOBILE
 - PAGE FILE MANAGER
-
-- PAGE INDEX ->
-    - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
-    - OBFUCASTOR JS
-    - ACTIVITIES
-    - FILTER DATERANGE
-    - [OK] FILTER STATUS
-    - [OK] CONFIRM DELETE
-    - [OK] CONFIRM SELECTED ACTIVE
-    - [OK] CONFIRM SELECTED INACTIVE
-    - [OK] CONFIRM SELECTED DELETE
-    - [OK] EXPORT FULL (COPY, CSV, EXCEL, PDF & PRINT)
 - PAGE SHOW
     - REFRESH ACTIVITIES
     - CONFIRM DELETE
