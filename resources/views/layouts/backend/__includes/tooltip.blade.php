@@ -1,25 +1,5 @@
 <script>
     $('<div>', {
-        id: 'tooltip_activities',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.activities') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_back',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.back') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_batch_action',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.batch_action') }}"
-    }).appendTo('body');
-    $('<div>', {
-        id: 'tooltip_create',
-        class: 'kt-tooltip',
-        text: "{{ __('default.label.create') }}"
-    }).appendTo('body');
-    $('<div>', {
         id: 'tooltip_edit',
         class: 'kt-tooltip',
         text: "{{ __('default.label.edit') }}"

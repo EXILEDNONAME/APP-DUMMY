@@ -7,7 +7,8 @@
     window.translations = {
         default: {
             label: {
-                no_data_available: "{{ __('default.label.no_data_available') }}"
+                no_data_available: "{{ __('default.label.no_data_available') }}",
+                no_data_matching: "{{ __('default.label.no_data_matching') }}",
             }
         }
     };
@@ -110,10 +111,13 @@
             }, 3000);
         });
 
-        // TABLE DELETE 
-        
-
     });
 </script>
 
+<script>
+    $(`<div id="tooltip_activities" class="kt-tooltip"> {{ __('default.label.activities') }} </div>`).appendTo('body');
+    $(`<div id="tooltip_back" class="kt-tooltip"> {{ __('default.label.back') }} </div>`).appendTo('body');
+    $(`<div id="tooltip_batch_action" class="kt-tooltip"> {{ __('default.label.batch_action') }} </div>`).appendTo('body');
+    $(`<div id="tooltip_create" class="kt-tooltip"> {{ __('default.label.create') }} </div>`).appendTo('body');
+</script>
 @include('layouts.backend.__includes.tooltip')

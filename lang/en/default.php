@@ -29,8 +29,8 @@ return [
         'date'                          => 'Date',
         'daterange'                     => 'Date Range',
         'datetime'                      => 'Date Time',
-        'date-start'                    => 'Date Start',
-        'date-end'                      => 'Date End',
+        'date_start'                    => 'Date Start',
+        'date_end'                      => 'Date End',
         'default'                       => 'Default',
         'delete' => [
             'delete'                    => 'Delete',
@@ -66,6 +66,7 @@ return [
         'main'                          => 'Main',
         'no'                            => 'No',
         'no_data_available'             => 'No Data Available',
+        'no_data_matching'              => 'No Matching Records Found',
         'optimizations'                 => 'Optimizations',
         'pending'                       => 'Pending',
         'please_wait'                   => 'Please Wait',

@@ -19,7 +19,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
     - OBFUCASTOR JS
     - ACTIVITIES
-    - FILTER DATERANGE
+    - [OK] DATERANGE
     - [OK] FILTER STATUS
     - [OK] CONFIRM DELETE
     - [OK] CONFIRM SELECTED ACTIVE
