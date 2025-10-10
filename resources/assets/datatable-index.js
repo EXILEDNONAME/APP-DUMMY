@@ -102,6 +102,21 @@ $(document).ready(function () {
             }
         },
 
+        ...(status ? [{
+            data: 'status',
+            name: 'status',
+            orderable: true,
+            className: 'text-center text-nowrap',
+            width: '1',
+            render: function (data) {
+                if (data == 1) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-mono">' + translations.default.label.default + '</span>';
+                if (data == 2) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-warning">' + translations.default.label.pending + '</span>';
+                if (data == 3) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-info">' + translations.default.label.progress + '</span>';
+                if (data == 4) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-success">' + translations.default.label.success + '</span>';
+                if (data == 5) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-destructive">' + translations.default.label.failed + '</span>';
+            }
+        },] : []),
+
         ...(file ? [{
             data: 'file',
             orderable: false,
@@ -138,21 +153,6 @@ $(document).ready(function () {
                 }
             }
         },
-
-        ...(status ? [{
-            data: 'status',
-            name: 'status',
-            orderable: true,
-            className: 'text-center text-nowrap',
-            width: '1',
-            render: function (data) {
-                if (data == 1) return '<span class="kt-badge kt-badge-mono">' + translations.default.label.default + '</span>';
-                if (data == 2) return '<span class="kt-badge kt-badge-warning">' + translations.default.label.pending + '</span>';
-                if (data == 3) return '<span class="kt-badge kt-badge-info">' + translations.default.label.progress + '</span>';
-                if (data == 4) return '<span class="kt-badge kt-badge-success">' + translations.default.label.success + '</span>';
-                if (data == 5) return '<span class="kt-badge kt-badge-destructive">' + translations.default.label.failed + '</span>';
-            }
-        },] : []),
 
         {
             data: 'action',
@@ -343,6 +343,12 @@ $(document).ready(function () {
     // FILTER DATE
     $('.filter_date').change(function () {
         table.draw();
+    });
+
+    // FILTER STATUS
+    $('.filter_status').change(function () {
+        table.draw(false);
+        table.column('status:name').search(this.value).draw();
     });
 
     // GROUP CHECKABLE

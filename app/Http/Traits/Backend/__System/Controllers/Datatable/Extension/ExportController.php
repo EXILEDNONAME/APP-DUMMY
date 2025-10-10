@@ -66,9 +66,11 @@ trait ExportController
 
                     if ($field === 'status') {
                         $value = match ((int)$value) {
-                            1 => 'Pending',
-                            2 => 'Success',
-                            3 => 'Failed',
+                            1 => 'Default',
+                            2 => 'Pending',
+                            3 => 'Progress',
+                            4 => 'Success',
+                            5 => 'Failed',
                             default => '-',
                         };
                     }

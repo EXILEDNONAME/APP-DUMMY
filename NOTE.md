@@ -33,7 +33,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - OBFUCASTOR JS
     - ACTIVITIES
     - FILTER DATERANGE
-    - FILTER STATUS
+    - [OK] FILTER STATUS
     - [OK] CONFIRM DELETE
     - [OK] CONFIRM SELECTED ACTIVE
     - [OK] CONFIRM SELECTED INACTIVE

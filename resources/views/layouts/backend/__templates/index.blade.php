@@ -52,15 +52,26 @@
                         <option value="0"> {{ __('default.label.no') }} </option>
                     </select>
 
-                    <div class="flex items-center">
+                    @if (!empty($status) && $status == 'true')
+                    <select class="kt-select filter_form filter_status">
+                        <option value=""> - {{ __('default.select.status') }} - </option>
+                        @foreach ($attributes as $key => $label)
+                        <option value="{{ $key }}">
+                            {{ __('default.label.' . strtolower($label)) }}
+                        </option>
+                        @endforeach
+                    </select>
+                    @endif
+
+                    <!-- <div class="flex items-center">
                         <div class="kt-form-control flex-1">
                             <select class="kt-select filter_form">
                                 <option value="">- {{ __('default.select.status') }} -</option>
-                                <option value="yes"> {{ __('default.label.yes') }} </option>
-                                <option value="no"> {{ __('default.label.no') }} </option>
+                                <option value="1"> {{ __('default.label.yes') }} </option>
+                                <option value="2"> {{ __('default.label.no') }} </option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
                     @if (!empty($date) && $date == 'true')
                     <input id="datepicker" name="date" class="kt-input filter_form filter_date" placeholder="- Select Date -" />
