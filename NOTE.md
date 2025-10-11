@@ -15,10 +15,21 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
+- MOVE MIX TO RESOURCE ASSETS
+- [OK] PAGE TRASH
+    - [OK] INDEX
+    - [OK] SINGLE RESTORE
+    - [OK] SINGLE DELETE PERMANENT
+    - [OK] SELECTED RESTORE
+    - [OK] SELECTED DELETE
+    - [OK] FILTER DELETED_AT
+
+- [OK] PAGE SHOW
+    - [OK] CONFIRM DELETE
+    - [OK] PRINT QR
+
 - PAGE INDEX ->
-    - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
-    - OBFUCASTOR JS
-    - ACTIVITIES
+    - [OK] ACTIVITIES
     - [OK] DATERANGE
     - [OK] FILTER STATUS
     - [OK] CONFIRM DELETE
@@ -26,23 +37,15 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - [OK] CONFIRM SELECTED INACTIVE
     - [OK] CONFIRM SELECTED DELETE
     - [OK] EXPORT FULL (COPY, CSV, EXCEL, PDF & PRINT)
+    - [OK] CHART COLOR
+    - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
+    - SECTION WIDGET TOP & BOTTOM
     
 - BUTTON ACTIVITIES & TRASH FOR ADMINISTRATOR
 - PAGE ACTIVITIES
-- PAGE TRASH
-    - [OK] INDEX
-    - SINGLE RESTORE
-    - SINGLE DELETE
-    - SELECTED RESTORE
-    - SELECTED DELETE
 - PAGE DATABASE
 - PAGE PROFILES -> EDIT AVATAR
 - PAGE SETTINGS -> EDIT LOGO DESKTOP/MOBILE
 - PAGE FILE MANAGER
-- PAGE SHOW
-    - REFRESH ACTIVITIES
-    - CONFIRM DELETE
-    - PRINT QR
 - [OK] PAGE CREATE
 - EXPORT PDF & PRINT WITH STYLE
-- ADD DATERANGE 

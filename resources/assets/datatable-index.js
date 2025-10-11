@@ -14,37 +14,39 @@ $(document).ready(function () {
             url: this_url,
             data: function (ex) {
                 ex.date = $('.table_filter_date').val();
-                const range = $('#dateRange').val();
-                if (range.includes(' to ')) { ex.date_start = range.split(' to ')[0]; ex.date_end = range.split(' to ')[1]; }
-                else { ex.date_start = range; ex.date_end = range; }
+                if (daterange) {
+                    const range = $('#dateRange').val();
+                    if (range.includes(' to ')) { ex.date_start = range.split(' to ')[0]; ex.date_end = range.split(' to ')[1]; }
+                    else { ex.date_start = range; ex.date_end = range; }
+                }
             }
         },
         language: {
             loadingRecords: "",
-            emptyTable: '<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center">' + translations.default.label.no_data_available + ' ... </span></div>',
-            zeroRecords: '<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center">' + translations.default.label.no_data_matching + ' ... </span></div>',
+            emptyTable: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_available} ... </span></div>`,
+            zeroRecords: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_matching} ... </span></div>`,
         },
         drawCallback: function () { renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1); },
         headerCallback: function (thead, data, start, end, display) { thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`; },
         columns: [
             {
                 data: null, name: 'checkbox', searchable: false, orderable: false,
-                render: function (data, type, row, meta) { return '<input type="checkbox" class="kt-checkbox checkable" data-id="' + row.id + '">'; },
+                render: function (data, type, row, meta) { return `<input type="checkbox" class="kt-checkbox checkable" data-id="${row.id}">`; },
             },
             { data: 'created_at', name: 'created_at', visible: false },
             {
-                data: null, orderable: false, searchable: false, 'className': 'text-center', 'width': '1',
+                data: null, name: 'autonumber', orderable: false, searchable: false, 'className': 'text-center', 'width': '1',
                 render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }
             },
 
             ...(status ? [{
                 data: 'status', name: 'status', orderable: true, className: 'text-center text-nowrap', width: '1',
                 render: function (data) {
-                    if (data == 1) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-mono">' + translations.default.label.default + '</span>';
-                    if (data == 2) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-warning">' + translations.default.label.pending + '</span>';
-                    if (data == 3) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-info">' + translations.default.label.progress + '</span>';
-                    if (data == 4) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-success">' + translations.default.label.success + '</span>';
-                    if (data == 5) return '<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-destructive">' + translations.default.label.failed + '</span>';
+                    if (data == 1) return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-mono"> ${translations.default.label.default} </span>`;
+                    if (data == 2) return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-warning"> ${translations.default.label.pending} </span>`;
+                    if (data == 3) return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-info"> ${translations.default.label.progress} </span>`;
+                    if (data == 4) return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-success"> ${translations.default.label.success} </span>`;
+                    if (data == 5) return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-destructive"> ${translations.default.label.failed} </span>`;
                 }
             },] : []),
 
@@ -72,14 +74,15 @@ $(document).ready(function () {
 
             ...window.tableBodyColumns,
 
-            {
-                data: 'active', name: 'active', orderable: true, 'width': '1',
+            ...(active ? [{
+                data: 'active', name: 'active', orderable: true, 'className': 'align-middle text-center', 'width': '1',
                 render: function (data, type, row) {
-                    if (data == 0) { return '<a class="flex justify-center table_active" data-id="' + row.id + '"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" /></a>'; }
-                    if (data == 1) { return '<a class="flex justify-center table_inactive" data-id="' + row.id + '"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" checked="" /></a>'; }
-                    if (data == 2) { return '<a class="flex justify-center" id="table_active" data-id="' + row.id + '"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" /></a>'; }
+                    if (data == 0) { return `<a class="flex justify-center table_active" data-id="${row.id}"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" /></a>`; }
+                    if (data == 1) { return `<a class="flex justify-center table_inactive" data-id="${row.id}"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" checked="" /></a>`; }
+                    if (data == 2) { return `<a class="flex justify-center" id="table_active" data-id="${row.id}"><input class="kt-switch kt-switch-sm kt-switch-mono" type="checkbox" /></a>`; }
                 }
-            },
+            },] : []),
+
             {
                 data: null, name: 'action', orderable: false, searchable: false,
                 render: function (data, type, row) {
@@ -144,29 +147,4 @@ $(document).ready(function () {
     $('#export_csv').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
     $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
     $('#export_pdf').on('click', function (e) { e.preventDefault(); table.button(4).trigger(); });
-    // $('#export_pdf').on('click', function (e) {
-    //     e.preventDefault();
-
-    //     function triggerPdfButton() {
-    //         const pdfBtn = table.button('.btn-export-pdf');
-    //         if (pdfBtn.length) { pdfBtn.trigger(); } else { toast_notification(translations.default.notification.error.error); }
-    //     }
-
-    //     if (typeof pdfMake === 'undefined' || typeof pdfMake.createPdf === 'undefined') {
-    //         $.when(
-    //             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js'),
-    //             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js')
-    //         ).then(function () {
-    //             table.button().add(4, {
-    //                 extend: 'pdfHtml5', text: 'PDF', className: 'btn-export-pdf', exportOptions: {
-    //                     columns: "thead th:not(.no-export)", orthogonal: "Export",
-    //                     format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
-    //                 }
-    //             });
-    //             triggerPdfButton();
-    //         })
-    //     } else {
-    //         triggerPdfButton();
-    //     }
-    // });
 });

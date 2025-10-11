@@ -46,11 +46,13 @@
                         <input id="table_search" class="filter_form" placeholder="{{ __('default.label.search') }}" type="text" />
                     </label>
 
+                    @if (!empty($active) && $active == 'true')
                     <select class="kt-select filter_form table_filter_active">
                         <option value=""> - {{ __('default.select.active') }} - </option>
                         <option value="1"> {{ __('default.label.yes') }} </option>
                         <option value="0"> {{ __('default.label.no') }} </option>
                     </select>
+                    @endif
 
                     @if (!empty($status) && $status == 'true')
                     <select class="kt-select filter_form filter_status">
@@ -66,7 +68,11 @@
                     @if (!empty($date) && $date == 'true')
                     <input id="datepicker" name="date" class="kt-input filter_form table_filter_date" placeholder="- Select Date -" />
                     @endif
+
+                    @if (!empty($daterange) && $daterange == 'true')
                     <input type="text" id="dateRange" class="kt-input filter_form" placeholder="- Select Daterange -">
+                    @endif
+
                     <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm table_reset_filter"> {{ __('default.label.reset') }} </button>
 
 
@@ -85,12 +91,14 @@
                                 @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> Status </span><span class="kt-table-col-sort"></span></span></th> @endif
                                 @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> File </span></span></th> @endif
                                 @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
-                                @if (!empty($daterange) && $daterange == 'true') 
-                                <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_start') }} </span><span class="kt-table-col-sort"></span></span></th>
-                                <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_end') }} </span><span class="kt-table-col-sort"></span></span></th>
+                                @if (!empty($daterange) && $daterange == 'true')
+                                <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_start') }} </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_end') }} </span><span class="kt-table-col-sort"></span></span></th>
                                 @endif
                                 @yield('table-header')
+                                @if(!empty($active) && $active == 'true')
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> Active </span></span></th>
+                                @endif
                                 <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
                         </thead>
@@ -118,35 +126,86 @@
     </div>
 </div>
 
+@if (!empty($activities) && $activities == 'true')
 <div class="lg:col-span-1">
     <div class="grid">
-        <div id="printData">
+        <div id="printDataActivities">
             <div class="kt-card kt-card-grid w-full">
                 <div class="kt-card-header">
                     <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.activities') }} </h3>
                     <div class="kt-menu" data-kt-menu="true">
-                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printDataActivities')"><i class="ki-filled ki-printer"></i></button>
                     </div>
                 </div>
                 <div class="kt-card-body p-1 w-full">
-                    <div class="kt-scrollable-x-auto"></div>
+                    <div class="kt-scrollable-x-auto">
+                        <div class="kt-card-content lg:p-7.5 lg:pt-6 p-5">
+                            <div class="flex flex-col" bis_skin_checked="1">
+
+                                @php $activity = activities($model)->take(5); @endphp
+                                <div class="flex flex-col">
+                                    @foreach($activity as $acts)
+                                    @php
+                                    $props = json_decode($acts->properties, true) ?? [];
+                                    $isRestored = $acts->description === 'updated' && ($props['attributes']['deleted_at'] ?? null) === null && !empty($props['old']['deleted_at']);
+                                    @endphp
+
+                                    <div class="flex items-start relative">
+                                        @unless($loop->last)
+                                        <div class="w-9 start-0 top-9 absolute bottom-0 rtl:-translate-x-1/2 translate-x-1/2 border-s border-s-input"></div>
+                                        @endunless
+
+                                        <div class="flex items-center justify-center shrink-0 rounded-full bg-accent/60 border border-input size-9 text-secondary-foreground">
+                                            @if ($acts->description == 'created') <i class="ki-filled ki-plus"></i>
+                                            @elseif ($isRestored) <i class="ki-filled ki-arrows-circle"></i>
+                                            @elseif ($acts->description == 'updated') <i class="ki-filled ki-pencil"></i>
+                                            @elseif ($acts->description == 'deleted') <i class="ki-filled ki-trash"></i>
+                                            @endif
+                                        </div>
+
+                                        <div class="ps-2.5 text-base grow {{ !$loop->last ? 'mb-7' : '' }}">
+                                            <div class="flex flex-col">
+                                                <div class="text-sm text-foreground whitespace-nowrap">
+                                                    @if ($acts->description == 'created')
+                                                    {{ __('default.activity.item-created') }} {{ mb_strimwidth($props['attributes']['name'] ?? $data_object['name'] ?? '', 0, 10, ' ...') }}
+                                                    @elseif ($isRestored)
+                                                    {{ __('default.activity.item-restored') }} {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                                                    @elseif ($acts->description == 'updated')
+                                                    {{ __('default.activity.item-updated') }} {{ $props['attributes']['name'] }}
+                                                    @elseif ($acts->description == 'deleted')
+                                                    {{ __('default.activity.item-deleted') }} {{ mb_strimwidth($props['attributes']['name'] ?? '', 0, 10, ' ...') }}
+                                                    @endif
+                                                </div>
+                                                <span class="text-xs text-secondary-foreground">
+                                                    {{ $acts->created_at->diffForHumans() }}, {{ $acts->causer->name }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
 
 @if (!empty($charts) && $charts == 'true')
 <div class="lg:col-span-2">
     <div class="grid">
-        <div class="kt-card kt-card-grid w-full">
-            <div class="kt-card-header">
-                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.charts') }} </h3>
-                <div class="kt-menu" data-kt-menu="true">
-                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printDataCharts('printDataCharts')"><i class="ki-filled ki-printer"></i></button>
+        <div id="printDataCharts">
+            <div class="kt-card kt-card-grid w-full">
+                <div class="kt-card-header">
+                    <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.charts') }} </h3>
+                    <div class="kt-menu" data-kt-menu="true">
+                        <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printDataCharts('printDataCharts')"><i class="ki-filled ki-printer"></i></button>
+                    </div>
                 </div>
-            </div>
-            <div id="printDataCharts">
                 <div class="kt-card-body p-1 w-full">
                     <div id="area_chart" class="w-full"></div>
                 </div>
@@ -248,7 +307,7 @@
                     },
                 ],
                 chart: {
-                    height: 250,
+                    height: 331,
                     type: 'area',
                     toolbar: {
                         show: false,
@@ -257,6 +316,7 @@
                 dataLabels: {
                     enabled: false,
                 },
+                colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)'],
                 legend: {
                     show: false,
                 },
@@ -264,7 +324,7 @@
                     curve: 'smooth',
                     show: true,
                     width: 3,
-                    colors: ['var(--color-primary)', 'var(--color-mono)', 'var(--color-destructive)'],
+                    colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)'],
                 },
                 xaxis: {
                     categories: categories,
@@ -347,7 +407,7 @@
                     },
                 },
                 grid: {
-                    borderColor: 'var(--color-border)',
+                    borderColor: 'var(--color-mono)',
                     strokeDashArray: 5,
                     clipMarkers: false,
                     yaxis: {
@@ -369,14 +429,6 @@
             const chart = new ApexCharts(element, options);
             chart.render();
         })
-
-    function printDataCharts(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
 </script>
 @endif
 

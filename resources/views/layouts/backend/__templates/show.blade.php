@@ -12,11 +12,10 @@
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
                         <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
-                        <form method="POST" action="{{ URL::current() }}/../{{ $data->id }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ URL::current() }}/../{{ $data->id }}" class="form-horizontal delete-form" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf
-                            <button id="delete" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_delete" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
-                            <div id="tooltip_delete" class="kt-tooltip"> Delete </div>
+                            <button type="button" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteStatic"><i class="ki-filled ki-trash"></i></button>
                         </form>
                         <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
                     </div>
@@ -218,56 +217,26 @@
         <div class="kt-modal-footer">
             <div></div>
             <div class="flex gap-2">
-                <button class="kt-btn"><i class="ki-filled ki-printer" onclick="printQR('printQR')"></i> Print</button>
+                <button class="kt-btn" onclick="printQR('printQR')"><i class="ki-filled ki-printer"></i> Print</button>
                 <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalDeleteStatic">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Delete This Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-static"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
         </div>
     </div>
 </div>
 @endsection
 
 @push('js')
-<script>
-    function printData(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-
-    function printDataActivities(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-
-    function printQR(divName) {
-        var myWindow = window.open('', '', '');
-        myWindow.document.write(document.getElementById(divName).innerHTML);
-        myWindow.document.close();
-        myWindow.focus();
-        myWindow.print();
-        myWindow.document.close();
-    }
-</script>
-<script>
-    $('body').on('click', '#delete', function(e) {
-        e.preventDefault()
-        Swal.fire({
-            text: "{{ __('default.notification.confirm.delete') }}?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "{{ __('default.label.yes') }}",
-            cancelButtonText: "{{ __('default.label.no') }}",
-            reverseButtons: false
-        }).then(function(result) {
-            if (result.value) {
-                $(e.target).closest('form').submit()
-            }
-        });
-    });
-</script>
+<script src="{{ env('APP_URL') }}/assets/backend/mix/js/exilednoname-dt-plugins.js"></script>
 @endpush

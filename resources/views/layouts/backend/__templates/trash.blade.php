@@ -7,7 +7,7 @@
             <div class="kt-card-header">
                 <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.trash') }} </h3>
                 <div class="kt-menu">
-                    <button id="table_reload" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
                     <button id="toggle_filters" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
                     <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
                         <div class="kt-menu" data-kt-menu="true">
@@ -29,13 +29,27 @@
                             <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
                                 <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-tooltip="#tooltip_batch_action" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
                                 <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> {{ __('default.label.restore') }} </span></a></div>
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedInactive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.permanent') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedRestore"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> {{ __('default.label.restore') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDeletePermanent"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.permanent') }} </span></a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
+                </div>
+            </div>
+
+            <div id="filters" class="hidden">
+                <div class="grid gap-2 p-5">
+                    <label class="kt-input">
+                        <i class="ki-filled ki-magnifier"></i>
+                        <input id="table_search" class="filter_form" placeholder="{{ __('default.label.search') }}" type="text" />
+                    </label>
+
+                    <input id="datepicker" name="deleted_at" class="kt-input filter_form table_filter_deleted_at" placeholder="- Select Deleted At -" />
+                    <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm table_reset_filter"> {{ __('default.label.reset') }} </button>
+
+
                 </div>
             </div>
 
@@ -48,6 +62,7 @@
                                 <th class="w-px whitespace-nowrap no-export"></th>
                                 <th style="display: none"> {{ __('default.label.created_at') }} </th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Deleted At </span><span class="kt-table-col-sort"></span></span></th>
                                 @yield('table-header')
                                 <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
@@ -77,33 +92,50 @@
     </div>
 </div>
 
-<button onclick="openConfirmModal()"
-    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-    Hapus Data
-</button>
-<div id="confirmModal"
-    class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+<div class="kt-modal" data-kt-modal="true" id="modalRestore">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Restore This Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-restore"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+        </div>
+    </div>
+</div>
 
-    <!-- Modal -->
-    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-        <!-- Header -->
-        <h2 class="text-lg font-bold text-gray-800 mb-2">
-            Apakah kamu yakin?
-        </h2>
-        <p class="text-sm text-gray-600 mb-4">
-            Data ini akan dihapus permanen, tindakan tidak bisa dibatalkan.
-        </p>
+<div class="kt-modal" data-kt-modal="true" id="modalDeletePermanent">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Delete Permanent This Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-permanent"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+        </div>
+    </div>
+</div>
 
-        <!-- Footer -->
-        <div class="flex justify-end gap-2">
-            <button onclick="closeConfirmModal()"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg">
-                Batal
-            </button>
-            <button onclick="hapusData()"
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                Hapus
-            </button>
+<div class="kt-modal" data-kt-modal="true" id="modalSelectedRestore">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Restore This Selected Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-restore"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalSelectedDeletePermanent">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header items-center justify-center">
+            <h3 class="kt-modal-title text-sm"> Are You Sure Delete Permanent This Selected Item? </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete-permanent"> Yes </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
         </div>
     </div>
 </div>
@@ -112,168 +144,116 @@
 @push('js')
 <script src="{{ env('APP_URL') }}/assets/backend/mix/js/exilednoname-dt-plugins.js"></script>
 <script>
-    $('body').on('click', '#restore', function() {
-        var id = $(this).data("id");
-        Swal.fire({
-            text: "{{ __('default.notification.confirm.restore') }}?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "{{ __('default.label.yes') }}",
-            cancelButtonText: "{{ __('default.label.no') }}",
-            reverseButtons: false
-        }).then(function(result) {
-            if (result.value) {
-                $.ajax({
-                    type: "get",
-                    url: "{{ URL::Current() }}/../restore/" + id,
-                    success: function(data) {
-                        // KTApp.block('#exilednoname_body', {
-                        //     overlayColor: '#000000',
-                        //     state: 'info',
-                        //     message: "{{ __('default.label.processing') }} ..."
-                        // });
-                        setTimeout(function() {
-                            KTApp.unblock('#exilednoname_body');
-                            var oTable = $('#exilednoname_table').dataTable();
-                            oTable.fnDraw(false);
-                            // toastr.success(__('default.notification.success.item_restored'));
-                        }, 500);
-                    },
-                    error: function(data) {
-                        // toastr.error(translations.default.notification.error.error);
-                    }
-                });
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        var defaultSort = sort.split(',').map((item, index) => {
-            return index === 0 ? parseInt(item.trim()) : item.trim();
-        });
-        var table = $('#exilednoname_table').DataTable({
-            "initComplete": function(settings, json) {
+    $(document).ready(function () {
+        let defaultSort = sort.split(',').map((item, index) => { return index === 0 ? parseInt(item.trim()) : item.trim(); });
+        let table = $('#exilednoname_table').DataTable({
+            dom: 'tb', info: false, lengthChange: false, pageLength: 25, serverSide: true, searchDelay: 2000,
+            "pagingType": "simple_numbers",
+            "initComplete": function (settings, json) {
                 $('#exilednoname_table_info').appendTo('#kt-pagination');
                 $('.dt-paging').appendTo('#kt-pagination');
                 $('#dt-length-0').appendTo('#ex_table_length');
                 $('#exilednoname_table_filter').appendTo('#ex_table_filter');
             },
-            dom: 't',
-            info: false,
-            lengthChange: false,
-            pageLength: 25,
-            processing: false,
-            serverSide: true,
-            searchDelay: 2000,
-            "pagingType": "simple_numbers",
-            ajax: "{{ route('dashboard.system.application.datatable.generals.trash') }}",
+            ajax: {
+                url: this_url,
+                data: function (ex) {
+                    ex.date = $('.table_filter_date').val();
+                    ex.deleted_at = $('.table_filter_deleted_at').val();
+                    if (daterange) {
+                        const range = $('#dateRange').val();
+                        if (range.includes(' to ')) { ex.date_start = range.split(' to ')[0]; ex.date_end = range.split(' to ')[1]; }
+                        else { ex.date_start = range; ex.date_end = range; }
+                    }
+                }
+            },
             language: {
                 loadingRecords: "",
-                emptyTable: '<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center">' + translations.default.label.no_data_available + ' ... </span></div>'
+                emptyTable: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_available} ... </span></div>`,
+                zeroRecords: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_matching} ... </span></div>`,
             },
-            drawCallback: function() {
-                renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1);
-            },
-            headerCallback: function(thead, data, start, end, display) {
-                thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`;
-            },
-            columns: [{
-                    data: 'checkbox',
-                    name: 'checkbox',
-                    searchable: false,
-                    orderable: false,
-                    render: function(data, type, row, meta) {
-                        return '<input type="checkbox" class="kt-checkbox checkable" data-id="' + row.id + '">';
-                    },
+            drawCallback: function () { renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1); },
+            headerCallback: function (thead, data, start, end, display) { thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`; },
+            columns: [
+                {
+                    data: null, name: 'checkbox', searchable: false, orderable: false,
+                    render: function (data, type, row, meta) { return `<input type="checkbox" class="kt-checkbox checkable" data-id="${row.id}">`; },
+                },
+                { data: 'created_at', name: 'created_at', visible: false },
+                {
+                    data: null, name: 'autonumber', orderable: false, searchable: false, 'className': 'text-center', 'width': '1',
+                    render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }
                 },
                 {
-                    data: 'created_at',
-                    name: 'created_at',
-                    visible: false
+                    data: 'deleted_at', name: 'deleted_at', orderable: true, 'className': 'text-nowrap', 'width': '1',
+                    render: function (data, type, row) { if (data == null) { return '<center> - </center>' } else { return data; } }
                 },
+                
+                @yield('table-body')
+                
                 {
-                    data: 'autonumber',
-                    orderable: false,
-                    searchable: false,
-                    'className': 'text-center',
-                    'width': '1',
-                    render: function(data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                {
-                    data: 'name',
-                    name: 'name',
-                    'className': 'text-nowrap',
-                },
-                {
-                    data: 'description',
-                    name: 'description',
-                    'className': 'text-nowrap',
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row) {
+                    data: null, name: 'action', orderable: false, searchable: false,
+                    render: function (data, type, row) {
                         return `
                         <td>
                             <div class="kt-menu" data-kt-menu="true">
                                 <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
                                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
                                     <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${this_url}/${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-search-list"></i></span><span class="kt-menu-title"> ${translations.default.label.view} </span></a></div>
-                                        <div class="kt-menu-item"><a class="kt-menu-link" href="${this_url}/${row.id}/edit"><span class="kt-menu-icon"><i class="ki-filled ki-message-edit"></i></span><span class="kt-menu-title"> ${translations.default.label.edit} </span></a></div>
-                                        <div class="kt-menu-item"><a class="kt-menu-link" id="single_delete" data-id="${row.id}"><span class="kt-menu-icon"><i class="ki-filled ki-trash-square"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.delete} </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalRestore"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> ${translations.default.label.restore} </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalDeletePermanent"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.permanent} </span></a></div>
                                     </div>
                                 </div>
                             </div>
                         </td>`;
                     }
+                }
+            ],
+            buttons: [
+                {
+                    extend: 'print', title: '', exportOptions: {
+                        columns: "thead th:not(.no-export)", orthogonal: "Export",
+                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                    }
+                },
+                {
+                    extend: 'copyHtml5', title: '', autoClose: true, exportOptions: {
+                        columns: "thead th:not(.no-export)", orthogonal: "Export",
+                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                    }
+                },
+                {
+                    extend: 'csvHtml5', title: '', exportOptions: {
+                        columns: "thead th:not(.no-export)", orthogonal: "Export",
+                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                    }
+                },
+                {
+                    extend: 'excelHtml5', title: '', exportOptions: {
+                        columns: "thead th:not(.no-export)", orthogonal: "Export",
+                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                    }
+                },
+                {
+                    extend: 'pdfHtml5', title: '', exportOptions: {
+                        columns: "thead th:not(.no-export)", orthogonal: "Export",
+                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                    }
                 },
             ],
-            order: [defaultSort]
+            rowId: 'Collocation',
+            select: {
+                style: 'multi',
+                selector: 'td:first-child .checkable',
+            },
+            order: [3, 'desc']
         });
 
-        // GROUP CHECKABLE
-        table.on('change', '.group-checkable', function() {
-            const checked = $(this).is(':checked');
-
-            table.rows().every(function() {
-                const $checkbox = $(this.node()).find('.checkable');
-                $checkbox.prop('checked', checked);
-                checked ? this.select() : this.deselect();
-            });
-
-            const count = table.rows({
-                selected: true
-            }).count();
-
-            $('#exilednoname_selected').text(count);
-
-            const isChecked = count > 0;
-            $('#checkbox_batch').toggleClass('hidden', !isChecked);
-            toast_notification(isChecked ? translations.default.notification.row_checked : translations.default.notification.row_unchecked);
-        });
-
-        // CHECKABLE
-        table.on('change', '.checkable', function() {
-            $(this).closest('tr').toggleClass('selected', $(this).is(':checked'));
-            $('#exilednoname_selected').html(table.rows('.selected').nodes().length);
-            $('#checkbox_batch').toggleClass('hidden', table.rows('.selected').nodes().length === 0);
-            document.querySelector('#check').indeterminate = table.rows('.selected').nodes().length > 0;
-        });
-
-        // TABLE RELOAD
-        $("#table_reload").on("click", function() {
-            $('#checkbox_batch').addClass('hidden');
-            $('.filter_form').val('');
-            table.ajax.reload(null, false);
-            toast_notification(translations.default.notification.table_reload)
-        });
-
+        $('#export_print').on('click', function (e) { e.preventDefault(); table.button(0).trigger(); });
+        $('#export_copy').on('click', function (e) { e.preventDefault(); table.button(1).trigger(); });
+        $('#export_csv').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
+        $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
+        $('#export_pdf').on('click', function (e) { e.preventDefault(); table.button(4).trigger(); });
     });
 </script>
 @endpush

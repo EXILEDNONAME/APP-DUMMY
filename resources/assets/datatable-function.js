@@ -8,9 +8,14 @@
 // TABLE ACTIVE
 // TABLE INACTIVE
 // TABLE DELETE
-// SELECTED ACTIVE
-// SELECTED INACTIVE
 // TABLE SELECTED ACTIVE
+// TABLE SELECTED INACTIVE
+// TABLE SELECTED ACTIVE
+
+// TABLE RESTORE
+// TABLE DELETE PERMANENT
+// TABLE SELECTED RESTORE
+// TABLE SELECTED DELETE PERMANENT
 
 var selectedIds = [];
 
@@ -56,6 +61,11 @@ $('.table_filter_date').change(function () {
     $('#exilednoname_table').DataTable().draw(false);
 });
 
+// TABLE FILTER DELETED AT
+$('.table_filter_deleted_at').change(function () {
+    $('#exilednoname_table').DataTable().draw(false);
+});
+
 // TABLE FILTER DATERANGE
 flatpickr("#dateRange", {
     mode: "range",
@@ -89,7 +99,7 @@ $('body').on('click', '.table_active', function () {
     $.ajax({
         type: "get", url: this_url + "/active/" + id,
         success: function (data) {
-            if (data.status && data.status === 'error') { toast_notification(data.message); table.ajax.reload(); return; }
+            if (data.status && data.status === 'error') { toast_notification(data.message); $('#exilednoname_table').DataTable().ajax.reload(); return; }
             var scrollTop = $(window).scrollTop();
             $('#exilednoname_table').DataTable().ajax.reload(function () { $(window).scrollTop(scrollTop); }, false);
             toast_notification(translations.default.notification.success.item_active);
@@ -106,7 +116,7 @@ $('body').on('click', '.table_inactive', function () {
     $.ajax({
         type: "get", url: this_url + "/inactive/" + id,
         success: function (data) {
-            if (data.status && data.status === 'error') { toast_notification(data.message); table.ajax.reload(); return; }
+            if (data.status && data.status === 'error') { toast_notification(data.message); $('#exilednoname_table').DataTable().ajax.reload(); return; }
             var scrollTop = $(window).scrollTop();
             $('#exilednoname_table').DataTable().ajax.reload(function () { $(window).scrollTop(scrollTop); }, false);
             toast_notification(translations.default.notification.success.item_inactive);
@@ -139,7 +149,24 @@ $('body').on('click', '.btn-confirm-delete', function () {
     });
 });
 
-// SELECTED ACTIVE
+// TABLE DELETE STATIC
+$('body').on('click', '[data-kt-modal-toggle="#modalDeleteStatic"]', function (e) {
+    e.preventDefault();
+    const form = $(this).closest('form'); // ambil form terdekat
+    $('#modalDeleteStatic').data('form', form).attr('data-id', $(this).data('id'));
+    $('#modalDeleteStatic').addClass('show'); // tampilkan modal (kalau pakai class)
+});
+
+$('body').on('click', '.btn-confirm-delete-static', function (e) {
+    e.preventDefault();
+    const form = $('#modalDeleteStatic').data('form');
+    if (form && form.length) {
+        form.submit();
+    }
+    $(e.target).closest('form').submit()
+});
+
+// TABLE SELECTED ACTIVE
 $('body').on('click', '[data-kt-modal-toggle="#modalSelectedActive"]', function () {
     selectedIds = [];
     $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
@@ -163,7 +190,7 @@ $('body').on('click', '.btn-confirm-selected-active', function () {
     });
 });
 
-// SELECTED INACTIVE
+// TABLE SELECTED INACTIVE
 $('body').on('click', '[data-kt-modal-toggle="#modalSelectedInactive"]', function () {
     selectedIds = [];
     $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
@@ -187,7 +214,7 @@ $('body').on('click', '.btn-confirm-selected-inactive', function () {
     });
 });
 
-// SELECTED DELETE
+// TABLE SELECTED DELETE
 $('body').on('click', '[data-kt-modal-toggle="#modalSelectedDelete"]', function () {
     selectedIds = [];
     $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
@@ -202,6 +229,98 @@ $('body').on('click', '.btn-confirm-selected-delete', function () {
         success: function (data) {
             if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
             toast_notification(translations.default.notification.success.selected_delete);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
+// TABLE RESTORE
+$('body').on('click', '[data-kt-modal-toggle="#modalRestore"]', function () {
+    $('#modalRestore').attr('data-id', $(this).data('id'));
+});
+
+$('body').on('click', '.btn-confirm-restore', function () {
+    let id = $('#modalRestore').attr('data-id');
+    let modal = KTModal.getInstance(document.querySelector('#modalRestore'));
+    $.ajax({
+        type: 'get', url: `${this_url}/../restore/${id}`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.item_restored);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
+// TABLE DELETE PERMANENT
+$('body').on('click', '[data-kt-modal-toggle="#modalDeletePermanent"]', function () {
+    $('#modalDeletePermanent').attr('data-id', $(this).data('id'));
+});
+
+$('body').on('click', '.btn-confirm-delete-permanent', function () {
+    let id = $('#modalDeletePermanent').attr('data-id');
+    let modal = KTModal.getInstance(document.querySelector('#modalDeletePermanent'));
+    $.ajax({
+        type: 'get', url: `${this_url}/../delete-permanent/${id}`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.item_delete_permanent);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
+// TABLE SELECTED RESTORE
+$('body').on('click', '[data-kt-modal-toggle="#modalSelectedRestore"]', function () {
+    selectedIds = [];
+    $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+    $('#modalSelectedRestore').attr('data-ids', selectedIds.join(','));
+});
+
+$('body').on('click', '.btn-confirm-selected-restore', function () {
+    let modal = KTModal.getInstance(document.querySelector('#modalSelectedRestore'));
+    let ids = $('#modalSelectedRestore').attr('data-ids');
+    $.ajax({
+        data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/../selected-restore`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.selected_restore);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
+// TABLE SELECTED DELETE PERMANENT
+$('body').on('click', '[data-kt-modal-toggle="#modalSelectedDeletePermanent"]', function () {
+    selectedIds = [];
+    $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+    $('#modalSelectedDeletePermanent').attr('data-ids', selectedIds.join(','));
+});
+
+$('body').on('click', '.btn-confirm-selected-delete-permanent', function () {
+    let modal = KTModal.getInstance(document.querySelector('#modalSelectedDeletePermanent'));
+    let ids = $('#modalSelectedDeletePermanent').attr('data-ids');
+    $.ajax({
+        data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/../selected-delete-permanent`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.selected_delete_permanent);
             modal.hide();
             $('#exilednoname_table').DataTable().draw(false);
         },
@@ -229,7 +348,7 @@ $.fn.dataTable.ext.buttons.copyHtml5.action = function (e, dt, button, config) {
 // PAGINATION
 $('#perpage').on('change', function () {
     let perPage = $(this).val();
-    table.page.len(perPage).draw();
+    $('#exilednoname_table').DataTable().page.len(perPage).draw();
 });
 
 // HIDDEN BATCH ACTION
@@ -316,4 +435,41 @@ function safeStrip(data, node) {
     if (typeof data === 'number' || typeof data === 'boolean') { return String(data); }
     if (node && node.textContent) { return String(node.textContent).trim(); }
     try { return String(data).replace(/<[^>]*>?/gm, '').trim(); } catch (e) { return ''; }
+}
+
+// PRINT ACTION
+function printData(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+}
+
+function printDataActivities(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+}
+
+function printDataCharts(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+}
+
+function printQR(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
 }
