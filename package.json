@@ -21,6 +21,7 @@
         "cssnano": "^7.1.1",
         "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^2.0.0",
+        "pdfmake": "^0.2.20",
         "postcss": "^8.5.6",
         "postcss-cli": "^11.0.1",
         "postcss-import": "^16.1.1",

@@ -29,6 +29,7 @@ mix.scripts([
     'public/assets/backend/js/jquery-3.7.1.min.js',
     'public/assets/backend/js/sweetalert.js',
     'public/assets/backend/js/flatpickr.js',
+    'public/assets/backend/js/lazy-loader.js',
 ], 'public/assets/backend/mix/js/app-core.js');
 
 // DATATABLE
@@ -41,5 +42,5 @@ mix.scripts([
     'public/assets/backend/js/datatables/jszip.min.js',
     // 'public/assets/backend/js/datatables/pdfmake.min.js',
     // 'public/assets/backend/js/datatables/vfs_fonts.js',
-    'public/assets/backend/js/datatables/render-pagination.js',
+    'resources/assets/datatable-function.js',
 ], 'public/assets/backend/mix/js/exilednoname-dt-plugins.js');

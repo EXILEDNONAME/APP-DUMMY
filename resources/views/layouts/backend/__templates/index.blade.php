@@ -67,7 +67,7 @@
                     <input id="datepicker" name="date" class="kt-input filter_form table_filter_date" placeholder="- Select Date -" />
                     @endif
                     <input type="text" id="dateRange" class="kt-input filter_form" placeholder="- Select Daterange -">
-                    <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm table_reset_filter" data-kt-tooltip="#tooltip_reset" data-kt-tooltip-placement="top-end"> {{ __('default.label.reset') }} </button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm table_reset_filter"> {{ __('default.label.reset') }} </button>
 
 
                 </div>

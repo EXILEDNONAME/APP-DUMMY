@@ -29,7 +29,7 @@
                             <tr>
                                 <td class="align-middle text-nowrap"> {{ __('default.label.file') }} </td>
                                 <td class="">
-                                    <a href="javascript:void(0);" data-kt-modal-toggle="#modalPicture" data-kt-tooltip="#tooltip_preview" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-picture"></i></a>
+                                    <a href="javascript:void(0);" data-kt-modal-toggle="#modalPicture" data-kt-tooltip="#tooltip_preview" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-picture"></i></a>
                                     <div id="tooltip_preview" class="kt-tooltip"> Preview </div>
                                     <div class="kt-modal" data-kt-modal="true" id="modalPicture">
                                         <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
