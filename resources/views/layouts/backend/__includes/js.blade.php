@@ -9,6 +9,18 @@
             label: {
                 no_data_available: "{{ __('default.label.no_data_available') }}",
                 no_data_matching: "{{ __('default.label.no_data_matching') }}",
+                activities: "{{ __('default.label.activities') }}",
+                back: "{{ __('default.label.back') }}",
+                batch_action: "{{ __('default.label.batch_action') }}",
+                create: "{{ __('default.label.create') }}",
+                delete: "{{ __('default.label.delete.delete') }}",
+                edit: "{{ __('default.label.edit') }}",
+                export: "{{ __('default.label.export.export') }}",
+                export_description_copy: "{{ __('default.label.export.description.copy') }}",
+                export_description_csv: "{{ __('default.label.export.description.csv') }}",
+                export_description_excel: "{{ __('default.label.export.description.excel') }}",
+                export_description_pdf: "{{ __('default.label.export.description.pdf') }}",
+                export_description_print: "{{ __('default.label.export.description.print') }}",
             }
         }
     };
@@ -20,7 +32,7 @@
     var date = "{{ !empty($date) && $date == 'true' ? 'true' : '' }}";
     var daterange = "{{ !empty($daterange) && $daterange == 'true' ? 'true' : '' }}";
     var file = "{{ !empty($file) && $file == 'true' ? 'true' : '' }}";
-    var status = "{{ !empty($status) && $status == 'true' ? 'true' : '' }}";    
+    var status = "{{ !empty($status) && $status == 'true' ? 'true' : '' }}";
     var sort = "{{ !empty($sort) && $sort > 0 ? $sort : '1, desc' }}";
     window.tableBodyColumns = [
         @yield('table-body')
@@ -80,28 +92,3 @@
     });
 </script>
 @endif
-
-<script>
-    
-</script>
-
-<script>
-    $(`<div id="tooltip_activities" class="kt-tooltip"> {{ __('default.label.activities') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_back" class="kt-tooltip"> {{ __('default.label.back') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_batch_action" class="kt-tooltip"> {{ __('default.label.batch_action') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_create" class="kt-tooltip"> {{ __('default.label.create') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_delete" class="kt-tooltip"> {{ __('default.label.delete.delete') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_edit" class="kt-tooltip"> {{ __('default.label.edit') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export" class="kt-tooltip"> {{ __('default.label.export.export') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export_description_copy" class="kt-tooltip"> {{ __('default.label.export.description.copy') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export_description_csv" class="kt-tooltip"> {{ __('default.label.export.description.csv') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export_description_excel" class="kt-tooltip"> {{ __('default.label.export.description.excel') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export_description_pdf" class="kt-tooltip"> {{ __('default.label.export.description.pdf') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_export_description_print" class="kt-tooltip"> {{ __('default.label.export.description.print') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_filter" class="kt-tooltip"> {{ __('default.label.filter') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_preview" class="kt-tooltip"> {{ __('default.label.preview') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_print" class="kt-tooltip"> {{ __('default.label.print') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_reload" class="kt-tooltip"> {{ __('default.label.reload') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_search" class="kt-tooltip"> {{ __('default.label.search') }} </div>`).appendTo('body');
-    $(`<div id="tooltip_trash" class="kt-tooltip"> {{ __('default.label.trash') }} </div>`).appendTo('body');
-</script>

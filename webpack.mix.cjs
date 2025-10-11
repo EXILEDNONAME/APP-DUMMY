@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const { execSync } = require('child_process');
 
 mix.browserSync({
     proxy: 'http://localhost:8000',
@@ -29,18 +30,26 @@ mix.scripts([
     'public/assets/backend/js/jquery-3.7.1.min.js',
     'public/assets/backend/js/flatpickr.js',
     'public/assets/backend/js/lazy-loader.js',
+    'public/assets/backend/js/tooltip-label.js',
     'public/assets/backend/js/logout.js',
 ], 'public/assets/backend/mix/js/app-core.js').version();
 
-// DATATABLE
+// DATATABLE BUNDLE
 mix.scripts([
-    'public/assets/backend/js/datatables/dataTables.min.js',
-    'public/assets/backend/js/datatables/select.min.js',
-    'public/assets/backend/js/datatables/buttons.min.js',
-    'public/assets/backend/js/datatables/buttons.html5.min.js',
-    'public/assets/backend/js/datatables/buttons.print.min.js',
-    'public/assets/backend/js/datatables/jszip.min.js',
-    'public/assets/backend/js/datatables/pdfmake.min.js',
-    'public/assets/backend/js/datatables/vfs_fonts_custom.js',
-    'resources/assets/datatable-function.js',
+    'resources/assets/backend/datatables/plugins/dataTables.min.js',
+    'resources/assets/backend/datatables/plugins/select.min.js',
+    'resources/assets/backend/datatables/plugins/buttons.min.js',
+    'resources/assets/backend/datatables/plugins/buttons.html5.min.js',
+    'resources/assets/backend/datatables/plugins/buttons.print.min.js',
+    'resources/assets/backend/datatables/plugins/jszip.min.js',
+    'resources/assets/backend/datatables/plugins/pdfmake.min.js',
+    'resources/assets/backend/datatables/plugins/vfs_fonts_custom.js',
+    'resources/assets/backend/datatables/datatable-function.js',
 ], 'public/assets/backend/mix/js/exilednoname-dt-plugins.js').version();
+
+// DATATABLE CUSTOM PAGES
+mix.then(() => {
+    execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-index.js --output public/assets/backend/mix/js/exilednoname-dt-index.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
+    execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-form.js --output public/assets/backend/mix/js/exilednoname-dt-form.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
+    console.log('EX-LOG: Obfuscation completed!');
+});

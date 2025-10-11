@@ -15,7 +15,8 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
-- MOVE MIX TO RESOURCE ASSETS
+- EDIT TOOLTIP
+- [OK] MOVE MIX TO RESOURCE ASSETS & OBFUSCATOR
 - [OK] PAGE TRASH
     - [OK] INDEX
     - [OK] SINGLE RESTORE
