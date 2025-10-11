@@ -40,7 +40,7 @@ mix.scripts([
     'public/assets/backend/js/datatables/buttons.html5.min.js',
     'public/assets/backend/js/datatables/buttons.print.min.js',
     'public/assets/backend/js/datatables/jszip.min.js',
-    // 'public/assets/backend/js/datatables/pdfmake.min.js',
-    // 'public/assets/backend/js/datatables/vfs_fonts.js',
+    'public/assets/backend/js/datatables/pdfmake.min.js',
+    'public/assets/backend/js/datatables/vfs_fonts_custom.js',
     'resources/assets/datatable-function.js',
 ], 'public/assets/backend/mix/js/exilednoname-dt-plugins.js');

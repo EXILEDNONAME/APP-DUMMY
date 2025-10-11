@@ -124,6 +124,12 @@ $(document).ready(function () {
                     format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
                 }
             },
+            {
+                extend: 'pdfHtml5', title: '', exportOptions: {
+                    columns: "thead th:not(.no-export)", orthogonal: "Export",
+                    format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+                }
+            },
         ],
         rowId: 'Collocation',
         select: {
@@ -137,29 +143,30 @@ $(document).ready(function () {
     $('#export_copy').on('click', function (e) { e.preventDefault(); table.button(1).trigger(); });
     $('#export_csv').on('click', function (e) { e.preventDefault(); table.button(2).trigger(); });
     $('#export_excel').on('click', function (e) { e.preventDefault(); table.button(3).trigger(); });
-    $('#export_pdf').on('click', function (e) {
-        e.preventDefault();
+    $('#export_pdf').on('click', function (e) { e.preventDefault(); table.button(4).trigger(); });
+    // $('#export_pdf').on('click', function (e) {
+    //     e.preventDefault();
 
-        function triggerPdfButton() {
-            const pdfBtn = table.button('.btn-export-pdf');
-            if (pdfBtn.length) { pdfBtn.trigger(); } else { toast_notification(translations.default.notification.error.error); }
-        }
+    //     function triggerPdfButton() {
+    //         const pdfBtn = table.button('.btn-export-pdf');
+    //         if (pdfBtn.length) { pdfBtn.trigger(); } else { toast_notification(translations.default.notification.error.error); }
+    //     }
 
-        if (typeof pdfMake === 'undefined' || typeof pdfMake.createPdf === 'undefined') {
-            $.when(
-                $.getScript('/assets/backend/js/datatables/pdfmake.min.js'),
-                $.getScript('/assets/backend/js/datatables/vfs_fonts.js')
-            ).then(function () {
-                table.button().add(4, {
-                    extend: 'pdfHtml5', text: 'PDF', className: 'btn-export-pdf', exportOptions: {
-                        columns: "thead th:not(.no-export)", orthogonal: "Export",
-                        format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
-                    }
-                });
-                triggerPdfButton();
-            })
-        } else {
-            triggerPdfButton();
-        }
-    });
+    //     if (typeof pdfMake === 'undefined' || typeof pdfMake.createPdf === 'undefined') {
+    //         $.when(
+    //             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js'),
+    //             $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js')
+    //         ).then(function () {
+    //             table.button().add(4, {
+    //                 extend: 'pdfHtml5', text: 'PDF', className: 'btn-export-pdf', exportOptions: {
+    //                     columns: "thead th:not(.no-export)", orthogonal: "Export",
+    //                     format: { body: function (data, row, column, node) { return safeStrip(data, node); } }
+    //                 }
+    //             });
+    //             triggerPdfButton();
+    //         })
+    //     } else {
+    //         triggerPdfButton();
+    //     }
+    // });
 });
