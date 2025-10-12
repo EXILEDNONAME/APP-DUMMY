@@ -15,7 +15,7 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
-- EDIT TOOLTIP
+- [OK] EDIT TOOLTIP
 - [OK] MOVE MIX TO RESOURCE ASSETS & OBFUSCATOR
 - [OK] PAGE TRASH
     - [OK] INDEX
@@ -41,11 +41,14 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - [OK] CHART COLOR
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
     - SECTION WIDGET TOP & BOTTOM
+
+- PAGE PROFILES
+    - EDIT AVATAR
+    - CHANGE PASSWORD
     
 - BUTTON ACTIVITIES & TRASH FOR ADMINISTRATOR
 - PAGE ACTIVITIES
 - PAGE DATABASE
-- PAGE PROFILES -> EDIT AVATAR
 - PAGE SETTINGS -> EDIT LOGO DESKTOP/MOBILE
 - PAGE FILE MANAGER
 - [OK] PAGE CREATE

@@ -32,6 +32,7 @@
     </div>
 </div>
 
+<!-- MODAL PICTURE -->
 <div class="kt-modal" data-kt-modal="true" id="modalPicture">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
         <div class="kt-modal-header">

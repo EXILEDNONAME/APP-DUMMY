@@ -30,7 +30,7 @@ mix.scripts([
     'public/assets/backend/js/jquery-3.7.1.min.js',
     'public/assets/backend/js/flatpickr.js',
     'public/assets/backend/js/lazy-loader.js',
-    'public/assets/backend/js/tooltip-label.js',
+    'public/assets/backend/js/core.plugins.js',
     'public/assets/backend/js/logout.js',
 ], 'public/assets/backend/mix/js/app-core.js').version();
 
@@ -51,5 +51,5 @@ mix.scripts([
 mix.then(() => {
     execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-index.js --output public/assets/backend/mix/js/exilednoname-dt-index.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
     execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-form.js --output public/assets/backend/mix/js/exilednoname-dt-form.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
-    console.log('EX-LOG: Obfuscation completed!');
+    console.log('EXILEDNONAME-LOG: Obfuscation completed!');
 });

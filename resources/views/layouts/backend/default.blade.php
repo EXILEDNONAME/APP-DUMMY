@@ -32,26 +32,16 @@
                     </div>
                 </div>
             </main>
-            
+
             @include('layouts.backend.__includes.footer')
         </div>
     </div>
 
     @include('layouts.backend.__includes.modal-search')
     @include('layouts.backend.__includes.js')
-
-    <div class="kt-modal" data-kt-modal="true" id="modalLogout">
-        <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-            <div class="kt-modal-header items-center justify-center"><h3 class="kt-modal-title text-sm"> Are You Sure Logout This Session? </h3></div>
-            <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-                <button id="confirmLogout" class="kt-btn flex items-center gap-2"> Yes </button>
-                <button id="cancelLogout" class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
-            </div>
-        </div>
-    </div>
-
+    @include('layouts.backend.__includes.tooltip')
+    @include('layouts.backend.__includes.modal')
     
-
 </body>
 
 </html>

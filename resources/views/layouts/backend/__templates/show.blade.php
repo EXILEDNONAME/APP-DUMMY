@@ -11,11 +11,10 @@
                         <a href="{{ URL::Current() }}/edit"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_edit" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-pencil"></i></button></a>
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printData')"><i class="ki-filled ki-printer"></i></button>
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-modal-toggle="#modalScan" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-scan-barcode"></i></button>
-                        <div id="tooltip_qrcode" class="kt-tooltip"> QR Code </div>
                         <form method="POST" action="{{ URL::current() }}/../{{ $data->id }}" class="form-horizontal delete-form" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf
-                            <button type="button" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteStatic"><i class="ki-filled ki-trash"></i></button>
+                            <button type="button" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteStatic" data-kt-tooltip="#tooltip_delete" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
                         </form>
                         <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
                     </div>
@@ -29,11 +28,10 @@
                                 <td class="align-middle text-nowrap"> {{ __('default.label.file') }} </td>
                                 <td class="">
                                     <a href="javascript:void(0);" data-kt-modal-toggle="#modalPicture" data-kt-tooltip="#tooltip_preview" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-picture"></i></a>
-                                    <div id="tooltip_preview" class="kt-tooltip"> Preview </div>
                                     <div class="kt-modal" data-kt-modal="true" id="modalPicture">
                                         <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
                                             <div class="kt-modal-header">
-                                                <h3 class="kt-modal-title text-sm"> Preview </h3>
+                                                <h3 class="kt-modal-title text-sm"> {{ __('default.label.preview') }} </h3>
                                                 <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true"><i class="ki-filled ki-cross"></i></button>
                                             </div>
                                             <div class="kt-modal-body grid gap-5 px-0 py-5">
@@ -44,8 +42,8 @@
                                             <div class="kt-modal-footer">
                                                 <div></div>
                                                 <div class="flex gap-2">
-                                                    <a href="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" download="{{ $data->file }}"><button class="kt-btn kt-btn-sm"><i class="ki-filled ki-cloud-download"></i> Download </button></a>
-                                                    <button class="kt-btn kt-btn-sm kt-btn-mono" data-kt-modal-dismiss="#modal"> Close </button>
+                                                    <a href="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" download="{{ $data->file }}"><button class="kt-btn kt-btn-sm"><i class="ki-filled ki-cloud-download"></i> {{ __('default.label.download') }} </button></a>
+                                                    <button class="kt-btn kt-btn-sm kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.close') }} </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,13 +61,13 @@
                             @endif
                             @if(!empty($data->date_start))
                             <tr>
-                                <td class="align-middle text-nowrap"> {{ __('default.label.date-start') }} </td>
+                                <td class="align-middle text-nowrap"> {{ __('default.label.date_start') }} </td>
                                 <td> {{ !empty($data->date_start) ? \Carbon\Carbon::parse($data->date_start)->format('d F Y') : '-' }} </td>
                             </tr>
                             @endif
                             @if(!empty($data->date_end))
                             <tr>
-                                <td class="align-middle text-nowrap"> {{ __('default.label.date-end') }} </td>
+                                <td class="align-middle text-nowrap"> {{ __('default.label.date_end') }} </td>
                                 <td> {{ !empty($data->date_end) ? \Carbon\Carbon::parse($data->date_end)->format('d F Y') : '-' }} </td>
                             </tr>
                             @endif
@@ -131,13 +129,10 @@
         <div id="printDataActivities">
             <div class="kt-card kt-card-grid w-full">
                 <div class="kt-card-header">
-                    <h3 class="kt-card-title text-sm grid gap-5"> Activities </h3>
+                    <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.activities') }} </h3>
                     <div class="kt-menu">
                         <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_print" data-kt-tooltip-placement="top-end" onclick="printData('printDataActivities')"><i class="ki-filled ki-printer"></i></button>
                         <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
-                        <div id="tooltip_back" class="kt-tooltip">
-                            Back
-                        </div>
                     </div>
                 </div>
                 <div class="overflow-x-auto w-full rounded-lg">
@@ -145,7 +140,7 @@
                     <div class="kt-card-content lg:p-7.5 lg:pt-6 p-5">
                         <div class="flex flex-col" bis_skin_checked="1">
 
-                            @php $activity = activities($model)->where('subject_id', $data->id)->take(7); @endphp
+                            @php $activity = activities($model)->where('subject_id', $data->id)->take(5); @endphp
                             <div class="flex flex-col">
                                 @foreach($activity as $acts)
                                 @php
@@ -200,7 +195,7 @@
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
         <div class="kt-modal-header">
             <h3 class="kt-modal-title text-sm">
-                Scan Code
+                {{ __('default.label.scan_code') }}
             </h3>
             <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true">
                 <i class="ki-filled ki-cross">
@@ -217,8 +212,8 @@
         <div class="kt-modal-footer">
             <div></div>
             <div class="flex gap-2">
-                <button class="kt-btn" onclick="printQR('printQR')"><i class="ki-filled ki-printer"></i> Print</button>
-                <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
+                <button class="kt-btn" onclick="printQR('printQR')"><i class="ki-filled ki-printer"></i> {{ __('default.label.print') }} </button>
+                <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.close') }} </button>
             </div>
         </div>
     </div>
@@ -226,12 +221,14 @@
 
 <div class="kt-modal" data-kt-modal="true" id="modalDeleteStatic">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Delete This Item? </h3>
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.delete') }}?
+            </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-static"> Yes </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-static"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>

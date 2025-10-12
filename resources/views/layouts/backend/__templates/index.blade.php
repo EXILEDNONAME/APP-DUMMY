@@ -88,16 +88,16 @@
                                 <th class="w-px whitespace-nowrap no-export"></th>
                                 <th style="display: none"> {{ __('default.label.created_at') }} </th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> No. </span></span></th>
-                                @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> Status </span><span class="kt-table-col-sort"></span></span></th> @endif
-                                @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> File </span></span></th> @endif
-                                @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Date </span><span class="kt-table-col-sort"></span></span></th> @endif
+                                @if (!empty($status) && $status == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.status') }} </span><span class="kt-table-col-sort"></span></span></th> @endif
+                                @if (!empty($file) && $file == 'true') <th class="w-px whitespace-nowrap no-export"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.file') }} </span></span></th> @endif
+                                @if (!empty($date) && $date == 'true') <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date') }} </span><span class="kt-table-col-sort"></span></span></th> @endif
                                 @if (!empty($daterange) && $daterange == 'true')
                                 <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_start') }} </span><span class="kt-table-col-sort"></span></span></th>
                                 <th class="w-px whitespace-nowrap"> <span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date_end') }} </span><span class="kt-table-col-sort"></span></span></th>
                                 @endif
                                 @yield('table-header')
                                 @if(!empty($active) && $active == 'true')
-                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> Active </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.active') }} </span></span></th>
                                 @endif
                                 <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
@@ -108,14 +108,14 @@
 
             <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
                 <div class="flex items-center gap-2 order-2 md:order-1">
-                    <label for="perpage" class="text-sm"> Show </label>
+                    <label for="perpage" class="text-sm"> {{ __('default.label.show') }} </label>
                     <select id="perpage" class="kt-select w-16 border rounded px-2 py-1">
                         <option value="25" selected> 25 </option>
                         <option value="100"> 100 </option>
                         <option value="250"> 250 </option>
                         <option value="500"> 500 </option>
                     </select>
-                    <span class="text-sm"> entries </span>
+                    <span class="text-sm"> {{ __('default.label.entries') }} </span>
                 </div>
                 <div class="flex items-center gap-2 order-1 md:order-2">
                     <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
@@ -215,50 +215,59 @@
 </div>
 @endif
 
+<!-- MODAL -->
 <div class="kt-modal" data-kt-modal="true" id="modalDelete">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Delete This Item? </h3>
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.delete') }}?
+            </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> Yes </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
 
 <div class="kt-modal" data-kt-modal="true" id="modalSelectedActive">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Set Active This Selected Item? </h3>
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.selected_active') }}?
+            </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-active"> Yes </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
 
 <div class="kt-modal" data-kt-modal="true" id="modalSelectedInactive">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Set Inactive This Selected Item? </h3>
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.selected_inactive') }}?
+            </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-inactive"> Yes </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
 
 <div class="kt-modal" data-kt-modal="true" id="modalSelectedDelete">
     <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header items-center justify-center">
-            <h3 class="kt-modal-title text-sm"> Are You Sure Delete This Selected Item? </h3>
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.selected_delete') }}?
+            </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete"> Yes </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Cancel </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
@@ -271,164 +280,162 @@
 @if (!empty($charts) && $charts == 'true')
 <script src="{{ env('APP_URL') }}/assets/backend/vendors/apexcharts/apexcharts.min.js"></script>
 <script>
-    fetch(this_url + '/chart')
-        .then(response => response.json())
-        .then(data => {
-            const created = data.created;
-            const updated = data.updated;
-            const deleted = data.deleted;
-            const categories = [
-                "{{ __('default.month.january') }}",
-                "{{ __('default.month.february') }}",
-                "{{ __('default.month.march') }}",
-                "{{ __('default.month.april') }}",
-                "{{ __('default.month.may') }}",
-                "{{ __('default.month.june') }}",
-                "{{ __('default.month.july') }}",
-                "{{ __('default.month.august') }}",
-                "{{ __('default.month.september') }}",
-                "{{ __('default.month.october') }}",
-                "{{ __('default.month.november') }}",
-                "{{ __('default.month.december') }}",
-            ];
+    fetch(this_url + '/chart').then(response => response.json()).then(data => {
+        const created = data.created;
+        const updated = data.updated;
+        const deleted = data.deleted;
+        const categories = [
+            translations.default.month.january,
+            translations.default.month.february,
+            translations.default.month.march,
+            translations.default.month.april,
+            translations.default.month.may,
+            translations.default.month.june,
+            translations.default.month.july,
+            translations.default.month.august,
+            translations.default.month.september,
+            translations.default.month.october,
+            translations.default.month.november,
+            translations.default.month.december,
+        ];
 
-            const options = {
-                series: [{
-                        name: 'Created',
-                        data: created,
-                    },
-                    {
-                        name: 'Updated',
-                        data: updated,
-                    },
-                    {
-                        name: 'Deleted',
-                        data: deleted,
-                    },
-                ],
-                chart: {
-                    height: 331,
-                    type: 'area',
-                    toolbar: {
-                        show: false,
-                    },
+        const options = {
+            series: [{
+                    name: translations.default.label.created,
+                    data: created
                 },
-                dataLabels: {
-                    enabled: false,
+                {
+                    name: translations.default.label.updated,
+                    data: updated,
                 },
-                colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)'],
-                legend: {
-                    show: false,
+                {
+                    name: translations.default.label.deleted,
+                    data: deleted,
                 },
-                stroke: {
-                    curve: 'smooth',
-                    show: true,
-                    width: 3,
-                    colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)'],
+            ],
+            chart: {
+                height: 331,
+                type: 'area',
+                toolbar: {
+                    show: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)'],
+            legend: {
+                show: false
+            },
+            stroke: {
+                curve: 'smooth',
+                show: true,
+                width: 3,
+                colors: ['var(--color-green-500)', 'var(--color-yellow-500)', 'var(--color-destructive)']
+            },
+            xaxis: {
+                categories: categories,
+                axisBorder: {
+                    show: false
                 },
-                xaxis: {
-                    categories: categories,
-                    axisBorder: {
-                        show: false,
-                    },
-                    maxTicks: 12,
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        style: {
-                            colors: 'var(--color-secondary-foreground)',
-                            fontSize: '12px',
-                        },
-                    },
-                    crosshairs: {
-                        position: 'front',
-                        stroke: {
-                            color: 'var(--color-primary)',
-                            width: 1,
-                            dashArray: 3,
-                        },
-                    },
-                    tooltip: {
-                        enabled: false,
-                        formatter: undefined,
-                        offsetY: 0,
-                        style: {
-                            fontSize: '12px',
-                        },
-                    },
+                maxTicks: 12,
+                axisTicks: {
+                    show: false
                 },
-                yaxis: {
-                    min: 0,
-                    max: 100,
-                    tickAmount: 5,
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        style: {
-                            colors: 'var(--color-secondary-foreground)',
-                            fontSize: '12px',
-                        },
-                        formatter: (value) => {
-                            return `${value}`;
-                        },
+                labels: {
+                    style: {
+                        colors: 'var(--color-secondary-foreground)',
+                        fontSize: '12px'
+                    }
+                },
+                crosshairs: {
+                    position: 'front',
+                    stroke: {
+                        color: 'var(--color-primary)',
+                        width: 1,
+                        dashArray: 3,
                     },
                 },
                 tooltip: {
                     enabled: true,
-                },
-                markers: {
-                    size: 0,
-                    colors: 'var(--color-primary)',
-                    strokeColors: 'var(--color-primary)',
-                    strokeWidth: 4,
-                    strokeOpacity: 1,
-                    strokeDashArray: 0,
-                    fillOpacity: 1,
-                    discrete: [],
-                    shape: 'circle',
-                    radius: 2,
-                    offsetX: 0,
+                    formatter: undefined,
                     offsetY: 0,
-                    onClick: undefined,
-                    onDblClick: undefined,
-                    showNullDataPoints: true,
-                    hover: {
-                        size: 8,
-                        sizeOffset: 0,
+                    style: {
+                        fontSize: '12px',
                     },
                 },
-                fill: {
-                    gradient: {
-                        enabled: true,
-                        opacityFrom: 0.25,
-                        opacityTo: 0,
+            },
+            yaxis: {
+                min: 0,
+                max: 100,
+                tickAmount: 5,
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    style: {
+                        colors: 'var(--color-secondary-foreground)',
+                        fontSize: '12px',
+                    },
+                    formatter: (value) => {
+                        return `${value}`;
                     },
                 },
-                grid: {
-                    borderColor: 'var(--color-mono)',
-                    strokeDashArray: 5,
-                    clipMarkers: false,
-                    yaxis: {
-                        lines: {
-                            show: true,
-                        },
-                    },
-                    xaxis: {
-                        lines: {
-                            show: false,
-                        },
+            },
+            tooltip: {
+                enabled: true,
+            },
+            markers: {
+                size: 0,
+                colors: 'var(--color-primary)',
+                strokeColors: 'var(--color-primary)',
+                strokeWidth: 4,
+                strokeOpacity: 1,
+                strokeDashArray: 0,
+                fillOpacity: 1,
+                discrete: [],
+                shape: 'circle',
+                radius: 2,
+                offsetX: 0,
+                offsetY: 0,
+                onClick: undefined,
+                onDblClick: undefined,
+                showNullDataPoints: true,
+                hover: {
+                    size: 8,
+                    sizeOffset: 0,
+                },
+            },
+            fill: {
+                gradient: {
+                    enabled: true,
+                    opacityFrom: 0.25,
+                    opacityTo: 0,
+                },
+            },
+            grid: {
+                borderColor: 'var(--color-mono)',
+                strokeDashArray: 5,
+                clipMarkers: false,
+                yaxis: {
+                    lines: {
+                        show: true,
                     },
                 },
-            };
+                xaxis: {
+                    lines: {
+                        show: false,
+                    },
+                },
+            },
+        };
 
-            const element = document.querySelector('#area_chart');
-            if (!element) return;
+        const element = document.querySelector('#area_chart');
+        if (!element) return;
 
-            const chart = new ApexCharts(element, options);
-            chart.render();
-        })
+        const chart = new ApexCharts(element, options);
+        chart.render();
+    })
 </script>
 @endif
 

@@ -48,9 +48,7 @@
             </div>
             <div class="kt-menu-item {{ (request()->is('dashboard/applications/datatables*')) ? 'show' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <div class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
-                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-abstract-21"></i></i>
-                    </span>
+                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-abstract-21"></i></i></span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Datatables
                     </span>
@@ -84,19 +82,39 @@
                     OTHER
                 </span>
             </div>
-            <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
-                <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
-                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
-                        <i class="ki-filled ki-user"></i>
-                    </span>
+
+            <div class="kt-menu-item {{ (request()->is('dashboard/profiles*')) ? 'show' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
+                <div class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
+                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-user"></i></span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Profiles
                     </span>
-                </a>
+                    <span class="kt-menu-arrow text-muted-foreground w-[20px] shrink-0 justify-end ms-1 me-[-10px]">
+                        <span class="inline-flex kt-menu-item-show:hidden"><i class="ki-filled ki-plus text-[11px]"></i></span>
+                        <span class="hidden kt-menu-item-show:inline-flex"><i class="ki-filled ki-minus text-[11px]"></i></span>
+                    </span>
+                </div>
+                <div class="kt-menu-accordion gap-1 ps-[10px] relative before:absolute before:start-[20px] before:top-0 before:bottom-0 before:border-s before:border-border">
+                    <div class="kt-menu-item {{ (request()->is('dashboard/profiles/account-informations*')) ? 'active' : '' }}">
+                        <a href="/dashboard/profiles/account-informations" class="kt-menu-link border border-transparent items-center grow kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 hover:rounded-lg gap-[14px] ps-[10px] pe-[10px] py-[8px]">
+                            <span class="kt-menu-bullet flex w-[6px] -start-[3px] rtl:start-0 relative before:absolute before:top-0 before:size-[6px] before:rounded-full rtl:before:translate-x-1/2 before:-translate-y-1/2 kt-menu-item-active:before:bg-primary kt-menu-item-hover:before:bg-primary"></span>
+                            <span class="kt-menu-title text-2sm font-normal text-foreground kt-menu-item-active:text-primary kt-menu-item-active:font-semibold kt-menu-link-hover:!text-primary">
+                                Account Informations
+                            </span>
+                        </a>
+                    </div>
+                    <div class="kt-menu-item {{ (request()->is('dashboard/profiles/change-password*')) ? 'active' : '' }}">
+                        <a href="/dashboard/profiles/change-password" class="kt-menu-link border border-transparent items-center grow kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 hover:rounded-lg gap-[14px] ps-[10px] pe-[10px] py-[8px]">
+                            <span class="kt-menu-bullet flex w-[6px] -start-[3px] rtl:start-0 relative before:absolute before:top-0 before:size-[6px] before:rounded-full rtl:before:translate-x-1/2 before:-translate-y-1/2 kt-menu-item-active:before:bg-primary kt-menu-item-hover:before:bg-primary"></span>
+                            <span class="kt-menu-title text-2sm font-normal text-foreground kt-menu-item-active:text-primary kt-menu-item-active:font-semibold kt-menu-link-hover:!text-primary">
+                                Change Password
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="kt-menu-item">
                 <a href="javascript:;" id="exLogoutButton" data-kt-modal-toggle="#modalLogout" href="javascript:;" class="kt-menu-toggle kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]">
-                    <!-- <button class=" kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" class="kt-btn" data-kt-tooltip="#tooltip_qrcode" data-kt-tooltip-placement="bottom-start"><i class="ki-filled ki-scan-barcode"></i></button> -->
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
                         <i class="ki-filled ki-exit-left"></i>
                     </span>
@@ -237,7 +255,7 @@
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary"> Sessions </span>
                 </a>
             </div>
-            
+
             <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
                     <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-element-11 text-lg"></i></span>
