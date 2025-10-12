@@ -15,41 +15,17 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
-- [OK] EDIT TOOLTIP
-- [OK] MOVE MIX TO RESOURCE ASSETS & OBFUSCATOR
-- [OK] PAGE TRASH
-    - [OK] INDEX
-    - [OK] SINGLE RESTORE
-    - [OK] SINGLE DELETE PERMANENT
-    - [OK] SELECTED RESTORE
-    - [OK] SELECTED DELETE
-    - [OK] FILTER DELETED_AT
-
-- [OK] PAGE SHOW
-    - [OK] CONFIRM DELETE
-    - [OK] PRINT QR
-
 - PAGE INDEX ->
-    - [OK] ACTIVITIES
-    - [OK] DATERANGE
-    - [OK] FILTER STATUS
-    - [OK] CONFIRM DELETE
-    - [OK] CONFIRM SELECTED ACTIVE
-    - [OK] CONFIRM SELECTED INACTIVE
-    - [OK] CONFIRM SELECTED DELETE
-    - [OK] EXPORT FULL (COPY, CSV, EXCEL, PDF & PRINT)
-    - [OK] CHART COLOR
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
     - SECTION WIDGET TOP & BOTTOM
 
-- PAGE PROFILES
-    - EDIT AVATAR
-    - CHANGE PASSWORD
+- [OK] PAGE PROFILES
+    - [OK] EDIT AVATAR
+    - [OK] CHANGE PASSWORD
     
 - BUTTON ACTIVITIES & TRASH FOR ADMINISTRATOR
 - PAGE ACTIVITIES
 - PAGE DATABASE
 - PAGE SETTINGS -> EDIT LOGO DESKTOP/MOBILE
 - PAGE FILE MANAGER
-- [OK] PAGE CREATE
 - EXPORT PDF & PRINT WITH STYLE

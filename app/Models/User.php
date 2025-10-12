@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use SoftDeletes;
 
     protected $fillable = [
+        'avatar',
         'name',
         'email',
         'phone',
