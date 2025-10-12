@@ -103,7 +103,6 @@ flatpickr("#dateRange", {
 
 // TABLE FILTER STATUS
 $('.filter_status').change(function () {
-    $('#exilednoname_table').DataTable().draw(false);
     $('#exilednoname_table').DataTable().column('status:name').search(this.value).draw();
 });
 

@@ -238,7 +238,7 @@
             </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn flex items-center gap-2 btn-selected-active"> {{ __('default.label.yes') }} </button>
             <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
@@ -252,7 +252,7 @@
             </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-inactive"> {{ __('default.label.yes') }} </button>
             <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
@@ -266,7 +266,7 @@
             </h3>
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete"> {{ __('default.label.yes') }} </button>
             <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>

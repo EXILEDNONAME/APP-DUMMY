@@ -2,8 +2,8 @@
 
 namespace App\Http\Traits\Backend\__System\Controllers\Datatable\Default;
 
-use \Illuminate\Support\Facades\DB;
-use \Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 trait IndexController
 {

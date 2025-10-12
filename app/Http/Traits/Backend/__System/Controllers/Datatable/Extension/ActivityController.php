@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits\Backend\__System\Controllers\Datatable\Extension;
 
+use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -11,9 +12,14 @@ trait ActivityController
     {
         $model = $this->model;
         $url = $this->url;
-        $data = Activity::where('subject_type', $this->model)->orderby('updated_at', 'desc')->get();
         if (request()->ajax()) {
-            return DataTables::of($data)
+            $query = Activity::where('subject_type', $this->model);
+
+            if (request()->has('filter_status') && request()->filter_status != '') {
+                $query->where('description', request()->filter_status);
+            }
+
+            return DataTables::of($query)
                 ->editColumn('subjects', function ($order) {
                     if (!empty($order->properties['attributes']['name'])) {
                         return $order->properties['attributes']['name'];
@@ -27,12 +33,8 @@ trait ActivityController
                 ->editColumn('updated_at', function ($order) {
                     return \Carbon\Carbon::parse($order->updated_at)->format('d F Y, H:i');
                 })
-                ->editColumn('description', function ($order) {
-                    return nl2br(e($order->description));
-                })
-                ->rawColumns(['description'])
                 ->addIndexColumn()->make(true);
         }
-        return view($this->path . 'activity', compact('data', 'model', 'url'));
+        return view($this->path . 'activity', compact('model', 'url'));
     }
 }

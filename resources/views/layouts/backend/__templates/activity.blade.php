@@ -5,7 +5,7 @@
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
             <div class="kt-card-header">
-                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.trash') }} </h3>
+                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.activities') }} </h3>
                 <div class="kt-menu">
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
                     <button id="toggle_filters" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_filter" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-setting-4"></i></button>
@@ -23,18 +23,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
-                        <div class="kt-menu" data-kt-menu="true">
-                            <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
-                                <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-tooltip="#tooltip_batch_action" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
-                                <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedRestore"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> {{ __('default.label.restore') }} </span></a></div>
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDeletePermanent"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.permanent') }} </span></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <a href="{{ $url }}"><button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_back" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-black-right-line"></i></button></a>
                 </div>
             </div>
@@ -46,31 +34,35 @@
                         <input id="table_search" class="filter_form" placeholder="{{ __('default.label.search') }}" type="text" />
                     </label>
 
-                    <input id="datepicker" name="deleted_at" class="kt-input filter_form table_filter_deleted_at" placeholder="- Select Deleted At -" />
+                    <select class="kt-select filter_form filter_status">
+                        <option value=""> - {{ __('default.select.status') }} - </option>
+                        <option value="created"> {{ __('default.label.created') }} </option>
+                        <option value="deleted"> {{ __('default.label.deleted') }} </option>
+                        <option value="updated"> {{ __('default.label.updated') }} </option>
+                    </select>
+
                     <button class="kt-menu-toggle kt-btn kt-btn-primary kt-btn-sm table_reset_filter"> {{ __('default.label.reset') }} </button>
 
 
                 </div>
             </div>
-
             <div class="kt-card-content">
                 <div class="kt-scrollable-x-hover" style="padding-bottom: 1px;">
 
                     <table id="exilednoname_table" class="kt-table" width="100%">
                         <thead>
                             <tr>
-                                <th class="w-px whitespace-nowrap no-export"></th>
                                 <th style="display: none"> {{ __('default.label.created_at') }} </th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
-                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.deleted_at') }} </span><span class="kt-table-col-sort"></span></span></th>
-                                @yield('table-header')
-                                <th class="w-px whitespace-nowrap no-export"></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.status') }} </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.subject') }} </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.causer') }} </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> {{ __('default.label.date') }} </span><span class="kt-table-col-sort"></span></span></th>
                             </tr>
                         </thead>
                     </table>
                 </div>
             </div>
-
             <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
                 <div class="flex items-center gap-2 order-2 md:order-1">
                     <label for="perpage" class="text-sm"> {{ __('default.label.show') }} </label>
@@ -86,65 +78,6 @@
                     <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
                 </div>
             </div>
-
-
-        </div>
-    </div>
-</div>
-
-<div class="kt-modal" data-kt-modal="true" id="modalRestore">
-    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header flex justify-center items-center">
-            <h3 class="kt-modal-title text-sm text-center">
-                {{ __('default.notification.confirm.restore') }}?
-            </h3>
-        </div>
-        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-restore"> {{ __('default.label.yes') }} </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
-        </div>
-    </div>
-</div>
-
-<div class="kt-modal" data-kt-modal="true" id="modalDeletePermanent">
-    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header flex justify-center items-center">
-            <h3 class="kt-modal-title text-sm text-center">
-                {{ __('default.notification.confirm.delete_permanent') }}?
-            </h3>
-        </div>
-        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-permanent"> {{ __('default.label.yes') }} </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
-        </div>
-    </div>
-</div>
-
-<div class="kt-modal" data-kt-modal="true" id="modalSelectedRestore">
-    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header flex justify-center items-center">
-            <h3 class="kt-modal-title text-sm text-center">
-                {{ __('default.notification.confirm.selected_restore') }}?
-            </h3>
-        </div>
-        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-restore"> {{ __('default.label.yes') }} </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
-        </div>
-    </div>
-</div>
-
-<div class="kt-modal" data-kt-modal="true" id="modalSelectedDeletePermanent">
-    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
-        <div class="kt-modal-header flex justify-center items-center">
-            <h3 class="kt-modal-title text-sm text-center">
-                {{ __('default.label.are_you_sure') }} <br>
-                {{ __('default.notification.confirm.selected_delete_permanent') }}?
-            </h3>
-        </div>
-        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
-            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete-permanent"> {{ __('default.label.yes') }} </button>
-            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
@@ -174,6 +107,7 @@
                         if (range.includes(' to ')) { ex.date_start = range.split(' to ')[0]; ex.date_end = range.split(' to ')[1]; }
                         else { ex.date_start = range; ex.date_end = range; }
                     }
+                    ex.filter_status = $('.filter_status').val();
                 }
             },
             language: {
@@ -182,41 +116,30 @@
                 zeroRecords: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_matching} ... </span></div>`,
             },
             drawCallback: function () { renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1); },
-            headerCallback: function (thead, data, start, end, display) { thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`; },
             columns: [
-                {
-                    data: null, name: 'checkbox', searchable: false, orderable: false,
-                    render: function (data, type, row, meta) { return `<input type="checkbox" class="kt-checkbox checkable" data-id="${row.id}">`; },
-                },
                 { data: 'created_at', name: 'created_at', visible: false },
                 {
                     data: null, name: 'autonumber', orderable: false, searchable: false, 'className': 'text-center', 'width': '1',
                     render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }
                 },
                 {
-                    data: 'deleted_at', name: 'deleted_at', orderable: true, 'className': 'text-nowrap', 'width': '1',
+                    data: 'description', name: 'description', orderable: true, 'className': 'align-middle', 'width': '1',
+                    render: function (data, type, row) {
+                        if (data == 'created') return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-success"> ${translations.default.label.created} </span>`;
+                        if (data == 'updated') return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-warning"> ${translations.default.label.updated} </span>`;
+                        if (data == 'deleted') return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-destructive"> ${translations.default.label.deleted} </span>`;
+                        if (data == 'restored') return `<span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-info"> ${translations.default.label.restore} </span>`;
+                    }
+                },
+                {
+                    data: 'subjects', name: 'subjects', orderable: true, 'className': 'text-nowrap',
                     render: function (data, type, row) { if (data == null) { return '<center> - </center>' } else { return data; } }
                 },
-                
-                @yield('table-body')
-                
                 {
-                    data: null, name: 'action', orderable: false, searchable: false,
-                    render: function (data, type, row) {
-                        return `
-                        <td>
-                            <div class="kt-menu" data-kt-menu="true">
-                                <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
-                                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
-                                    <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalRestore"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> ${translations.default.label.restore} </span></a></div>
-                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalDeletePermanent"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.permanent} </span></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>`;
-                    }
-                }
+                    data: 'causer_id', name: 'causer_id', orderable: true, 'className': 'text-nowrap',
+                    render: function (data, type, row) { if (data == null) { return '<center> - </center>' } else { return data; } }
+                },
+                { data: 'updated_at', 'className': 'text-nowrap' },
             ],
             buttons: [
                 {
@@ -255,7 +178,7 @@
                 style: 'multi',
                 selector: 'td:first-child .checkable',
             },
-            order: [3, 'desc']
+            order: [5, 'desc']
         });
 
         $('#export_print').on('click', function (e) { e.preventDefault(); table.button(0).trigger(); });
