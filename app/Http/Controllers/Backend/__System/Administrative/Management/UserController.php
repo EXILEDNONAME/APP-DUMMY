@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\Http\Traits\HandlesFormRequest;
@@ -89,9 +91,9 @@ class UserController extends Controller implements HasMiddleware
                 ->editColumn('avatar', function ($order) {
                     $data = \App\Models\User::where('id', $order->id)->first();
                     if (!empty($order->avatar)) {
-                        return '<div class="symbol symbol-lg-35 symbol-30 symbol-circle symbol-light-danger"><img src="' . env("APP_URL") . '/storage/avatar/' . $order->id . '/' . $order->avatar . '"></div>';
+                        return '<img class="size-9 rounded-full" src="' . env("APP_URL") . '/storage/avatar/' . $order->id . '/' . $order->avatar . '">';
                     } else {
-                        return '<div class="symbol symbol-lg-35 symbol-30 symbol-circle symbol-light-danger"><img src="' . env("APP_URL") . '/assets/backend/media/users/blank.png"></div>';
+                        return '<img class="size-9 rounded-full" src="' . env("APP_URL") . '/assets/backend/media/avatars/blank.png">';
                     }
                 })
                 ->rawColumns(['file', 'avatar'])
@@ -254,6 +256,71 @@ class UserController extends Controller implements HasMiddleware
                 $this->model::destroy($data3->id);
             }
             return response()->json($data);
+        }
+    }
+
+    /**
+     **************************************************
+     * @return RESET_PASSWORD_STATIC
+     **************************************************
+     **/
+
+    public function reset_password_static($id)
+    {
+        try {
+            if ($id == 1 || $id == 2) {
+                return redirect($this->url)->with('error', __('default.notification.error.restrict'));
+            } else {
+                $this->model::where('id', $id)->update(['password' => Hash::make('1234')]);
+                Cache::forget($this->url);
+                return redirect($this->url)->with('success', __('default.notification.success.reset_password'));
+            }
+        } catch (\Exception $e) {
+            return redirect($this->url)->with('error', __('default.notification.error.error'));
+        }
+    }
+
+    /**
+     **************************************************
+     * @return RESET_PASSWORD
+     **************************************************
+     **/
+
+    public function reset_password($id = null)
+    {
+        if ($id == 1 || $id == 2) {
+            return response()->json(['status'  => 'error', 'message' => __('default.notification.error.restrict')], 200);
+        } else {
+            if (!$id) {
+                return redirect('/dashboard')->with('error', __('default.notification.error.restrict'));
+            }
+
+            if (Auth::User()->id != 1 && Auth::User()->id != 2 && $this->model::where('id', $id)->first()->created_by != Auth::User()->id) {
+                return response()->json(['status'  => 'error', 'message' => __('default.notification.error.restrict')], 200);
+            } else {
+                $data = $this->model::where('id', $id)->update(['password' => Hash::make('1234')]);
+                Cache::forget($this->url);
+                return response()->json($data);
+            }
+        }
+    }
+
+    /**
+     **************************************************
+     * @return SELECTED_RESET_PASSWORD
+     **************************************************
+     **/
+    public function selected_reset_password(Request $request)
+    {
+        $data = "0," . $request->EXILEDNONAME;
+        $ids = explode(",", $data);
+        $firstId = $ids[0] ?? null;
+        if (array_search("1", $ids) || array_search("2", $ids)) {
+            return response()->json(['status'  => 'error', 'message' => __('default.notification.error.restrict')], 200);
+        } else {
+            $this->model::whereIn('id', $ids)->update(['password' => Hash::make('1234')]);
+            Cache::forget($this->url);
+            return Response::json($data);
         }
     }
 }

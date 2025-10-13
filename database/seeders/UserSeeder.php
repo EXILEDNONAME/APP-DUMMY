@@ -15,7 +15,7 @@ class UserSeeder extends Seeder {
       [
         'name'              => 'Administrator',
         'email'             => 'administrator@exilednoname.com',
-        'phone'             => '08112448111',
+        'phone'             => '08111',
         'username'          => 'administrator',
         'password'          => bcrypt('1234'),
         'created_at'        => Carbon::now(),
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder {
       [
         'name'              => 'Admin',
         'email'             => 'admin@exilednoname.com',
-        'phone'             => '08112448112',
+        'phone'             => '08112',
         'username'          => 'admin',
         'password'          => bcrypt('1234'),
         'created_at'        => Carbon::now(),
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder {
       [
         'name'              => 'User',
         'email'             => 'user@exilednoname.com',
-        'phone'             => '08112448113',
+        'phone'             => '08113',
         'username'          => 'user',
         'password'          => bcrypt('1234'),
         'created_at'        => Carbon::now(),

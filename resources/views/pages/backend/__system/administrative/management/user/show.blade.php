@@ -1,4 +1,4 @@
-@extends('layouts.backend.__templates.show', ['active' => 'true'])
+@extends('layouts.backend.__templates.show', ['active' => 'true', 'extension' => 'management-users'])
 @section('title', 'Management Users')
 
 @section('table-header')

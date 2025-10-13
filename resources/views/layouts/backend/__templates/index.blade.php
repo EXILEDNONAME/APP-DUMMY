@@ -32,6 +32,9 @@
                                     <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.label.active') }} </span></a></div>
                                     <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedInactive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.label.inactive') }} </span></a></div>
                                     <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDelete"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.delete') }} </span></a></div>
+                                    @if(!empty($extension) && $extension == 'management-users')
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedResetPassword"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-key"></i></span><span class="kt-menu-title"> {{ __('default.label.reset_password') }} </span></a></div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -267,6 +270,35 @@
         </div>
         <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
             <button class="kt-btn flex items-center gap-2 btn-confirm-selected-delete"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalResetPassword">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.reset_password') }}?
+            </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-reset-password"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalSelectedResetPassword">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.label.are_you_sure') }} <br>
+                {{ __('default.notification.confirm.selected_reset_password') }}?
+            </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-selected-reset-password"> {{ __('default.label.yes') }} </button>
             <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>

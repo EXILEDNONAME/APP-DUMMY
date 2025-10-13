@@ -253,4 +253,55 @@ class PermissionController extends Controller implements HasMiddleware
             return response()->json($data);
         }
     }
+
+    /**
+     **************************************************
+     * @return TRASH
+     **************************************************
+     **/
+    public function trash()
+    {
+        $statusName = property_exists($this, 'status') && $this->status ? $this->status : 'default';
+        $statusFilter = DB::table('system_status_filters')->where('name', $statusName)->first();
+        $attributes = json_decode($statusFilter->properties ?? '[]', true);
+
+        $model = $this->model;
+        $sort = $this->sort;
+        $url = $this->url;
+
+        if (request()->ajax()) {
+            $tableName = (new $this->model)->getTable();
+            $query = $this->model::onlyTrashed()
+                ->leftJoin('users', 'users.id', '=', $tableName . '.model_id')
+                ->leftJoin('roles', 'roles.id', '=', $tableName . '.role_id')
+                ->select($tableName . '.*', 'users.name as user_name', 'roles.name as role_name');
+
+            if (request('deleted_at')) {
+                $query->whereDate($tableName . '.deleted_at', request('deleted_at'));
+            }
+
+            $datatable = DataTables::of($query)
+                ->addIndexColumn()
+                ->editColumn('deleted_at', function ($order) {
+                    return empty($order->deleted_at) ? NULL : \Carbon\Carbon::parse($order->deleted_at)->format('d F Y, H:i');
+                })
+                ->editColumn('description', function ($order) {
+                    return nl2br(e($order->description));
+                })
+                ->editColumn('role_id', function ($order) {
+                    return ucwords(str_replace(['-', '_'], ' ', $order->role->name));
+                })
+                ->editColumn('model_id', function ($order) {
+                    return DB::table('users')->where('id', $order->model_id)->first()->name;
+                })
+                ->filterColumn('role_id', function ($query, $keyword) {
+                    $query->where('roles.name', 'like', "%{$keyword}%");
+                })
+                ->filterColumn('model_id', function ($query, $keyword) {
+                    $query->where('users.name', 'like', "%{$keyword}%");
+                });
+            return $datatable->rawColumns(['description'])->make(true);
+        }
+        return view($this->path . 'trash', compact(['attributes', 'model', 'sort', 'url']));
+    }
 }

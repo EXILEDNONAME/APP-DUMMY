@@ -59,10 +59,11 @@ Route::group([
     Route::get('active/{id}', 'UserController@active')->name('active');
     Route::get('activities', 'UserController@activity')->name('activity');
     Route::get('inactive/{id}', 'UserController@inactive')->name('inactive');
+    Route::post('reset-password-static/{id}', 'UserController@reset_password_static')->name('reset-password-static');
     Route::get('delete/{id}', 'UserController@delete')->name('delete');
     Route::get('delete-permanent/{id}', 'UserController@delete_permanent')->name('delete-permanent');
+    Route::get('reset-password/{id}', 'UserController@reset_password')->name('reset-password');
     Route::get('restore/{id}', 'UserController@restore')->name('restore');
-    Route::get('trash', 'UserController@trash')->name('trash');
     Route::get('selected-active', 'UserController@selected_active')->name('selected-active');
     Route::get('selected-inactive', 'UserController@selected_inactive')->name('selected-inactive');
     Route::get('selected-delete', 'UserController@selected_delete')->name('selected-delete');

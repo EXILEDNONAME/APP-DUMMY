@@ -22,4 +22,9 @@ class Permission extends Model
     {
         return LogOptions::defaults()->logOnly(['*']);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class)->withTrashed();
+    }
 }

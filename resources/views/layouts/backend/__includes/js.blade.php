@@ -16,6 +16,7 @@
     var active = "{{ !empty($active) && $active == 'true' ? 'true' : '' }}";
     var date = "{{ !empty($date) && $date == 'true' ? 'true' : '' }}";
     var daterange = "{{ !empty($daterange) && $daterange == 'true' ? 'true' : '' }}";
+    var extension = "{{ !empty($extension) && $extension != '' ? $extension : '' }}";
     var file = "{{ !empty($file) && $file == 'true' ? 'true' : '' }}";
     var status = "{{ !empty($status) && $status == 'true' ? 'true' : '' }}";
     var sort = "{{ !empty($sort) && $sort > 0 ? $sort : '1, desc' }}";

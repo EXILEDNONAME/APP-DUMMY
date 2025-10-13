@@ -40,6 +40,6 @@ class StoreRequest extends BaseFormRequest
 
         \Cache::forget($url);
         session()->flash('success', __('default.notification.success.item_created'));
-        return response()->json(['status'  => 'success', 'redirect_url' => url($url)], 200);
+        return response()->json(['status'  => 'success', 'redirect_url' => $url], 200);
     }
 }

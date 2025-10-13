@@ -36,7 +36,7 @@ class UpdateRequest extends BaseFormRequest
 
         if (in_array($id, [1, 2])) {
             session()->flash('error',  __('default.notification.error.restrict'));
-            return response()->json(['status' => 'error', 'message' => __('default.notification.error.restrict'), 'redirect_url' => url($url)], 200);
+            return response()->json(['status' => 'error', 'message' => __('default.notification.error.restrict'), 'redirect_url' => $url], 200);
         }
 
         $data   = $model::findOrFail($id);
@@ -45,12 +45,12 @@ class UpdateRequest extends BaseFormRequest
         $dirty = collect($data->getDirty())->except('updated_at');
         if ($dirty->isEmpty()) {
             session()->flash('success', __('default.notification.success.item_ignored'));
-            return response()->json(['status' => 'success', 'redirect_url' => url($url)], 200);
+            return response()->json(['status' => 'success', 'redirect_url' => $url], 200);
         }
 
         $data->save();
         \Cache::forget($url);
         session()->flash('success', __('default.notification.success.item_updated'));
-        return response()->json(['status' => 'success', 'redirect_url' => url($url)], 200);
+        return response()->json(['status' => 'success', 'redirect_url' => $url], 200);
     }
 }

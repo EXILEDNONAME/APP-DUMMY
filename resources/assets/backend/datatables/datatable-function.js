@@ -17,6 +17,8 @@
 // TABLE SELECTED RESTORE
 // TABLE SELECTED DELETE PERMANENT
 
+// START OPTIMIZING
+
 var selectedIds = [];
 
 // GROUP CHECKABLE
@@ -151,9 +153,9 @@ $('body').on('click', '.btn-confirm-delete', function () {
 // TABLE DELETE STATIC
 $('body').on('click', '[data-kt-modal-toggle="#modalDeleteStatic"]', function (e) {
     e.preventDefault();
-    const form = $(this).closest('form'); // ambil form terdekat
+    const form = $(this).closest('form');
     $('#modalDeleteStatic').data('form', form).attr('data-id', $(this).data('id'));
-    $('#modalDeleteStatic').addClass('show'); // tampilkan modal (kalau pakai class)
+    $('#modalDeleteStatic').addClass('show');
 });
 
 $('body').on('click', '.btn-confirm-delete-static', function (e) {
@@ -163,6 +165,69 @@ $('body').on('click', '.btn-confirm-delete-static', function (e) {
         form.submit();
     }
     $(e.target).closest('form').submit()
+});
+
+// TABLE RESET PASSWORD STATIC
+$('body').on('click', '[data-kt-modal-toggle="#modalResetPasswordStatic"]', function (e) {
+    e.preventDefault();
+    const form = $(this).closest('form');
+    $('#modalResetPasswordStatic').data('form', form).attr('data-id', $(this).data('id'));
+    $('#modalResetPasswordStatic').addClass('show');
+});
+
+$('body').on('click', '.btn-confirm-reset-password-static', function (e) {
+    e.preventDefault();
+    const form = $('#modalResetPasswordStatic').data('form');
+    if (form && form.length) {
+        form.submit();
+    }
+    $(e.target).closest('form').submit()
+});
+
+// TABLE RESET PASSWORD
+$('body').on('click', '[data-kt-modal-toggle="#modalResetPassword"]', function () {
+    $('#modalResetPassword').attr('data-id', $(this).data('id'));
+});
+
+$('body').on('click', '.btn-confirm-reset-password', function () {
+    let id = $('#modalResetPassword').attr('data-id');
+    let modal = KTModal.getInstance(document.querySelector('#modalResetPassword'));
+    $.ajax({
+        type: 'get', url: `${this_url}/reset-password/${id}`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.reset_password);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
+// TABLE SELECTED RESET PASSWORD
+$('body').on('click', '[data-kt-modal-toggle="#modalSelectedResetPassword"]', function () {
+    selectedIds = [];
+    $(".checkable:checked").each(function () { selectedIds.push($(this).data('id')); });
+    $('#modalSelectedResetPassword').attr('data-ids', selectedIds.join(','));
+});
+
+$('body').on('click', '.btn-confirm-selected-reset-password', function () {
+    let modal = KTModal.getInstance(document.querySelector('#modalSelectedResetPassword'));
+    let ids = $('#modalSelectedResetPassword').attr('data-ids');
+    $.ajax({
+        data: { EXILEDNONAME: ids }, type: 'get', url: `${this_url}/selected-reset-password`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            toast_notification(translations.default.notification.success.selected_reset_password);
+            modal.hide();
+            $('#exilednoname_table').DataTable().draw(false);
+        },
+        error: function () {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
 });
 
 // TABLE SELECTED ACTIVE
