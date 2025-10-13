@@ -15,6 +15,11 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
+- PAGE MANAGEMENTS
+    - PERMISSIONS
+    - ROLES
+    - USERS
+
 - PAGE INDEX ->
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
     - SECTION WIDGET TOP & BOTTOM
@@ -28,12 +33,8 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 - PAGE OPTIMIZATIONS
 
 - [OK] PAGE PROFILES
-    - [OK] EDIT AVATAR
-    - [OK] CHANGE PASSWORD
+- LOGOUT EDIT TRANSLATE MODAL
 
 - [OK] PAGE ACTIVITIES
-    - [OK] INDEX
-    - [OK] FILTER STATUS
-
 - [OK] PAGE TRASH
-    - [OK] EDIT TRANSLATE MODAL
+

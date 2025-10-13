@@ -329,6 +329,23 @@ $('body').on('click', '.btn-confirm-selected-delete-permanent', function () {
     });
 });
 
+// START OPTIMIZING
+$('body').on('click', '.start_optimizing', function () {
+    var id = $(this).data("id");
+    $.ajax({
+        type: "get", url: `${this_url}/start-optimizing/${id}`,
+        success: function (data) {
+            if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+            $('#exilednoname_table').DataTable().draw(false);
+            toast_notification(translations.default.notification.success.optimizing);
+
+        },
+        error: function (data) {
+            toast_notification(translations.default.notification.error.error);
+        }
+    });
+});
+
 /***** OTHER FUNCTION *****/
 
 // TABLE SEARCH

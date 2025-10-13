@@ -47,9 +47,11 @@ mix.scripts([
     'resources/assets/backend/datatables/datatable-function.js',
 ], 'public/assets/backend/mix/js/exilednoname-dt-plugins.js').version();
 
-// DATATABLE CUSTOM PAGES
+// DATATABLE PAGES - OBFUSCATOR
 mix.then(() => {
     execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-index.js --output public/assets/backend/mix/js/exilednoname-dt-index.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
     execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-form.js --output public/assets/backend/mix/js/exilednoname-dt-form.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
+    execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-trash.js --output public/assets/backend/mix/js/exilednoname-dt-trash.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
+    execSync('npx javascript-obfuscator resources/assets/backend/datatables/datatable-optimization.js --output public/assets/backend/mix/js/exilednoname-dt-optimization.js --compact true --control-flow-flattening true', { stdio: 'inherit' });
     console.log('EXILEDNONAME-LOG: Obfuscation completed!');
 });
