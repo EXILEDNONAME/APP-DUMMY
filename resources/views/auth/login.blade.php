@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> EXILEDNONAME - Register </title>
+    <title> EXILEDNONAME - Login </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
@@ -14,7 +14,7 @@
 <body class="antialiased flex h-full text-base text-foreground bg-background">
     <div class="grid lg:grid-cols-1 grow">
         <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1">
-            <div class="kt-card max-w-[370px] w-full">
+            <div class="kt-card max-w-[420px] w-full">
                 <form id="exilednoname-form" action="{{ route('login') }}" class="kt-card-content flex flex-col gap-5 p-10" method="post">
                     @csrf
                     <div class="text-center mb-2.5">
@@ -36,16 +36,9 @@
 
                     <div class="kt-form-item">
                         <div class="flex flex-col">
-                            {{ Html::text('login')->class(['kt-input w-full'])->required() }}
+                            {{ Html::text('login')->class(['kt-input w-full'])->placeholder('Enter Account')->required() }}
                         </div>
                     </div>
-
-                    <!-- <div class="kt-form-item">
-                        <div class="flex flex-col">
-                            <input class="kt-input" name="password" placeholder="password" type="password" value="" />
-                            <span id="errors" class="font-semibold mt-2 text-center text-sm" style="color:var(--destructive)"> </span>
-                        </div>
-                    </div> -->
 
                     <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true" name="passwordCustom">
                         <input name="password" placeholder="Enter Password" type="password" value="" data-gtm-form-interact-field-id="0">
@@ -55,7 +48,7 @@
                             </span>
                         </button>
                     </div>
-                    <span id="errors" class="font-semibold mt-2 text-center text-sm" style="color:var(--destructive)"> </span>
+                    <span id="errors" class="font-semibold text-center text-sm" style="color:var(--destructive)"> </span>
 
                     <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow" form="exilednoname-form">
                         {{ __('default.label.login') }}
@@ -123,13 +116,13 @@
                         message = '{{ __("auth.error") }}';
                     }
 
-                    $('#errors').html('<div class="text-red-500 mt-2 text-center">' + message + '</div>');
+                    $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs">' + message + '</div>');
                 } else {
-                    $('#errors').html('<div class="text-red-500 mt-2 text-center"> {{ __("auth.error") }} </div>');
+                    $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs"> {{ __("auth.error") }} </div>');
                 }
             } catch (error) {
                 console.error(error);
-                $('#errors').html('<div class="text-red-500 mt-2 text-center"> {{ __("auth.error") }} </div>');
+                $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs"> {{ __("auth.error") }} </div>');
             }
         });
     </script>
