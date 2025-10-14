@@ -1,135 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <base href="../../../../">
     <meta charset="utf-8" />
-    <title>
-        @php $title = Cache::remember('title', 300, function () { return \DB::table('system_settings')->first(); }); @endphp
-        {{ $title->application_name; }} - Login
-    </title>
+    <title> EXILEDNONAME - Register </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Login">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-    <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/login-5.css">
-    <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/style.bundle.min.css">
-    <link rel="shortcut icon" href="{{ env('APP_URL') }}/favicon.png" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
+    <link href="{{ env('APP_URL') }}/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+    <link href="{{ env('APP_URL') }}/assets/backend/css/styles.css" rel="stylesheet" />
 </head>
 
-<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
-    <div class="d-flex flex-column flex-root">
-        <div class="login login-5 login-signin-on d-flex flex-row-fluid" id="kt_login">
-            <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url({{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/bg/bg-2.jpg);">
-                <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
-
-                    <div class="login-signin text-white">
-                        <div class="mb-10">
-                            <h3 class="opacity-40 font-weight-normal"> - LOGIN AREA - </h3>
-                            <p class="opacity-40"> Enter Your Details to Login Your Account </p>
-                        </div>
-
-                        <form id="exilednoname-form" class="form" method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <div class="form-group">
-                                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="text" placeholder="Account" name="login" autocomplete="off" required />
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="password" placeholder="Password" name="password" id="password" required />
-                            </div>
-
-                            <center>
-                                <div class="fv-plugins-message-container mt-0">
-                                    <div data-field="login" class="fv-help-block"><strong>
-                                            <div id="message"></div>
-                                        </strong></div>
-                                </div>
-                            </center>
-                            <hr>
-
-                            <center>
-                                @error('login')
-                                <div class="fv-plugins-message-container mt-0">
-                                    <div data-field="login" class="fv-help-block"><strong>{{ $message }}</strong></div>
-                                </div>
-                                <br>
-                                @enderror
-
-                                @error('password')
-                                <div class="fv-plugins-message-container mt-0">
-                                    <div data-field="password" class="fv-help-block"><strong>{{ $message }}</strong></div>
-                                </div>
-                                <br>
-                                @enderror
-                            </center>
-
-                            @if ($message = Session::get('status'))
-                            <div id="toast-container" class="toast-bottom-right">
-                                <div class="toast toast-success" aria-live="polite">
-                                    <div class="toast-message">{{ $message }}</div>
-                                </div>
-                            </div>
-                            @endif
-
-                            <div class="form-group text-center d-flex flex-wrap justify-content-between align-items-center px-8 opacity-60">
-                                <div class="checkbox-inline">
-                                    <label class="checkbox checkbox-outline checkbox-white text-white m-0">
-                                        <input type="checkbox" name="" onclick="showPassword()">
-                                        <span></span>
-                                        Show Password
-                                    </label>
-                                </div>
-                                <a href="{{ route('password.request') }}" class="text-white font-weight-bold">Forget Password ?</a>
-                            </div>
-                            <div class="form-group text-center mt-10">
-                                <a href="/"><span class="btn btn-pill btn-danger opacity-90 px-15 py-3 mr-5"> {{ __('default.label.back') }} </span></a>
-                                <button type="submit" class="btn btn-pill btn-primary opacity-90 px-15 py-3">Sign In</button>
-                            </div>
-                        </form>
-
-
+<body class="antialiased flex h-full text-base text-foreground bg-background">
+    <div class="grid lg:grid-cols-1 grow">
+        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1">
+            <div class="kt-card max-w-[370px] w-full">
+                <form id="exilednoname-form" action="{{ route('login') }}" class="kt-card-content flex flex-col gap-5 p-10" method="post">
+                    @csrf
+                    <div class="text-center mb-2.5">
+                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5">
+                            - LOGIN AREA -
+                        </h3>
                     </div>
-                </div>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <a class="kt-btn kt-btn-outline justify-center" href="#">
+                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg" />
+                            Use Google
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="border-t border-border w-full"></span>
+                        <span class="text-xs text-secondary-foreground uppercase"> or </span>
+                        <span class="border-t border-border w-full"></span>
+                    </div>
+
+                    <div class="kt-form-item">
+                        <div class="flex flex-col">
+                            {{ Html::text('login')->class(['kt-input w-full'])->required() }}
+                        </div>
+                    </div>
+
+                    <!-- <div class="kt-form-item">
+                        <div class="flex flex-col">
+                            <input class="kt-input" name="password" placeholder="password" type="password" value="" />
+                            <span id="errors" class="font-semibold mt-2 text-center text-sm" style="color:var(--destructive)"> </span>
+                        </div>
+                    </div> -->
+
+                    <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true" name="passwordCustom">
+                        <input name="password" placeholder="Enter Password" type="password" value="" data-gtm-form-interact-field-id="0">
+                        <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
+                            <span class="kt-toggle-password-active:hidden"><i class="ki-filled ki-eye text-muted-foreground"></i></span>
+                            <span class="hidden kt-toggle-password-active:block"><i class="ki-filled ki-eye-slash text-muted-foreground"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <span id="errors" class="font-semibold mt-2 text-center text-sm" style="color:var(--destructive)"> </span>
+
+                    <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow" form="exilednoname-form">
+                        {{ __('default.label.login') }}
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/js/core.bundle.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/vendors/ktui/ktui.min.js"></script>
     <script>
         document.getElementById("exilednoname-form").addEventListener("submit", async function(e) {
             e.preventDefault();
 
             let form = e.target;
             let formData = new FormData(form);
+            $('#errors').html('');
+            $('#success').html('');
 
-            let response = await fetch("/login", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Accept": "application/json"
+            try {
+                let response = await fetch("/login", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Accept": "application/json"
+                    }
+                });
+
+                let result = await response.json();
+
+                if (response.ok && result.success) {
+                    window.location.href = result.redirect;
+                } else if (response.status === 422) {
+
+                    let message = '';
+                    let inputLogin = $('[name="login"]');
+                    let inputPassword = $('[name="passwordCustom"]');
+
+                    if (result.message) {
+                        message = result.message;
+
+                        if (message == "{{ __('auth.failed') }}") {
+                            inputLogin.attr('aria-invalid', 'true').addClass('border-red-500');
+                        } else {
+                            inputLogin.removeAttr('aria-invalid').removeClass('border-red-500');
+                        }
+
+                        if (message == "{{ __('auth.password') }}") {
+                            inputPassword.attr('aria-invalid', 'true').addClass('border-red-500');
+                        } else {
+                            inputPassword.removeAttr('aria-invalid').removeClass('border-red-500');
+                        }
+
+                        if (message == "{{ __('auth.inactived') }}") {
+                            inputLogin.attr('aria-invalid', 'true').addClass('border-red-500');
+                            inputPassword.attr('aria-invalid', 'true').addClass('border-red-500');
+                        }
+
+                    } else if (result.errors && result.errors.login) {
+                        message = result.errors.login[0];
+                    } else {
+                        message = '{{ __("auth.error") }}';
+                    }
+
+                    $('#errors').html('<div class="text-red-500 mt-2 text-center">' + message + '</div>');
+                } else {
+                    $('#errors').html('<div class="text-red-500 mt-2 text-center"> {{ __("auth.error") }} </div>');
                 }
-            });
-
-            let result = await response.json();
-
-            if (result.success) {
-                window.location.href = result.redirect;
-            } else {
-                document.getElementById("message").innerText = result.message;
+            } catch (error) {
+                console.error(error);
+                $('#errors').html('<div class="text-red-500 mt-2 text-center"> {{ __("auth.error") }} </div>');
             }
         });
-    </script>
-
-    <script>
-        function showPassword() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
     </script>
 </body>
 

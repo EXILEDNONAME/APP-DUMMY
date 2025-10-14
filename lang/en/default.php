@@ -70,6 +70,7 @@ return [
         'inactive'                      => 'Inactive',
         'in-progress'                   => 'In Progress',
         'last_updated_by'               => 'Last Updated By',
+        'login'                         => 'Login',
         'logs'                          => 'Logs',
         'logout'                        => 'Logout',
         'main'                          => 'Main',

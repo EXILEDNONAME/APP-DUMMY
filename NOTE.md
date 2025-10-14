@@ -20,8 +20,12 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
     - [OK] ROLES
     - [OK] USERS
 
+- PAGE AUTH
+    - [OK] LOGIN
+    - REGISTER
+
 - PAGE DATABASE
-- PAGE LOGIN, REGISTER
+
 
 - PAGE INDEX ->
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
