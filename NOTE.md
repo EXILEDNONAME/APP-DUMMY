@@ -15,17 +15,11 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
-- PAGE MANAGEMENTS
-    - [OK] PERMISSIONS
-    - [OK] ROLES
-    - [OK] USERS
-
+- PAGE SESSIONS
+- PAGE MANAGEMENT USERS REMOVE TABLE AVATAR
 - PAGE AUTH
     - [OK] LOGIN
     - REGISTER
-
-- PAGE DATABASE
-
 
 - PAGE INDEX ->
     - ADMINISTRATIVE TOOLS (PAGE ACTIVITIES & TRASH)
@@ -44,3 +38,6 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 - [OK] PAGE ACTIVITIES
 - [OK] PAGE TRASH
 
+- [OK] PAGE APPLICATIONS
+- [OK] PAGE MANAGEMENTS
+- [OK] PAGE DATABASE

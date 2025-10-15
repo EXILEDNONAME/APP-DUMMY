@@ -49,7 +49,7 @@ class DatabaseController extends Controller implements HasMiddleware
                 })
                 ->editColumn('download', function ($order) {
                     $url = $this->url . "/download/" . $order->name;
-                    return '<a href="' . $url . '"><i class="fas fa-download text-danger"></i></a>';
+                    return '<a href="' . $url . '"><span class="kt-badge kt-badge-outline kt-badge-stroke kt-badge-sm kt-badge-mono">' . __("default.label.download") . '</span></a>';
                 })
                 ->rawColumns(['download'])
                 ->addIndexColumn()->make(true);

@@ -17,6 +17,7 @@ return [
         'active'                        => 'Active',
         'are_you_sure'                  => 'Are You Sure',
         'back'                          => 'Back',
+        'backup_database'               => 'Back Up',
         'batch_action'                  => 'Batch Action',
         'cancel'                        => 'Cancel',
         'causer'                        => 'Causer',
@@ -39,6 +40,7 @@ return [
         'date_end'                      => 'Date End',
         'default'                       => 'Default',
         'delete' => [
+            'all_backup_database'       => 'Delete All Backed Up Database',
             'delete'                    => 'Delete',
             'permanent'                 => 'Delete Permanent',
         ],
@@ -151,11 +153,11 @@ return [
         ],
 
         'confirm' => [
-            'create_backup'             => 'Are You Sure Create Backup Database',
-            'delete'                    => 'Are You Sure Delete This Item',
+            'backup_database'           => 'Are You Sure Backup Databases',
+            'delete_database'           => 'Are You Sure Delete This Backed Up Database',
             'delete_permanent'          => 'Are You Sure Delete Permanent This Item',
             'logout_session'            => 'Are You Sure Logout This Session',
-            'reset_backup'              => 'Are You Sure Reset All Backup',
+            'reset_backup'              => 'Are You Sure Reset All Backup Database',
             'reset_password'            => 'Are You Sure Reset Password For This User',
             'reset_session'             => 'Are You Sure Reset All Sessions',
             'restore'                   => 'Are You Sure Restore This Item',
@@ -168,8 +170,9 @@ return [
         ],
 
         'success' => [
-            'create_backup'             => 'Database Backed Up',
+            'backup_database'           => 'Database Backed Up',
             'customization-updated'     => 'Customization Updated',
+            'delete_database'           => 'All Databases Have Been Deleted',
             'export_copy'               => 'Copied to Clipboard',
             'item_active'               => 'Item has Been Activated',
             'item_created'              => 'Item Has Been Created',
@@ -190,7 +193,6 @@ return [
             'selected_restore'          => 'All Items Have Been Restored',
             'selected_inactive'         => 'All Items Have Been Inactivated',
             'setting-updated'           => 'Setting Updated',
-            'reset_backup'              => 'Resetting All Backup Database',
             'table_reset'               => 'Resetting Table Sessions',
         ],
 

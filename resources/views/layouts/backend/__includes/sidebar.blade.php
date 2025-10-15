@@ -211,7 +211,7 @@
 
             <div class="kt-menu-item {{ (request()->is('dashboard/administratives/managements*')) ? 'show' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
                 <div class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
-                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-paintbucket text-lg"></i></span>
+                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-security-user text-lg"></i></span>
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
                         Managements
                     </span>
@@ -242,10 +242,14 @@
                 </div>
             </div>
 
-            <div class="kt-menu-item" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
-                <a class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="#" tabindex="0">
-                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]"><i class="ki-filled ki-data text-lg"></i></span>
-                    <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary"> Databases </span>
+            <div class="kt-menu-item {{ (request()->is('dashboard/administratives/databases*')) ? 'active' : '' }}" data-kt-menu-item-toggle="accordion" data-kt-menu-item-trigger="click">
+                <a href="/dashboard/administratives/databases" class="kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]">
+                    <span class="kt-menu-icon items-start text-muted-foreground w-[20px]">
+                        <i class="ki-filled ki-data text-lg"></i>
+                    </span>
+                    <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary">
+                        Databases
+                    </span>
                 </a>
             </div>
 
