@@ -68,12 +68,8 @@ class SessionController extends Controller implements HasMiddleware
                     $flag = "";
 
                     try {
-                        $response = \Illuminate\Support\Facades\Http::get("https://ipinfo.io/{$ip}/json");
+                        $response = Http::get("https://ipinfo.io/{$ip}/json");
                         $data = $response->json();
-
-                        $city = $data['city'] ?? '-';
-                        $country = $data['country'] ?? '-';
-                        $loc = $data['loc'] ?? '-';
 
                         if ($data['country'] == 'US') {
                             $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> United States </span>';
@@ -81,10 +77,9 @@ class SessionController extends Controller implements HasMiddleware
                             $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Indonesia </span>';
                         }
 
-                        // tampilkan teks
                         return $data['city'] . ", " . $data['region'] . ", " . $data['loc'] . " " . $flag;
                     } catch (\Exception $e) {
-                        return $ip; // fallback kalau error
+                        return $ip;
                     }
                 })
                 ->editColumn('user_agent', function ($order) {
@@ -92,34 +87,34 @@ class SessionController extends Controller implements HasMiddleware
                     $browser = 'Unknown';
                     $os = 'Unknown';
 
-                    // 🧠 Deteksi Browser
+                    // BROWSER
                     if (strpos($userAgent, 'Brave') !== false) {
-                        $browser = 'Brave';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Brave </span>';
                     } elseif (strpos($userAgent, 'Edg') !== false) {
-                        $browser = 'Microsoft Edge';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Microsoft Edge </span>';
                     } elseif (strpos($userAgent, 'OPR') !== false || strpos($userAgent, 'Opera') !== false) {
-                        $browser = 'Opera';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Opera </span>';
                     } elseif (strpos($userAgent, 'Vivaldi') !== false) {
-                        $browser = 'Vivaldi';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Vivaldi </span>';
                     } elseif (strpos($userAgent, 'Chrome') !== false) {
-                        $browser = ' <span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/browsers/google-chrome.png"> Google Chrome </span>';                    
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Google Chrome </span>';                    
                     } elseif (strpos($userAgent, 'Firefox') !== false) {
-                        $browser = 'Mozilla Firefox';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Mozilla Firefox </span>';
                     } elseif (strpos($userAgent, 'Safari') !== false) {
-                        $browser = ' <span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/browsers/safari.png"> Safari </span>';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Safari </span>';
                     } elseif (strpos($userAgent, 'Chromium') !== false) {
-                        $browser = 'Chromium';
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Chromium </span>';
                     }
 
-                    // 🧩 Deteksi Sistem Operasi
-                    if (strpos($userAgent, 'Windows NT 10') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/os/windows.png"> Windows 10 </span>';
-                    elseif (strpos($userAgent, 'Windows NT 11') !== false) $os = 'Windows 11';
-                    elseif (strpos($userAgent, 'Windows NT 6.3') !== false) $os = 'Windows 8.1';
-                    elseif (strpos($userAgent, 'Windows NT 6.1') !== false) $os = 'Windows 7';
-                    elseif (strpos($userAgent, 'Mac OS X') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/os/mac.png"> macOS </span>';
-                    elseif (strpos($userAgent, 'Linux') !== false) $os = 'Linux';
-                    elseif (strpos($userAgent, 'Android') !== false) $os = 'Android';
-                    elseif (strpos($userAgent, 'iPhone') !== false) $os = 'iOS';
+                    // OPERATING SYSTEM
+                    if (strpos($userAgent, 'Windows NT 10') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Windows 10 </span>';
+                    elseif (strpos($userAgent, 'Windows NT 11') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Windows 11 </span>';
+                    elseif (strpos($userAgent, 'Windows NT 6.3') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Windows 8.1 </span>';
+                    elseif (strpos($userAgent, 'Windows NT 6.1') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Windows 7 </span>';
+                    elseif (strpos($userAgent, 'Mac OS X') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> macOS </span>';
+                    elseif (strpos($userAgent, 'Linux') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Linux </span>';
+                    elseif (strpos($userAgent, 'Android') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Android </span>';
+                    elseif (strpos($userAgent, 'iPhone') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> iOS </span>';
 
                     return $browser . " " . $os;
                 })
