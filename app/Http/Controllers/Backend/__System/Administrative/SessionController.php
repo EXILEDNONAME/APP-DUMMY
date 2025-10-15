@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\__System\Administrative;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Response;
 
 class SessionController extends Controller implements HasMiddleware
@@ -62,6 +63,30 @@ class SessionController extends Controller implements HasMiddleware
                     $datetime = date("d F Y, H:i:s", $data);
                     return $datetime;
                 })
+                ->editColumn('ip_address', function ($order) {
+                    $ip = $order->ip_address;
+                    $flag = "";
+
+                    try {
+                        $response = \Illuminate\Support\Facades\Http::get("https://ipinfo.io/{$ip}/json");
+                        $data = $response->json();
+
+                        $city = $data['city'] ?? '-';
+                        $country = $data['country'] ?? '-';
+                        $loc = $data['loc'] ?? '-';
+
+                        if ($data['country'] == 'US') {
+                            $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> United States </span>';
+                        } else if ($data['country'] == 'ID') {
+                            $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Indonesia </span>';
+                        }
+
+                        // tampilkan teks
+                        return $data['city'] . ", " . $data['region'] . ", " . $data['loc'] . " " . $flag;
+                    } catch (\Exception $e) {
+                        return $ip; // fallback kalau error
+                    }
+                })
                 ->editColumn('user_agent', function ($order) {
                     $userAgent = $order->user_agent;
                     $browser = 'Unknown';
@@ -77,28 +102,28 @@ class SessionController extends Controller implements HasMiddleware
                     } elseif (strpos($userAgent, 'Vivaldi') !== false) {
                         $browser = 'Vivaldi';
                     } elseif (strpos($userAgent, 'Chrome') !== false) {
-                        $browser = 'Google Chrome';
+                        $browser = ' <span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/browsers/google-chrome.png"> Google Chrome </span>';                    
                     } elseif (strpos($userAgent, 'Firefox') !== false) {
                         $browser = 'Mozilla Firefox';
                     } elseif (strpos($userAgent, 'Safari') !== false) {
-                        $browser = 'Safari';
+                        $browser = ' <span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/browsers/safari.png"> Safari </span>';
                     } elseif (strpos($userAgent, 'Chromium') !== false) {
                         $browser = 'Chromium';
                     }
 
                     // 🧩 Deteksi Sistem Operasi
-                    if (strpos($userAgent, 'Windows NT 10') !== false) $os = 'Windows 10';
+                    if (strpos($userAgent, 'Windows NT 10') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/os/windows.png"> Windows 10 </span>';
                     elseif (strpos($userAgent, 'Windows NT 11') !== false) $os = 'Windows 11';
                     elseif (strpos($userAgent, 'Windows NT 6.3') !== false) $os = 'Windows 8.1';
                     elseif (strpos($userAgent, 'Windows NT 6.1') !== false) $os = 'Windows 7';
-                    elseif (strpos($userAgent, 'Mac OS X') !== false) $os = 'macOS';
+                    elseif (strpos($userAgent, 'Mac OS X') !== false) $os = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"><img alt="" class="inline-block size-3.5 rounded-full" src="/assets/backend/media/os/mac.png"> macOS </span>';
                     elseif (strpos($userAgent, 'Linux') !== false) $os = 'Linux';
                     elseif (strpos($userAgent, 'Android') !== false) $os = 'Android';
                     elseif (strpos($userAgent, 'iPhone') !== false) $os = 'iOS';
 
-                    return $browser . " - " . $os;
+                    return $browser . " " . $os;
                 })
-                ->rawColumns(['user_id', 'avatar', 'user_agent'])
+                ->rawColumns(['user_id', 'avatar', 'user_agent', 'ip_address'])
                 ->addIndexColumn()->make(true);
         }
         return view($this->path . 'index', compact('model'));

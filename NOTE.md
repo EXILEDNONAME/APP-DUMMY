@@ -16,7 +16,7 @@ php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sampl
 
 # TO DO
 - PAGE SESSIONS
-    - PAGE INDEX
+    - DELETE SESSIONS
     - CHECK LOCATION
 - PAGE MANAGEMENT USERS REMOVE TABLE AVATAR
 - PAGE AUTH
