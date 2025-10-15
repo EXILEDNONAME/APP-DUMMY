@@ -13,7 +13,7 @@ class SessionController extends Controller implements HasMiddleware
     {
         return ['auth', 'verified', 'role:master-administrator'];
     }
-    
+
     /**
      **************************************************
      * @return __CONSTRUCT
@@ -54,7 +54,7 @@ class SessionController extends Controller implements HasMiddleware
                 ->editColumn('user_id', function ($order) {
                     if (!empty($order->user_id)) {
                         $data = \App\Models\User::where('id', $order->user_id)->first();
-                        return $data->name . '<br>' . $data->email . '<br>' . $data->phone;
+                        return $data->username;
                     }
                 })
                 ->editColumn('last_activity', function ($order) {
@@ -62,7 +62,43 @@ class SessionController extends Controller implements HasMiddleware
                     $datetime = date("d F Y, H:i:s", $data);
                     return $datetime;
                 })
-                ->rawColumns(['user_id', 'avatar'])
+                ->editColumn('user_agent', function ($order) {
+                    $userAgent = $order->user_agent;
+                    $browser = 'Unknown';
+                    $os = 'Unknown';
+
+                    // 🧠 Deteksi Browser
+                    if (strpos($userAgent, 'Brave') !== false) {
+                        $browser = 'Brave';
+                    } elseif (strpos($userAgent, 'Edg') !== false) {
+                        $browser = 'Microsoft Edge';
+                    } elseif (strpos($userAgent, 'OPR') !== false || strpos($userAgent, 'Opera') !== false) {
+                        $browser = 'Opera';
+                    } elseif (strpos($userAgent, 'Vivaldi') !== false) {
+                        $browser = 'Vivaldi';
+                    } elseif (strpos($userAgent, 'Chrome') !== false) {
+                        $browser = 'Google Chrome';
+                    } elseif (strpos($userAgent, 'Firefox') !== false) {
+                        $browser = 'Mozilla Firefox';
+                    } elseif (strpos($userAgent, 'Safari') !== false) {
+                        $browser = 'Safari';
+                    } elseif (strpos($userAgent, 'Chromium') !== false) {
+                        $browser = 'Chromium';
+                    }
+
+                    // 🧩 Deteksi Sistem Operasi
+                    if (strpos($userAgent, 'Windows NT 10') !== false) $os = 'Windows 10';
+                    elseif (strpos($userAgent, 'Windows NT 11') !== false) $os = 'Windows 11';
+                    elseif (strpos($userAgent, 'Windows NT 6.3') !== false) $os = 'Windows 8.1';
+                    elseif (strpos($userAgent, 'Windows NT 6.1') !== false) $os = 'Windows 7';
+                    elseif (strpos($userAgent, 'Mac OS X') !== false) $os = 'macOS';
+                    elseif (strpos($userAgent, 'Linux') !== false) $os = 'Linux';
+                    elseif (strpos($userAgent, 'Android') !== false) $os = 'Android';
+                    elseif (strpos($userAgent, 'iPhone') !== false) $os = 'iOS';
+
+                    return $browser . " - " . $os;
+                })
+                ->rawColumns(['user_id', 'avatar', 'user_agent'])
                 ->addIndexColumn()->make(true);
         }
         return view($this->path . 'index', compact('model'));

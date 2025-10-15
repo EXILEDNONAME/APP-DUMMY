@@ -2,50 +2,50 @@
 @section('title', 'Administrative Sessions')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card card-custom gutter-b" data-card="true" id="exilednoname_card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h3 class="card-label"> {{ __('default.label.sessions') }} </h3>
-                </div>
-                <div class="card-toolbar">
-                    <a id="table-reset" class="btn btn-icon btn-xs btn-hover-light-primary" data-toggle="tooltip" data-original-title="{{ __('default.label.reset') }}"><i class="fas fa-redo-alt text-danger"></i></a>
-                    <a id="table_refresh" class="btn btn-icon btn-xs btn-hover-light-primary" data-toggle="tooltip" data-original-title="{{ __('default.label.refresh') }}"><i class="fas fa-sync-alt"></i></a>
-                    <a href="#" class="btn btn-icon btn-xs btn-hover-light-primary" data-card-tool="toggle"><i class="fas fa-caret-down"></i></a>
-
+<div class="lg:col-span-3">
+    <div class="grid">
+        <div class="kt-card kt-card-grid h-full min-w-full">
+            <div class="kt-card-header">
+                <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.databases') }} </h3>
+                <div class="kt-menu">
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalBackupDatabase" data-kt-tooltip="#tooltip_backup_database" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-to-right"></i></button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteDatabase" data-kt-tooltip="#tooltip_delete_database" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
                 </div>
             </div>
-            <div class="card-body" id="exilednoname_body">
-                <div class="row dataTables_wrapper dt-bootstrap4 no-footer">
-                    <div class="col-sm-12 col-md-6">
-                        <div id="ex_table_length"></div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div id="ex_table_filter"></div>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table width="100%" class="table table-hover table-checkable table-sm rounded" id="exilednoname_table">
+
+            <div class="kt-card-content">
+                <div class="kt-scrollable-x-hover" style="padding-bottom: 1px;">
+
+                    <table id="exilednoname_table" class="kt-table" width="100%">
                         <thead>
                             <tr>
-                                <th> No. </th>
-                                <th class="text-nowrap text-center" width="1"> Avatar </th>
-                                <th class="text-nowrap"> User </th>
-                                <th class="text-nowrap" width="1"> IP Address </th>
-                                <th> Client </th>
-                                <th> Last Activity </th>
+                                <th class="w-px whitespace-nowrap"></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> User </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> IP Address </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Last Activity </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Client </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="row dataTables_wrapper dt-bootstrap4 no-footer">
-                    <div class="col-sm-12 col-md-5">
-                        <div id="ex_table_info"></div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div id="ex_table_paginate"></div>
-                    </div>
+            </div>
+
+            <div class="kt-card-footer flex flex-col md:flex-row justify-center md:justify-between gap-5 text-secondary-foreground text-sm font-medium">
+                <div class="flex items-center gap-2 order-2 md:order-1">
+                    <label for="perpage" class="text-sm"> {{ __('default.label.show') }} </label>
+                    <select id="perpage" class="kt-select w-16 border rounded px-2 py-1">
+                        <option value="25" selected> 25 </option>
+                        <option value="100"> 100 </option>
+                        <option value="250"> 250 </option>
+                        <option value="500"> 500 </option>
+                    </select>
+                    <span class="text-sm"> {{ __('default.label.entries') }} </span>
+                </div>
+                <div class="flex items-center gap-2 order-1 md:order-2">
+                    <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
                 </div>
             </div>
         </div>
@@ -54,6 +54,75 @@
 @endsection
 
 @push('js')
-<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/datatable.js"></script>
-<script src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/mix/js/datatable-session.js"></script>
+<script src="{{ env('APP_URL') }}/assets/backend/mix/js/exilednoname-dt-plugins.js"></script>
+<script>
+    $(document).ready(function () {
+    let table = $('#exilednoname_table').DataTable({
+        dom: 'tb', info: false, lengthChange: false, pageLength: 25, serverSide: true, searchDelay: 2000,
+        "pagingType": "simple_numbers",
+        "initComplete": function (settings, json) {
+            $('#exilednoname_table_info').appendTo('#kt-pagination');
+            $('.dt-paging').appendTo('#kt-pagination');
+            $('#dt-length-0').appendTo('#ex_table_length');
+            $('#exilednoname_table_filter').appendTo('#ex_table_filter');
+        },
+        ajax: {
+            url: this_url,
+            data: function (ex) {
+                ex.date = $('.table_filter_date').val();
+                ex.deleted_at = $('.table_filter_deleted_at').val();
+                if (daterange) {
+                    const range = $('#dateRange').val();
+                    if (range.includes(' to ')) { ex.date_start = range.split(' to ')[0]; ex.date_end = range.split(' to ')[1]; }
+                    else { ex.date_start = range; ex.date_end = range; }
+                }
+            }
+        },
+        language: {
+            loadingRecords: "",
+            emptyTable: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_available} ... </span></div>`,
+            zeroRecords: `<div class="flex flex-col items-center justify-center text-gray-500"><span class="block text-center"> ${translations.default.label.no_data_matching} ... </span></div>`,
+        },
+        drawCallback: function () { renderPaginationWindow(this.api(), document.getElementById("kt-pagination"), 1); },
+        headerCallback: function (thead, data, start, end, display) { thead.getElementsByTagName('th')[0].innerHTML = `<input id="check" type="checkbox" class="kt-checkbox group-checkable" data-kt-datatable-row-check="true" value="0" />`; },
+        columns: [
+            {
+                data: null, name: 'checkbox', searchable: false, orderable: false,
+                render: function (data, type, row, meta) { return `<input type="checkbox" class="kt-checkbox checkable" data-id="${row.id}">`; },
+            },
+            {
+                data: null, name: 'autonumber', orderable: false, searchable: false, 'className': 'text-center', 'width': '1',
+                render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }
+            },
+            { data: 'user_id', name: 'user_id', 'className': 'text-nowrap' },
+            { data: 'ip_address', name: 'ip_address', 'className': 'text-nowrap' },
+            { data: 'last_activity', name: 'last_activity', 'className': 'text-nowrap' },
+            { data: 'user_agent', name: 'user_agent', 'className': 'text-nowrap' },
+            {
+                data: null, name: 'action', orderable: false, searchable: false,
+                render: function (data, type, row) {
+                    return `
+                        <td>
+                            <div class="kt-menu" data-kt-menu="true">
+                                <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
+                                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
+                                    <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
+                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalRestore"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.session} </span></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>`;
+                }
+            }
+        ],
+        rowId: 'Collocation',
+        select: {
+            style: 'multi',
+            selector: 'td:first-child .checkable',
+        },
+        order: [4, 'desc']
+    });
+
+});
+</script>
 @endpush

@@ -43,6 +43,7 @@ return [
             'all_backup_database'       => 'Delete All Backed Up Database',
             'delete'                    => 'Delete',
             'permanent'                 => 'Delete Permanent',
+            'session'                   => 'Delete Sessions',
         ],
         'deleted'                       => 'Deleted',
         'deleted_at'                    => 'Deleted At',
