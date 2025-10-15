@@ -17,8 +17,10 @@ trait SelectedDeleteController
 
         foreach ($data2 as $data3) {
             if (Auth::User()->id != 1 && Auth::User()->id != 2 && $data3->created_by != Auth::User()->id) {
-                $response = 'ACCESS RESTRICT!';
-                return Response::json($response, 403);
+                return response()->json([
+                'status' => 'error',
+                'message' => __('default.notification.error.restrict')
+            ]);
             }
         }
 

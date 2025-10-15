@@ -15,8 +15,10 @@ trait SelectedDeletePermanentController
         $ids = explode(",", $data);
 
         if (Auth::User()->id != 1 && Auth::User()->id != 2 && $this->model::whereIn('id', $ids)->where('created_by', '!=', Auth::User()->id)->exists()) {
-            $response = 'ACCESS RESTRICT!';
-            return Response::json($response, 403);
+            return response()->json([
+                'status' => 'error',
+                'message' => __('default.notification.error.restrict')
+            ]);
         } else {
             $this->model::whereIn('id', $ids)->forceDelete();
             Cache::forget($this->url);

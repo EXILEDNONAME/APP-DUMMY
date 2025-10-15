@@ -9,6 +9,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Backend\__System\Administrative',
     'middleware' => ['auth', 'verified'],
 ], function () {
-    Route::get('reset', 'SessionController@reset')->name('reset');
+    Route::get('delete-session/{id}', 'SessionController@delete_session')->name('delete-session');
+    Route::get('delete-all-session', 'SessionController@delete_all_session')->name('delete-all-session');
     Route::get('/', 'SessionController@index');
 });

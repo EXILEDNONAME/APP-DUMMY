@@ -6,6 +6,7 @@
     $(`<div id="tooltip_create" class="kt-tooltip"> {{ __('default.label.create') }} </div>`).appendTo('body');
     $(`<div id="tooltip_delete" class="kt-tooltip"> {{ __('default.label.delete.delete') }} </div>`).appendTo('body');
     $(`<div id="tooltip_delete_database" class="kt-tooltip"> {{ __('default.label.delete.all_backup_database') }} </div>`).appendTo('body');
+    $(`<div id="tooltip_delete_all_session" class="kt-tooltip"> {{ __('default.label.delete.all_session') }} </div>`).appendTo('body');
     $(`<div id="tooltip_edit" class="kt-tooltip"> {{ __('default.label.edit') }} </div>`).appendTo('body');
     $(`<div id="tooltip_export" class="kt-tooltip"> {{ __('default.label.export.export') }} </div>`).appendTo('body');
     $(`<div id="tooltip_export_description_copy" class="kt-tooltip"> {{ __('default.label.export.description.copy') }} </div>`).appendTo('body');

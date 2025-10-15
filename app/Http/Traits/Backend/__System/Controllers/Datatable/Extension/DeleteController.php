@@ -15,8 +15,10 @@ trait DeleteController
         }
 
         if (Auth::User()->id != 1 && Auth::User()->id != 2 && $this->model::where('id', $id)->first()->created_by != Auth::User()->id) {
-            $data = 'ACCESS RESTRICT!';
-            return Response::json($data, 403);
+            return response()->json([
+                'status' => 'error',
+                'message' => __('default.notification.error.restrict')
+            ]);
         } else {
             $this->model::destroy($id);
             $data = $this->model::where('id', $id)->delete();

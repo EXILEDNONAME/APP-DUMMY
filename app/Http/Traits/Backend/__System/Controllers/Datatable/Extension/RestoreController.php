@@ -15,8 +15,10 @@ trait RestoreController
         }
 
         if (Auth::User()->id != 1 && Auth::User()->id != 2 && $this->model::where('id', $id)->first()->created_by != Auth::User()->id) {
-            $data = 'ACCESS RESTRICT!';
-            return Response::json($data, 403);
+            return response()->json([
+                'status' => 'error',
+                'message' => __('default.notification.error.restrict')
+            ]);
         } else {
             $data = $this->model::withTrashed()->findOrFail($id);
             if ($data->trashed()) {

@@ -13,8 +13,6 @@ trait ExtensionController
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\SelectedInactiveController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\DeleteController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\DeletePermanentController;
-    use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\ResetPasswordController;
-    use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\ResetPasswordSingleController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\RestoreController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\SelectedDeleteController;
     use \App\Http\Traits\Backend\__System\Controllers\Datatable\Extension\SelectedDeletePermanentController;

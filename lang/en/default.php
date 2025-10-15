@@ -41,6 +41,7 @@ return [
         'default'                       => 'Default',
         'delete' => [
             'all_backup_database'       => 'Delete All Backed Up Database',
+            'all_session'               => 'Delete All Sessions',
             'delete'                    => 'Delete',
             'permanent'                 => 'Delete Permanent',
             'session'                   => 'Delete Sessions',
@@ -155,12 +156,14 @@ return [
 
         'confirm' => [
             'backup_database'           => 'Are You Sure Backup Databases',
+            'delete'                    => 'Are You Sure Delete This Item',
             'delete_database'           => 'Are You Sure Delete This Backed Up Database',
             'delete_permanent'          => 'Are You Sure Delete Permanent This Item',
+            'delete_all_session'        => 'Are You Sure Delete All Sessions',
+            'delete_session'            => 'Are You Sure Delete Session For This User',
             'logout_session'            => 'Are You Sure Logout This Session',
-            'reset_backup'              => 'Are You Sure Reset All Backup Database',
+            'reset_backup'              => 'Are You Sure Reset All Backup Databases',
             'reset_password'            => 'Are You Sure Reset Password For This User',
-            'reset_session'             => 'Are You Sure Reset All Sessions',
             'restore'                   => 'Are You Sure Restore This Item',
             'selected_active'           => 'Are You Sure Activate This Selected Item',
             'selected_delete'           => 'Are You Sure Delete This Selected Item',
@@ -174,6 +177,7 @@ return [
             'backup_database'           => 'Database Backed Up',
             'customization-updated'     => 'Customization Updated',
             'delete_database'           => 'All Databases Have Been Deleted',
+            'delete_session'            => 'Success Delete Session',
             'export_copy'               => 'Copied to Clipboard',
             'item_active'               => 'Item has Been Activated',
             'item_created'              => 'Item Has Been Created',

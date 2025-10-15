@@ -8,9 +8,8 @@
             <div class="kt-card-header">
                 <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.databases') }} </h3>
                 <div class="kt-menu">
-                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalBackupDatabase" data-kt-tooltip="#tooltip_backup_database" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-to-right"></i></button>
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
-                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteDatabase" data-kt-tooltip="#tooltip_delete_database" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button>
+                    <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteAllSession" data-kt-tooltip="#tooltip_delete_all_session" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-exit-right"></i></button>
                 </div>
             </div>
 
@@ -24,8 +23,9 @@
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-center"><span class="kt-table-col-label kt-card-title text-sm"> No. </span></span></th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> User </span><span class="kt-table-col-sort"></span></span></th>
                                 <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> IP Address </span><span class="kt-table-col-sort"></span></span></th>
-                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Last Activity </span><span class="kt-table-col-sort"></span></span></th>
-                                <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Client </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Region </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Client </span><span class="kt-table-col-sort"></span></span></th>
+                                <th class="w-full"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label font-semibold text-sm"> Last Activity </span><span class="kt-table-col-sort"></span></span></th>
                                 <th class="w-px whitespace-nowrap no-export"></th>
                             </tr>
                         </thead>
@@ -48,6 +48,34 @@
                     <div id="kt-pagination" class="kt-datatable-pagination" data-kt-datatable-pagination="true"></div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalDeleteSession">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.delete_session') }}?
+            </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-session"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
+        </div>
+    </div>
+</div>
+
+<div class="kt-modal" data-kt-modal="true" id="modalDeleteAllSession">
+    <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
+        <div class="kt-modal-header flex justify-center items-center">
+            <h3 class="kt-modal-title text-sm text-center">
+                {{ __('default.notification.confirm.delete_all_session') }}?
+            </h3>
+        </div>
+        <div class="kt-modal-footer flex justify-center gap-2 p-4 border-t">
+            <button class="kt-btn flex items-center gap-2 btn-confirm-delete-all-session"> {{ __('default.label.yes') }} </button>
+            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.cancel') }} </button>
         </div>
     </div>
 </div>
@@ -96,8 +124,9 @@
             },
             { data: 'user_id', name: 'user_id', 'className': 'text-nowrap' },
             { data: 'ip_address', name: 'ip_address', 'className': 'text-nowrap' },
-            { data: 'last_activity', name: 'last_activity', 'className': 'text-nowrap' },
+            { data: 'region', name: 'user_agent', 'className': 'text-nowrap' },
             { data: 'user_agent', name: 'user_agent', 'className': 'text-nowrap' },
+            { data: 'last_activity', name: 'last_activity', 'className': 'text-nowrap' },
             {
                 data: null, name: 'action', orderable: false, searchable: false,
                 render: function (data, type, row) {
@@ -107,7 +136,7 @@
                                 <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
                                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost"><i class="ki-filled ki-dots-vertical text-lg"></i></button>
                                     <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.id}" data-kt-modal-toggle="#modalRestore"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.session} </span></a></div>
+                                        <div class="kt-menu-item"><a class="kt-menu-link" data-id="${row.user_id}" data-kt-modal-toggle="#modalDeleteSession"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> ${translations.default.label.delete.session} </span></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +149,48 @@
             style: 'multi',
             selector: 'td:first-child .checkable',
         },
-        order: [4, 'desc']
+        order: [6, 'desc']
+    });
+
+    // TABLE DELETE SESSION
+    $('body').on('click', '[data-kt-modal-toggle="#modalDeleteSession"]', function () {
+        $('#modalDeleteSession').attr('data-id', $(this).data('id'));
+    });
+
+    $('body').on('click', '.btn-confirm-delete-session', function () {
+        let id = $('#modalDeleteSession').attr('data-id');
+        let modal = KTModal.getInstance(document.querySelector('#modalDeleteSession'));
+        $.ajax({
+            type: 'get', url: `${this_url}/delete-session/${id}`,
+            success: function (data) {
+                if (data.status && data.status === 'error') { toast_notification(data.message); modal.hide(); $('#exilednoname_table').DataTable().draw(false); return; }
+                toast_notification(translations.default.notification.success.delete_session);
+                modal.hide();
+                $('#exilednoname_table').DataTable().draw(false);
+            },
+            error: function () {
+                modal.hide();
+                toast_notification(translations.default.notification.error.error);
+            }
+        });
+    });
+
+    // TABLE DELETE ALL SESSIONS
+    $('body').on('click', '[data-kt-modal-toggle="#modalDeleteAllSession"]', function () {
+        $('#modalDeleteAllSession').attr('data-id', $(this).data('id'));
+    });
+
+    $('body').on('click', '.btn-confirm-delete-all-session', function () {
+        $.ajax({
+            type: 'get', url: `${this_url}/delete-all-session`,
+            success: function (data) {
+                window.location.href = '/login';
+            },
+            error: function () {
+                modal.hide();
+                toast_notification(translations.default.notification.error.error);
+            }
+        });
     });
 
 });

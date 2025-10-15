@@ -145,6 +145,7 @@ $('body').on('click', '.btn-confirm-delete', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -201,6 +202,7 @@ $('body').on('click', '.btn-confirm-reset-password', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -225,6 +227,7 @@ $('body').on('click', '.btn-confirm-selected-reset-password', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -249,6 +252,7 @@ $('body').on('click', '.btn-confirm-selected-active', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -273,6 +277,7 @@ $('body').on('click', '.btn-confirm-selected-inactive', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -297,6 +302,7 @@ $('body').on('click', '.btn-confirm-selected-delete', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -319,6 +325,7 @@ $('body').on('click', '.btn-confirm-restore', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -341,6 +348,7 @@ $('body').on('click', '.btn-confirm-delete-permanent', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -365,6 +373,7 @@ $('body').on('click', '.btn-confirm-selected-restore', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -389,6 +398,7 @@ $('body').on('click', '.btn-confirm-selected-delete-permanent', function () {
             $('#exilednoname_table').DataTable().draw(false);
         },
         error: function () {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });
@@ -406,6 +416,7 @@ $('body').on('click', '.start_optimizing', function () {
 
         },
         error: function (data) {
+            modal.hide();
             toast_notification(translations.default.notification.error.error);
         }
     });

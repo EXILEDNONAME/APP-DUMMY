@@ -158,7 +158,7 @@
         order: [2, 'desc']
     });
 
-    // TABLE BACKUP DATABASE
+    // TABLE BACKUP DATABASES
     $('body').on('click', '[data-kt-modal-toggle="#modalBackupDatabase"]', function () {
         $('#modalBackupDatabase').attr('data-id', $(this).data('id'));
     });

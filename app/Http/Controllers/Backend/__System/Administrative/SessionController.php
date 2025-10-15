@@ -7,12 +7,13 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
-        return ['auth', 'verified', 'role:master-administrator'];
+        return ['auth', 'verified'];
     }
 
     /**
@@ -63,7 +64,7 @@ class SessionController extends Controller implements HasMiddleware
                     $datetime = date("d F Y, H:i:s", $data);
                     return $datetime;
                 })
-                ->editColumn('ip_address', function ($order) {
+                ->editColumn('region', function ($order) {
                     $ip = $order->ip_address;
                     $flag = "";
 
@@ -72,14 +73,14 @@ class SessionController extends Controller implements HasMiddleware
                         $data = $response->json();
 
                         if ($data['country'] == 'US') {
-                            $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> United States </span>';
+                            $flag = 'United States';
                         } else if ($data['country'] == 'ID') {
-                            $flag = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Indonesia </span>';
+                            $flag = 'Indonesia';
                         }
 
-                        return $data['city'] . ", " . $data['region'] . ", " . $data['loc'] . " " . $flag;
+                        return $data['city'] . ", " . $data['region'] . ", " . $flag;
                     } catch (\Exception $e) {
-                        return $ip;
+                        return '-';
                     }
                 })
                 ->editColumn('user_agent', function ($order) {
@@ -97,7 +98,7 @@ class SessionController extends Controller implements HasMiddleware
                     } elseif (strpos($userAgent, 'Vivaldi') !== false) {
                         $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Vivaldi </span>';
                     } elseif (strpos($userAgent, 'Chrome') !== false) {
-                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Google Chrome </span>';                    
+                        $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Google Chrome </span>';
                     } elseif (strpos($userAgent, 'Firefox') !== false) {
                         $browser = '<span class="ms-auto kt-badge kt-badge-stroke shrink-0"> Mozilla Firefox </span>';
                     } elseif (strpos($userAgent, 'Safari') !== false) {
@@ -126,11 +127,35 @@ class SessionController extends Controller implements HasMiddleware
 
     /**
      **************************************************
-     * @return RESET
+     * @return DELETE_SESSION
      **************************************************
      **/
 
-    public function reset()
+    public function delete_session($id = null)
+    {
+        if (!$id) {
+            return redirect('/dashboard')->with('error', __('default.notification.error.restrict'));
+        }
+
+        if (\App\Models\User::where('username', $id)->first()->id == 1 || \App\Models\User::where('username', $id)->first()->id == 2) {
+            return response()->json([
+                'status' => 'error',
+                'message' => __('default.notification.error.restrict')
+            ]);
+        } else {
+            $user = \App\Models\User::where('username', $id)->first()->id;
+            $data = $this->model::where('user_id', $user)->delete();
+            return Response::json($data);
+        }
+    }
+
+    /**
+     **************************************************
+     * @return DELETE_ALL_SESSION
+     **************************************************
+     **/
+
+    public function delete_all_session()
     {
         $data = $this->model::truncate();
         return Response::json($data);
