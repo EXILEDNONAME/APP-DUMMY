@@ -186,11 +186,11 @@ class CrudViewCommand extends Command {
     if ($this->option('localize') == 'yes') {
       $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
     }
-    $this->formHeadingHtml .= "<th> " . $label . " </th> \n";
+    $this->formHeadingHtml .= '<th class="w-px whitespace-nowrap"><span class="kt-table-col flex items-center justify-between"><span class="kt-table-col-label kt-card-title text-sm"> ' . $label . ' </span><span class="kt-table-col-sort"></span></span></th>' . "\n";
     $this->formBodyHtml .= "{ data: '$field' }, \n" ;
     $this->formBodyHtmlForShowView .= "\n" . '<tr>
-    <td class="align-middle font-weight-bold"> ' . $label . ' </td>
-    <td> {{ $data->' . $field . ' }} </td>
+    <td class="align-middle"> ' . $label . ' </td>
+    <td class="align-middle"> {{ $data->' . $field . ' }} </td>
 </tr>';
 
     $i++;

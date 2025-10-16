@@ -1,4 +1,4 @@
-@extends('layouts.backend.__templates.index', ['active' => 'true'])
+@extends('layouts.backend.__templates.index', ['page' => 'datatable-index', 'active' => 'true'])
 @section('title', '%%crudNameTitle%%')
 
 @section('table-header')

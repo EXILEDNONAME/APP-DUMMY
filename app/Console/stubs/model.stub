@@ -17,6 +17,7 @@ class DummyClass extends Model
     protected $guarded = ['id'];
     protected static $logAttributes = ['*'];
     protected static $recordEvents = ['created', 'deleted', 'updated'];
+    protected $casts = ['date' => 'datetime'];
 
     public function getActivitylogOptions(): LogOptions 
     {

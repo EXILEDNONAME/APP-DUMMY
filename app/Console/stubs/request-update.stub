@@ -32,12 +32,12 @@ class UpdateRequest extends BaseFormRequest
         $dirty = collect($data->getDirty())->except('updated_at');
         if ($dirty->isEmpty()) {
             session()->flash('success', __('default.notification.success.item_ignored'));
-            return response()->json(['status' => 'success', 'redirect_url' => url($url)], 200);
+            return response()->json(['status' => 'success', 'redirect_url' => $url], 200);
         }
 
         $data->save();
         Cache::forget($url);
         session()->flash('success', __('default.notification.success.item_updated'));
-        return response()->json(['status' => 'success', 'redirect_url' => url($url)], 200);
+        return response()->json(['status' => 'success', 'redirect_url' => $url], 200);
     }
 }
