@@ -12,8 +12,23 @@
 </head>
 
 <body class="antialiased flex h-full text-base text-foreground bg-background">
+    <style>
+        .page-bg {
+            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        .dark .page-bg {
+            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10-dark.png");
+        }
+    </style>
+
     <div class="grid lg:grid-cols-1 grow">
-        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1">
+        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1 page-bg">
             <div class="kt-card max-w-[420px] w-full">
                 <form id="exilednoname-form" action="{{ route('login') }}" class="kt-card-content flex flex-col gap-5 p-10" method="post">
                     @csrf
@@ -22,12 +37,14 @@
                             - LOGIN AREA -
                         </h3>
                     </div>
+
                     <div class="grid grid-cols-1 gap-2.5">
                         <a class="kt-btn kt-btn-outline justify-center" href="#">
-                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg" />
+                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg">
                             Use Google
                         </a>
                     </div>
+
                     <div class="flex items-center gap-2">
                         <span class="border-t border-border w-full"></span>
                         <span class="text-xs text-secondary-foreground uppercase"> or </span>
@@ -39,7 +56,7 @@
                             {{ Html::text('login')->class(['kt-input w-full'])->placeholder('Enter Account')->required() }}
                         </div>
                     </div>
-
+                
                     <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true" name="passwordCustom">
                         <input name="password" placeholder="Enter Password" type="password" value="" data-gtm-form-interact-field-id="0">
                         <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
@@ -48,11 +65,20 @@
                             </span>
                         </button>
                     </div>
-                    <span id="errors" class="font-semibold text-center text-sm" style="color:var(--destructive)"> </span>
+                    <span id="errors" class="font-semibold text-center text-sm hidden" style="color:var(--destructive)"> </span>
+
+                    <div class="flex items-center justify-between gap-1">
+                        <label class="kt-label">
+                            <input class="kt-checkbox kt-checkbox-sm" name="check" type="checkbox" value="1">
+                            <span class="kt-checkbox-label"> Remember me </span>
+                        </label>
+                        <a class="kt-link" href="/forgot-password"> Forgot Password? </a>
+                    </div>
 
                     <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow" form="exilednoname-form">
                         {{ __('default.label.login') }}
                     </button>
+
                 </form>
             </div>
         </div>
@@ -67,8 +93,8 @@
 
             let form = e.target;
             let formData = new FormData(form);
-            $('#errors').html('');
-            $('#success').html('');
+            let error = $('#errors');
+            let success = $('#success');
 
             try {
                 let response = await fetch("/login", {
@@ -95,12 +121,14 @@
 
                         if (message == "{{ __('auth.failed') }}") {
                             inputLogin.attr('aria-invalid', 'true').addClass('border-red-500');
+                            error.removeClass('hidden');
                         } else {
                             inputLogin.removeAttr('aria-invalid').removeClass('border-red-500');
                         }
 
                         if (message == "{{ __('auth.password') }}") {
                             inputPassword.attr('aria-invalid', 'true').addClass('border-red-500');
+                            error.removeClass('hidden');
                         } else {
                             inputPassword.removeAttr('aria-invalid').removeClass('border-red-500');
                         }
@@ -108,6 +136,7 @@
                         if (message == "{{ __('auth.inactived') }}") {
                             inputLogin.attr('aria-invalid', 'true').addClass('border-red-500');
                             inputPassword.attr('aria-invalid', 'true').addClass('border-red-500');
+                            error.removeClass('hidden');
                         }
 
                     } else if (result.errors && result.errors.login) {
