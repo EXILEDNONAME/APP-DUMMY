@@ -29,7 +29,7 @@
       <div class="kt-card-header flex justify-center">
         <h3 class="kt-card-title text-sm"> Total Sessions </h3>
       </div>
-      <div class="kt-card-content p-5 flex justify-center">
+      <div class="kt-card-content p-2 flex justify-center">
         {{ \DB::table('sessions')->count() }}
       </div>
     </div>
@@ -40,9 +40,9 @@
   <div class="grid">
     <div class="kt-card kt-card-grid h-full min-w-full">
       <div class="kt-card-header flex justify-center">
-        <h3 class="kt-card-title text-sm grid gap-5"> Total Users </h3>
+        <h3 class="kt-card-title text-sm"> Total Users </h3>
       </div>
-      <div class="kt-card-content p-5 flex justify-center">
+      <div class="kt-card-content p-2 flex justify-center">
         8
       </div>
     </div>
@@ -53,9 +53,9 @@
   <div class="grid">
     <div class="kt-card kt-card-grid h-full min-w-full">
       <div class="kt-card-header flex justify-center">
-        <h3 class="kt-card-title text-sm grid gap-5"> Total Datatable Generals </h3>
+        <h3 class="kt-card-title text-sm"> Total Datatable Generals </h3>
       </div>
-      <div class="kt-card-content p-5 flex justify-center">
+      <div class="kt-card-content p-2 flex justify-center">
         {{ number_format(\DB::table('system_application_table_generals')->count(), 0, ',', '.') }}
       </div>
     </div>
