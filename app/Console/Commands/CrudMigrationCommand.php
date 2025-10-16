@@ -94,7 +94,7 @@ class CrudMigrationCommand extends GeneratorCommand
       $viewpath = "";
     }
 
-    return database_path('/migrations/') . $datePrefix . '_create_main' . $viewpath . '_' . $name . '.php';
+    return database_path('migrations/') . $datePrefix . '_create_main' . $viewpath . '_' . $name . '.php';
   }
 
   /**
