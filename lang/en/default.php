@@ -218,4 +218,11 @@ return [
         'status'                        => 'Select Status',
     ],
 
+    'selected' => [
+        'active'                        => 'Activate The Selected Item',
+        'delete'                        => 'Delete The Selected Item',
+        'inactive'                      => 'Inactivate The Selected Item',
+        'reset_password'                => 'Reset Password The Selected Item',
+    ],
+
 ];

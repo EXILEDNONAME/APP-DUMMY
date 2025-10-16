@@ -1,31 +1,62 @@
-<div class="row">
-  <div class="col-lg-6">
-    <div class="card card-custom card-stretch gutter-b">
-      <div class="card-body d-flex align-items-center py-0 mt-2">
-        <div class="d-flex flex-column flex-grow-1 py-lg-5">
-          <a class="card-title font-weight-bolder text-dark-75 mb-2 text-hover-danger"> Welcome, {{ Auth::User()->name }} </a>
+<div class="lg:col-span-3">
+  <div class="grid">
+    <div class="kt-alert kt-alert-light kt-alert-success">
+      <div class="kt-alert-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 16v-4"></path>
+          <path d="M12 8h.01"></path>
+        </svg>
+      </div>
+      <div class="kt-alert-title"> Welcome, <span class="font-semibold"> {{ Auth::User()->name }} </span></div>
+      <div class="kt-alert-toolbar">
+        <div class="kt-alert-actions">
+          <button class="kt-alert-close" data-kt-dismiss="#alert_2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
         </div>
-        <img src="{{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/svg/avatars/029-boy-11.svg" alt="" class="align-self-end h-100px">
       </div>
     </div>
   </div>
-  <div class="col-lg-3">
-    <div class="card card-custom card-stretch gutter-b">
-      <div class="card-body d-flex align-items-center py-0 mt-2">
-        <div class="d-flex flex-column flex-grow-1 py-lg-5">
-          <a class="card-title font-weight-bolder mb-2 mt-2 text-info text-center"> TOTAL USERS </a>
-          <a class="card-title font-weight-bolder text-dark-75 mb-4 text-center"> {{ \DB::table('users')->count() }} </a>
-        </div>
+</div>
+
+<div class="lg:col-span-1">
+  <div class="grid">
+    <div class="kt-card kt-card-grid h-full min-w-full">
+      <div class="kt-card-header flex justify-center">
+        <h3 class="kt-card-title text-sm"> Total Sessions </h3>
+      </div>
+      <div class="kt-card-content p-5 flex justify-center">
+        {{ \DB::table('sessions')->count() }}
       </div>
     </div>
   </div>
-  <div class="col-lg-3">
-    <div class="card card-custom card-stretch gutter-b">
-      <div class="card-body d-flex align-items-center py-0 mt-2">
-        <div class="d-flex flex-column flex-grow-1 py-lg-5">
-          <a class="card-title font-weight-bolder mb-2 mt-2 text-info text-center"> TOTAL DATABLE GENERALS </a>
-          <a class="card-title font-weight-bolder text-dark-75 mb-4 text-center"> {{ number_format(\DB::table('system_application_table_generals')->count(), 0, ',', '.') }} </a>
-        </div>
+</div>
+
+<div class="lg:col-span-1">
+  <div class="grid">
+    <div class="kt-card kt-card-grid h-full min-w-full">
+      <div class="kt-card-header flex justify-center">
+        <h3 class="kt-card-title text-sm grid gap-5"> Total Users </h3>
+      </div>
+      <div class="kt-card-content p-5 flex justify-center">
+        8
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lg:col-span-1">
+  <div class="grid">
+    <div class="kt-card kt-card-grid h-full min-w-full">
+      <div class="kt-card-header flex justify-center">
+        <h3 class="kt-card-title text-sm grid gap-5"> Total Datatable Generals </h3>
+      </div>
+      <div class="kt-card-content p-5 flex justify-center">
+        {{ number_format(\DB::table('system_application_table_generals')->count(), 0, ',', '.') }}
       </div>
     </div>
   </div>

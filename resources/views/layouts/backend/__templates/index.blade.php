@@ -29,11 +29,11 @@
                             <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
                                 <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-tooltip="#tooltip_batch_action" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
                                 <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.label.active') }} </span></a></div>
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedInactive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.label.inactive') }} </span></a></div>
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDelete"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.delete') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedActive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-check"></i></span><span class="kt-menu-title"> {{ __('default.selected.active') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedInactive"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-cross"></i></span><span class="kt-menu-title"> {{ __('default.selected.inactive') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDelete"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.selected.delete') }} </span></a></div>
                                     @if(!empty($extension) && $extension == 'management-users')
-                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedResetPassword"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-key"></i></span><span class="kt-menu-title"> {{ __('default.label.reset_password') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedResetPassword"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-key"></i></span><span class="kt-menu-title"> {{ __('default.selected.reset_password') }} </span></a></div>
                                     @endif
                                 </div>
                             </div>

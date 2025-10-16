@@ -88,15 +88,7 @@ class UserController extends Controller implements HasMiddleware
                 ->editColumn('description', function ($order) {
                     return nl2br(e($order->description));
                 })
-                ->editColumn('avatar', function ($order) {
-                    $data = \App\Models\User::where('id', $order->id)->first();
-                    if (!empty($order->avatar)) {
-                        return '<img class="size-9 rounded-full" src="' . env("APP_URL") . '/storage/avatar/' . $order->id . '/' . $order->avatar . '">';
-                    } else {
-                        return '<img class="size-9 rounded-full" src="' . env("APP_URL") . '/assets/backend/media/avatars/blank.png">';
-                    }
-                })
-                ->rawColumns(['file', 'avatar'])
+                ->rawColumns(['file'])
                 ->addIndexColumn()
                 ->make(true);
         }

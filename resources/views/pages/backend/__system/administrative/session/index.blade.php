@@ -9,6 +9,17 @@
                 <h3 class="kt-card-title text-sm grid gap-5"> {{ __('default.label.databases') }} </h3>
                 <div class="kt-menu">
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost table_reload" data-kt-tooltip="#tooltip_reload" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-arrows-circle"></i></button>
+                    <div class="inline-flex" data-kt-dropdown="true" data-kt-dropdown-trigger="hover" data-kt-dropdown-placement="bottom-end">
+                        <div class="kt-menu" data-kt-menu="true">
+                            <div class="kt-menu-item" data-kt-menu-item-placement="bottom-end" data-kt-menu-item-placement-rtl="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="hover">
+                                <button id="checkbox_batch" class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost hidden" data-kt-tooltip="#tooltip_batch_action" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-dots-vertical"></i></button>
+                                <div class="kt-menu-dropdown kt-menu-default" data-kt-menu-dismiss="true">
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedRestore"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-arrows-loop"></i></span><span class="kt-menu-title"> {{ __('default.label.restore') }} </span></a></div>
+                                    <div class="kt-menu-item" data-kt-modal-toggle="#modalSelectedDeletePermanent"><a class="kt-menu-link"><span class="kt-menu-icon"><i class="ki-filled ki-trash"></i></span><span class="kt-menu-title"> {{ __('default.label.delete.permanent') }} </span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-modal-toggle="#modalDeleteAllSession" data-kt-tooltip="#tooltip_delete_all_session" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-exit-right"></i></button>
                 </div>
             </div>
@@ -124,7 +135,7 @@
             },
             { data: 'user_id', name: 'user_id', 'className': 'text-nowrap' },
             { data: 'ip_address', name: 'ip_address', 'className': 'text-nowrap' },
-            { data: 'region', name: 'user_agent', 'className': 'text-nowrap' },
+            { data: 'region', name: 'user_agent', 'className': 'text-nowrap text-center' },
             { data: 'user_agent', name: 'user_agent', 'className': 'text-nowrap' },
             { data: 'last_activity', name: 'last_activity', 'className': 'text-nowrap' },
             {
