@@ -51,14 +51,12 @@ trait IndexController
                     $modalId = 'modal-file-' . $order->id;
                     $baseUrl = config('app.url');
                     $placeholder = "$baseUrl/assets/backend/media/images/image-placeholder.png";
-                    return <<<HTML
-                        <a href="javascript:void(0);" data-kt-modal-toggle="#$modalId"><i class="ki-filled ki-picture"></i></a>
-                            <div class="kt-modal" data-kt-modal="true" id="$modalId" data-kt-modal-backdrop-static="true">
+                    return '
+                        <a href="javascript:void(0);" data-kt-modal-toggle="#' . $modalId . '"><i class="ki-filled ki-picture"></i></a>
+                            <div class="kt-modal" data-kt-modal="true" id="' . $modalId . '" data-kt-modal-backdrop-static="true">
                                 <div class="kt-modal-content w-[350px] top-5 lg:top-[15%]">
                                     <div class="kt-modal-header">
-                                        <h3 class="kt-modal-title text-sm">
-                                            Preview
-                                        </h3>
+                                        <h3 class="kt-modal-title text-sm"> ' . __("default.label.preview") . ' </h3>
                                         <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost shrink-0" data-kt-modal-dismiss="true">
                                             <i class="ki-filled ki-cross">
                                             </i>
@@ -66,20 +64,18 @@ trait IndexController
                                     </div>
                                     <div class="kt-modal-body grid gap-5 px-0 py-5">
                                         <div class="flex flex-col items-center px-5 gap-2.5">
-                                            <img width="100%" src="$placeholder" data-src="$imgUrl" class="lazy-img" loading="lazy" alt="Preview">
+                                            <img width="100%" src="' . $placeholder . '" data-src="' . $imgUrl . '" class="lazy-img" loading="lazy" alt="Preview">
                                         </div>
                                     </div>
                                     <div class="kt-modal-footer">
                                         <div></div>
                                         <div class="flex gap-2">
-                                            <a href="$imgUrl" download="{$order->file}"><button class="kt-btn"> Download </button></a>
-                                            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> Done </button>
+                                            <a href="' . $imgUrl . '" download="' . $order->file . '"><button class="kt-btn"><i class="ki-filled ki-cloud-download"></i>' . __("default.label.download") . '</button></a>
+                                            <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal">' . __("default.label.close") . '</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        HTML;
-                    return $html;
+                            </div>';
                 });
             if ($this->table_relation_1 instanceof \Closure) {
                 $datatable = ($this->table_relation_1)($datatable);

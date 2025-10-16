@@ -47,8 +47,8 @@
                                         <div class="kt-modal-footer">
                                             <div></div>
                                             <div class="flex gap-2">
-                                                <a href="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" download="{{ $data->file }}"><button class="kt-btn kt-btn-sm"><i class="ki-filled ki-cloud-download"></i> {{ __('default.label.download') }} </button></a>
-                                                <button class="kt-btn kt-btn-sm kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.close') }} </button>
+                                                <a href="{{ env('APP_URL') }}/storage/files/form-uploads/{{ $data->file }}" download="{{ $data->file }}"><button class="kt-btn"><i class="ki-filled ki-cloud-download"></i> {{ __('default.label.download') }} </button></a>
+                                                <button class="kt-btn kt-btn-mono" data-kt-modal-dismiss="#modal"> {{ __('default.label.close') }} </button>
                                             </div>
                                         </div>
                                     </div>
