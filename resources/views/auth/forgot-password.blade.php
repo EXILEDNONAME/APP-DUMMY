@@ -1,69 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <base href="../../../../">
-  <meta charset="utf-8" />
-  <title>
-    @php $title = Cache::remember('title', 300, function () { return \DB::table('system_settings')->first(); }); @endphp
-    {{ $title->application_name; }} - Forget Password
-  </title>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="description" content="Forgot Password">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-  <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/login-5.css">
-  <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/style.bundle.min.css">
-  <link rel="shortcut icon" href="{{ env('APP_URL') }}/favicon.png" />
+    <meta charset="utf-8" />
+    <title> {{ \DB::table('system_settings')->first()->application_name; }} - @yield('title') </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
+    <link href="{{ env('APP_URL') }}/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+    <link href="{{ env('APP_URL') }}/assets/backend/css/styles.css" rel="stylesheet" />
 </head>
 
-<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+<body class="antialiased flex h-full text-base text-foreground bg-background">
+    <style>
+        .page-bg {
+            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+    </style>
 
-  <div class="d-flex flex-column flex-root">
-    <div class="login login-5 login-signin-on d-flex flex-row-fluid" id="kt_login">
-      <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url({{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/bg/bg-2.jpg);">
-        <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
-          <div class="login-signin text-white">
-            <div class="mb-10">
-              <h3 class="opacity-40 font-weight-normal"> - FORGET PASSWORD - </h3>
-              <p class="opacity-40"> Enter Your Email Account For Reset Password </p>
+    <div class="grid lg:grid-cols-1 grow">
+        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1 page-bg">
+            <div class="kt-card max-w-[420px] w-full">
+                <form id="exilednoname-form" action="{{ route('password.email') }}" class="kt-card-content flex flex-col gap-5 p-10" method="post">
+                    @csrf
+                    <div class="text-center mb-2.5">
+                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5"> - FORGOT PASSWORD - </h3>
+                        <div class="flex items-center gap-2"><span class="border-t border-border w-full"></span></div>
+                    </div>
+
+                    <div class="kt-form-item">
+                        <div class="flex flex-col">
+                            {{ Html::email('email')->class(['kt-input w-full'])->placeholder('Enter Email')->required() }}
+                        </div>
+                    </div>
+
+                    @error('email')
+                    <span class="font-semibold text-center text-center text-xs" style="color:var(--destructive)">
+                        {{ $message }} <br><br>
+                        <hr>
+                    </span>
+                    @enderror
+
+                    @if (session('status'))
+                    <span class="font-semibold text-center text-center text-xs" style="color:var(--color-green-500)">
+                        {{ session('status') }}
+                        <br><br>
+                        <hr>
+                    </span>
+                    @endif
+
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow"> Submit </button>
+                        <a href="/login" class="kt-btn kt-btn-mono flex justify-center grow"> Back </a>
+                    </div>
+                </form>
             </div>
-
-            <form class="form" method="POST" action="{{ route('password.email') }}">
-              @csrf
-
-              <div class="form-group">
-                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8" type="email" placeholder="Email" name="email" autocomplete="off" required />
-              </div>
-
-              <center>
-                @error('email')
-                <div class="fv-plugins-message-container mt-0">
-                  <div data-field="password" class="fv-help-block"><strong>{{ $message }}</strong></div>
-                </div>
-                <br>
-                @enderror
-                @if (session('status'))
-                <div class="fv-plugins-message-container mt-0">
-                  {{ session('status') }}
-                </div>
-                @endif
-              </center>
-
-              <div class="form-group text-center mt-10">
-                <button type="submit" class="btn btn-pill btn-primary opacity-90 px-15 py-3"> {{ __('Send Password Reset Link') }} </button>
-              </div>
-            </form>
-
-            <div class="form-group text-center mt-10">
-              <a href="/login"><span class="btn btn-pill btn-danger opacity-90 px-15 py-3"> {{ __('default.label.back') }} </span></a>
-            </div>
-
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/js/core.bundle.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/vendors/ktui/ktui.min.js"></script>
+
 </body>
 
 </html>

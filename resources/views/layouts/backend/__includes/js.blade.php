@@ -1,15 +1,15 @@
  
 <script>
-            fetch("{{ route('assets.lang') }}").then(response => { return response.json(); }).then(data => { translations = data; });
-            window.translations = {
-                default: {
-                    label: {
-                        no_data_available: "{{ __('default.label.no_data_available') }}",
-                        no_data_matching: "{{ __('default.label.no_data_matching') }}",
-                    }
-                }
-            };
-        </script>
+    fetch("{{ route('assets.lang') }}").then(response => { return response.json(); }).then(data => { translations = data; });
+    window.translations = {
+        default: {
+            label: {
+                no_data_available: "{{ __('default.label.no_data_available') }}",
+                no_data_matching: "{{ __('default.label.no_data_matching') }}",
+            }
+        }
+    };
+</script>
 
 <script>
     var this_url = "{{ URL::Current() }}";

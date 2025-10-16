@@ -1,85 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <base href="../../../../">
     <meta charset="utf-8" />
-    <title>
-        @php $title = Cache::remember('title', 300, function () { return \DB::table('system_settings')->first(); }); @endphp
-        {{ $title->application_name; }} - Forget Password
-    </title>
+    <title> EXILEDNONAME - Login </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Reset Password">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-    <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/login-5.css">
-    <link rel="stylesheet" type="text/css" href="{{ env('APP_URL') }}/assets/login/style.bundle.min.css">
-    <link rel="shortcut icon" href="{{ env('APP_URL') }}/favicon.png" />
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+    <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
+    <link href="{{ env('APP_URL') }}/assets/backend/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+    <link href="{{ env('APP_URL') }}/assets/backend/css/styles.css" rel="stylesheet" />
 </head>
 
-<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+<body class="antialiased flex h-full text-base text-foreground bg-background">
+    <style>
+        .page-bg {
+            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
 
-    <div class="d-flex flex-column flex-root">
-        <div class="login login-5 login-signin-on d-flex flex-row-fluid" id="kt_login">
-            <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url({{ env('APP_URL') }}{{ env('APP_URL') }}/assets/backend/media/bg/bg-2.jpg);">
-                <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
+        .dark .page-bg {
+            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10-dark.png");
+        }
+    </style>
 
-                    <div class="login-signin text-white">
-                        <div class="mb-10">
-                            <h3 class="opacity-40 font-weight-normal"> - RESET PASSWORD - </h3>
-                            <p class="opacity-40"> Confirm Reset Password For Your Account </p>
-                        </div>
+    <div class="grid lg:grid-cols-1 grow">
+        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1 page-bg">
+            <div class="kt-card max-w-[420px] w-full">
 
-                        <form method="POST" action="{{ route('password.store') }}">
-                            @csrf
+                <form id="exilednoname-form" class="kt-card-content flex flex-col gap-5 p-10">
+                    @csrf
 
-                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-                            <div class="form-group">
-                                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8 @error('email') is-invalid @enderror" id="email" type="email" value="{{ $request->email ?? old('email') }}" placeholder="Email" name="email" autocomplete="off" autofocus />
-                                <!-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" /> -->
-                            </div>
-
-                            <div class="form-group">
-                                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8 @error('password') is-invalid @enderror" id="password" type="password" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}" />
-                            </div>
-
-                            <div class="form-group">
-                                <input class="form-control h-auto text-white bg-white-o-5 rounded-pill border-0 py-4 px-8 @error('password') is-invalid @enderror" id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="{{ __('Confirm Password') }}" />
-                            </div>
-
-
-
-                            <center>
-                                @error('email')
-                                <div class="fv-plugins-message-container mt-0">
-                                    <div data-field="password" class="fv-help-block"><strong>{{ $message }}</strong></div>
-                                </div>
-                                <br>
-                                @enderror
-                                @error('password')
-                                <div class="fv-plugins-message-container mt-0">
-                                    <div data-field="password" class="fv-help-block"><strong>{{ $message }}</strong></div>
-                                </div>
-                                <br>
-                                @enderror
-
-                                @if (session('status'))
-                                <div class="fv-plugins-message-container mt-0">
-                                    {{ session('status') }}
-                                </div>
-                                @endif
-                            </center>
-                            <div class="form-group text-center mt-10">
-                                <button type="submit" class="btn btn-pill btn-primary opacity-90 px-15 py-3"> {{ __('Reset Password') }} </button>
-                            </div>
-                        </form>
+                    <div class="text-center mb-2.5">
+                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5">
+                            - RESET PASSWORD -
+                        </h3>
                     </div>
 
-                </div>
+                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <input class="kt-input w-full @error('email') is-invalid @enderror"
+                            id="email"
+                            type="email"
+                            value="{{ $request->email ?? old('email') }}"
+                            placeholder="Email Address"
+                            name="email"
+                            autocomplete="off"
+                            autofocus
+                            required />
+                        @error('email')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Password Field --}}
+                    <div class="form-group">
+                        <div class="kt-input"
+                            id="password-wrapper"
+                            data-kt-toggle-password="true"
+                            data-kt-toggle-password-initialized="true">
+                            <input id="password"
+                                name="password"
+                                placeholder="New Password"
+                                type="password"
+                                autocomplete="new-password"
+                                required>
+                            <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5"
+                                data-kt-toggle-password-trigger="true"
+                                type="button">
+                                <span class="kt-toggle-password-active:hidden">
+                                    <i class="ki-filled ki-eye text-muted-foreground"></i>
+                                </span>
+                                <span class="hidden kt-toggle-password-active:block">
+                                    <i class="ki-filled ki-eye-slash text-muted-foreground"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <span class="error-message" id="error-password"></span>
+                    </div>
+
+                    {{-- Password Confirmation Field --}}
+                    <div class="form-group">
+                        <div class="kt-input"
+                            id="password-confirmation-wrapper"
+                            data-kt-toggle-password="true"
+                            data-kt-toggle-password-initialized="true">
+                            <input id="password_confirmation"
+                                name="password_confirmation"
+                                placeholder="Confirm New Password"
+                                type="password"
+                                autocomplete="new-password"
+                                required>
+                            <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5"
+                                data-kt-toggle-password-trigger="true"
+                                type="button">
+                                <span class="kt-toggle-password-active:hidden">
+                                    <i class="ki-filled ki-eye text-muted-foreground"></i>
+                                </span>
+                                <span class="hidden kt-toggle-password-active:block">
+                                    <i class="ki-filled ki-eye-slash text-muted-foreground"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <span class="error-message" id="error-password_confirmation"></span>
+                    </div>
+
+                    @error('email')
+                    <strong>{{ $message }}</strong>
+                    <br>
+                    @enderror
+                    @error('password')
+                    <strong>{{ $message }}</strong>
+                    <br>
+                    @enderror
+
+                    @if (session('status'))
+                    {{ session('status') }}
+                    @endif
+
+                    {{-- Submit Button --}}
+                    <button type="submit" id="submit-btn" class="kt-btn kt-btn-primary flex justify-center grow">
+                        <span id="btn-text">{{ __('Reset Password') }}</span>
+                    </button>
+
+                    {{-- Back to Login --}}
+                    <div class="text-center">
+                        <a href="{{ route('login') }}" class="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                            <i class="ki-filled ki-left text-xs"></i> Back to Login
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/js/core.bundle.js"></script>
+    <script src="{{ env('APP_URL') }}/assets/backend/vendors/ktui/ktui.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Setup AJAX CSRF Token
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Reset Password Form Submit
+            $('#exilednoname-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                clearErrors();
+
+                // Get form data
+                const formData = {
+                    token: $('input[name="token"]').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    password_confirmation: $('#password_confirmation').val()
+                };
+
+                // Show loading state
+                showLoading();
+
+                // AJAX Request
+                $.ajax({
+                    url: '{{ route("password.store") }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        hideLoading();
+
+                        // Show success message
+                        showAlert('success', response.message || 'Password has been reset successfully!');
+
+                        // Reset form
+                        $('#exilednoname-form')[0].reset();
+
+                        // Redirect to login after 2 seconds
+                        setTimeout(function() {
+                            window.location.href = '{{ route("login") }}';
+                        }, 2000);
+                    },
+                    error: function(xhr) {
+                        hideLoading();
+
+                        if (xhr.status === 422) {
+                            // Validation errors
+                            const errors = xhr.responseJSON.errors;
+                            displayErrors(errors);
+                        } else if (xhr.status === 400 || xhr.status === 404) {
+                            // Token expired or invalid
+                            showAlert('error', xhr.responseJSON.message || 'Invalid or expired reset token.');
+                        } else {
+                            // Other errors
+                            showAlert('error', 'An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+
+            // Function to clear errors
+            function clearErrors() {
+                $('.error-message').text('').hide();
+                $('.kt-input').removeClass('is-invalid');
+                $('#email').removeClass('is-invalid');
+                $('#alert-message').hide().removeClass('alert-success alert-error');
+            }
+
+            // Function to display validation errors
+            function displayErrors(errors) {
+                $.each(errors, function(field, messages) {
+                    const errorElement = $('#error-' + field);
+                    const inputElement = $('#' + field);
+                    const wrapperElement = $('#' + field + '-wrapper');
+
+                    errorElement.text(messages[0]).show();
+
+                    if (wrapperElement.length) {
+                        wrapperElement.addClass('is-invalid');
+                    } else {
+                        inputElement.addClass('is-invalid');
+                    }
+                });
+            }
+
+            // Function to show alert
+            function showAlert(type, message) {
+                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+                $('#alert-message')
+                    .removeClass('alert-success alert-error')
+                    .addClass(alertClass)
+                    .text(message)
+                    .fadeIn();
+            }
+
+            // Function to show loading state
+            function showLoading() {
+                $('#submit-btn').addClass('btn-loading').prop('disabled', true);
+                $('#btn-text').text('Processing...');
+            }
+
+            // Function to hide loading state
+            function hideLoading() {
+                $('#submit-btn').removeClass('btn-loading').prop('disabled', false);
+                $('#btn-text').text('{{ __("Reset Password") }}');
+            }
+        });
+    </script>
+
 </body>
 
 </html>

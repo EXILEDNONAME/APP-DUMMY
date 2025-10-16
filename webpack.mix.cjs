@@ -56,16 +56,16 @@ mix.browserSync({
 //     console.log('EXILEDNONAME-LOG: Obfuscation completed!');
 // });
 
-// FILE-MANAGER CSS
-mix.scripts([
-    'public/assets/backend/elfinder/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css',
-    'public/assets/backend/elfinder/css/elfinder.full.css',
-    'public/assets/backend/elfinder/css/theme.css',
-], 'public/assets/backend/mix/css/file-manager.css');
+// // FILE-MANAGER CSS
+// mix.scripts([
+//     'public/assets/backend/elfinder/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css',
+//     'public/assets/backend/elfinder/css/elfinder.full.css',
+//     'public/assets/backend/elfinder/css/theme.css',
+// ], 'public/assets/backend/mix/css/file-manager.css');
 
-// FILE-MANAGER JS
-mix.scripts([
-    'public/assets/backend/elfinder/ajax/libs/jquery/1.11.0/jquery.min.js',
-    'public/assets/backend/elfinder/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js',
-    'public/assets/backend/elfinder/js/elfinder.full.js',
-], 'public/assets/backend/mix/js/file-manager.js');
+// // FILE-MANAGER JS
+// mix.scripts([
+//     'public/assets/backend/elfinder/ajax/libs/jquery/1.11.0/jquery.min.js',
+//     'public/assets/backend/elfinder/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js',
+//     'public/assets/backend/elfinder/js/elfinder.full.js',
+// ], 'public/assets/backend/mix/js/file-manager.js');

@@ -1,6 +1,7 @@
 @extends('layouts.backend.default')
 
 @section('content')
+@stack('widget-top')
 <div class="lg:col-span-3">
     <div class="grid">
         <div class="kt-card kt-card-grid h-full min-w-full">
@@ -217,6 +218,8 @@
     </div>
 </div>
 @endif
+
+@stack('widget-bottom')
 
 <!-- MODAL -->
 <div class="kt-modal" data-kt-modal="true" id="modalDelete">

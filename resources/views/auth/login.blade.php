@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> EXILEDNONAME - Login </title>
+    <title> {{ \DB::table('system_settings')->first()->application_name; }} - @yield('title') </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
@@ -21,44 +21,37 @@
             background-repeat: no-repeat;
             min-height: 100vh;
         }
-
-        .dark .page-bg {
-            background-image: url("{{ env('APP_URL') }}/assets/backend/media/images/2600x1200/bg-10-dark.png");
-        }
     </style>
 
     <div class="grid lg:grid-cols-1 grow">
         <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1 page-bg">
             <div class="kt-card max-w-[420px] w-full">
-                <form id="exilednoname-form" action="{{ route('login') }}" class="kt-card-content flex flex-col gap-5 p-10" method="post">
+                <form id="exilednoname-form" class="kt-card-content flex flex-col gap-5 p-10" method="post">
                     @csrf
                     <div class="text-center mb-2.5">
-                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5">
-                            - LOGIN AREA -
-                        </h3>
+                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5"> - LOGIN AREA - </h3>
+                        <div class="flex items-center gap-2"><span class="border-t border-border w-full"></span></div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-2.5">
+                    <!-- <div class="grid grid-cols-1 gap-2.5">
                         <a class="kt-btn kt-btn-outline justify-center" href="#">
-                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg">
-                            Use Google
+                            <img alt="" class="size-3.5 shrink-0" src="{{ env('APP_URL') }}/assets/backend/media/brand-logos/google.svg"> Use Google
                         </a>
                     </div>
-
                     <div class="flex items-center gap-2">
                         <span class="border-t border-border w-full"></span>
                         <span class="text-xs text-secondary-foreground uppercase"> or </span>
                         <span class="border-t border-border w-full"></span>
-                    </div>
+                    </div> -->
 
                     <div class="kt-form-item">
                         <div class="flex flex-col">
-                            {{ Html::text('login')->class(['kt-input w-full'])->placeholder('Enter Account')->required() }}
+                            {{ Html::text('login')->class(['kt-input w-full'])->placeholder('Enter Email, Username or Phone')->required() }}
                         </div>
                     </div>
-                
+
                     <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true" name="passwordCustom">
-                        <input name="password" placeholder="Enter Password" type="password" value="" data-gtm-form-interact-field-id="0">
+                        <input name="password" placeholder="Enter Password" type="password" value="" data-gtm-form-interact-field-id="0" required>
                         <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
                             <span class="kt-toggle-password-active:hidden"><i class="ki-filled ki-eye text-muted-foreground"></i></span>
                             <span class="hidden kt-toggle-password-active:block"><i class="ki-filled ki-eye-slash text-muted-foreground"></i>
@@ -145,13 +138,13 @@
                         message = '{{ __("auth.error") }}';
                     }
 
-                    $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs">' + message + '</div>');
+                    $('#errors').html('<div class="text-red-500 text-center text-xs">' + message + '</div><br><hr>');
                 } else {
-                    $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs"> {{ __("auth.error") }} </div>');
+                    $('#errors').html('<div class="text-red-500 text-center text-xs"> {{ __("auth.error") }} </div>');
                 }
             } catch (error) {
                 console.error(error);
-                $('#errors').html('<div class="text-red-500 mt-2 text-center text-xs"> {{ __("auth.error") }} </div>');
+                $('#errors').html('<div class="text-red-500 text-center text-xs"> {{ __("auth.error") }} </div>');
             }
         });
     </script>

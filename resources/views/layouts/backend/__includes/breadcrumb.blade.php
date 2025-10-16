@@ -11,17 +11,19 @@
                         </svg>
                     </a>
                 </li>
-                <li class="kt-breadcrumb-separator">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right" aria-hidden="true">
+                <li class="kt-breadcrumb-separator"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right" aria-hidden="true">
                         <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-                </li>
+                    </svg></li>
                 <li class="kt-breadcrumb-item"><span class="kt-breadcrumb-page font-bold"> @yield('title') </span></li>
             </ol>
 
             <div class="flex">
+                @if(!empty($page) && $page == 'datatable-index')
                 <a href="{{ URL::Current() }}/activities"><button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_activities" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-graph-3"></i></button></a>
                 <a href="{{ URL::Current() }}/trash"><button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_trash" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-trash"></i></button></a>
+                @else
+                <button type="button" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost" data-kt-tooltip="#tooltip_navigation" data-kt-tooltip-placement="top-end"><i class="ki-filled ki-information-1"></i></button>
+                @endif
             </div>
 
         </div>

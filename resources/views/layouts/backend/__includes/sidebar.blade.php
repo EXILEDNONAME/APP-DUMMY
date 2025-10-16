@@ -39,6 +39,7 @@
                 </a>
             </div>
 
+            @role('master-administrator')
             <div class="kt-menu-item pt-2.25 pb-px">
                 <span class="kt-menu-heading uppercase text-xs font-medium text-muted-foreground ps-[10px] pe-[10px]">
                     APPLICATIONS
@@ -74,6 +75,7 @@
                     </div>
                 </div>
             </div>
+            @endrole
 
             <div class="kt-menu-item pt-2.25 pb-px">
                 <span class="kt-menu-heading uppercase text-xs font-medium text-muted-foreground ps-[10px] pe-[10px]">
@@ -122,6 +124,7 @@
                 </a>
             </div>
 
+            @role('master-administrator')
             <div class="kt-menu-item pt-2.25 pb-px">
                 <span class="kt-menu-heading uppercase text-xs font-medium text-muted-foreground ps-[10px] pe-[10px]">
                     ADMINISTRATIVES
@@ -268,6 +271,7 @@
                     <span class="kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary"> Statistics </span>
                 </a>
             </div>
+            @endrole
 
         </div>
     </div>

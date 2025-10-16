@@ -78,6 +78,7 @@ return [
         'logs'                          => 'Logs',
         'logout'                        => 'Logout',
         'main'                          => 'Main',
+        'navigation'                    => 'Navigation',
         'new_password'                  => 'New Password',
         'no'                            => 'No',
         'no_data_available'             => 'No Data Available',
