@@ -1,4 +1,5 @@
-@if(empty($page) && $page == 'dashboard')
+@if(!empty($page) && $page == 'dashboard')
+@else
 <div class="lg:col-span-3">
     <div class="kt-card kt-card-grid h-full min-w-full">
         <div class="kt-card-content justify-between flex px-5 p-2 w-full">
