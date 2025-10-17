@@ -20,110 +20,21 @@
         </div>
         <ul class="kt-dropdown-menu-sub">
             <li>
-                <div class="kt-dropdown-menu-separator">
-                </div>
+                <div class="kt-dropdown-menu-separator"></div>
             </li>
             <li>
-                <a class="kt-dropdown-menu-link" href="html/demo1/account/home/user-profile.html">
-                    <i class="ki-filled ki-profile-circle">
-                    </i>
-                    My Profile
-                </a>
-            </li>
-            <li data-kt-dropdown="true" data-kt-dropdown-placement="right-start" data-kt-dropdown-trigger="hover">
-                <button class="kt-dropdown-menu-toggle" data-kt-dropdown-toggle="true">
-                    <i class="ki-filled ki-setting-2">
-                    </i>
-                    My Account
-                    <span class="kt-dropdown-menu-indicator">
-                        <i class="ki-filled ki-right text-xs">
-                        </i>
-                    </span>
-                </button>
-                <div class="kt-dropdown-menu w-[220px]" data-kt-dropdown-menu="true">
-                    <ul class="kt-dropdown-menu-sub">
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/home/get-started.html">
-                                <i class="ki-filled ki-coffee">
-                                </i>
-                                Get Started
-                            </a>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/home/user-profile.html">
-                                <i class="ki-filled ki-some-files">
-                                </i>
-                                My Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="#">
-                                <span class="flex items-center gap-2">
-                                    <i class="ki-filled ki-icon">
-                                    </i>
-                                    Billing
-                                </span>
-                                <span class="ms-auto inline-flex items-center" data-kt-tooltip="true" data-kt-tooltip-placement="top">
-                                    <i class="ki-filled ki-information-2 text-base text-muted-foreground">
-                                    </i>
-                                    <span class="kt-tooltip" data-kt-tooltip-content="true">
-                                        Payment and subscription info
-                                    </span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/security/overview.html">
-                                <i class="ki-filled ki-medal-star">
-                                </i>
-                                Security
-                            </a>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/members/teams.html">
-                                <i class="ki-filled ki-setting">
-                                </i>
-                                Members & Roles
-                            </a>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/integrations.html">
-                                <i class="ki-filled ki-switch">
-                                </i>
-                                Integrations
-                            </a>
-                        </li>
-                        <li>
-                            <div class="kt-dropdown-menu-separator">
-                            </div>
-                        </li>
-                        <li>
-                            <a class="kt-dropdown-menu-link" href="html/demo1/account/security/overview.html">
-                                <span class="flex items-center gap-2">
-                                    <i class="ki-filled ki-shield-tick">
-                                    </i>
-                                    Notifications
-                                </span>
-                                <input checked="" class="ms-auto kt-switch" name="check" type="checkbox" value="1" />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="kt-dropdown-menu-link" href="/dashboard/profiles"><i class="ki-filled ki-profile-circle"></i> My Profile </a>
             </li>
             <li data-kt-dropdown="true" data-kt-dropdown-placement="right-start" data-kt-dropdown-trigger="hover">
                 <button class="kt-dropdown-menu-toggle py-1" data-kt-dropdown-toggle="true">
                     <span class="flex items-center gap-2">
-                        <i class="ki-filled ki-icon">
-                        </i>
+                        <i class="ki-filled ki-icon"></i>
                         Language
                     </span>
                     <span class="ms-auto kt-badge kt-badge-stroke shrink-0">
-                        @if ( app()->getLocale() == 'en' )
-                        English <img alt="" class="inline-block size-3.5 rounded-full" src="{{ env('APP_URL') }}/assets/backend/media/flags/united-states.svg" />
-                        @else
-                        Bahasa <img alt="" class="inline-block size-3.5 rounded-full" src="{{ env('APP_URL') }}/assets/backend/media/flags/indonesia.svg" />
+                        @if ( app()->getLocale() == 'en' ) English <img class="inline-block size-3.5 rounded-full" src="{{ env('APP_URL') }}/assets/backend/media/flags/united-states.svg" />
+                        @else Bahasa <img class="inline-block size-3.5 rounded-full" src="{{ env('APP_URL') }}/assets/backend/media/flags/indonesia.svg" />
                         @endif
-
                     </span>
                 </button>
                 <div class="kt-dropdown-menu w-[180px]" data-kt-dropdown-menu="true">

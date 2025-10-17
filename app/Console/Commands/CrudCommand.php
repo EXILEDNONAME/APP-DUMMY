@@ -157,6 +157,26 @@ class CrudCommand extends Command
       }
 
       \Artisan::call('optimize:clear');
+
+      // MENU SIDEBAR
+      $menuSidebar = base_path('resources/views/layouts/backend/__includes/sidebar-item.blade.php');
+      $addedMenu = File::append($menuSidebar, "\n<div class=\"kt-menu-item {{ (request()->is('dashboard/" . $this->routeName . "*')) ? 'active' : '' }}\" data-kt-menu-item-toggle=\"accordion\" data-kt-menu-item-trigger=\"click\">
+    <a href=\"/dashboard/" . $this->routeName . "\" class=\"kt-menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]\">
+        <span class=\"kt-menu-icon items-start text-muted-foreground w-[20px]\"><i class=\"ki-filled ki-element-11 text-lg\"></i></span>
+        <span class=\"kt-menu-title text-sm font-medium text-foreground kt-menu-item-active:text-primary kt-menu-link-hover:!text-primary\">
+            " . $this->argument('name') . "
+        </span>
+    </a>
+</div>
+");
+
+      if ($addedMenu) {
+        $this->info('Crud/Resource route added to ' . $menuSidebar);
+      } else {
+        $this->info('Unable to add the route to ' . $menuSidebar);
+      }
+
+
   }
 
   /**
