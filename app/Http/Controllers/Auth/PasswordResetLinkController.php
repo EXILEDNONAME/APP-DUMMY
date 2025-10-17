@@ -30,18 +30,26 @@ class PasswordResetLinkController extends Controller
 
         $email = $request->email;
 
-        // Kirim reset link
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
+        if ($request->expectsJson() || $request->ajax()) {
+            if ($status === Password::RESET_LINK_SENT) {
+                return response()->json(['status' => __($status)], 200);
+            } else {
+                return response()->json([
+                    'errors' => ['email' => [__($status)]],
+                ], 422);
+            }
+        }
+
         if ($status === Password::RESET_LINK_SENT) {
             return back()->with([
                 'status' => __($status),
-                'email' => $email  // Pass email ke session
+                'email' => $email
             ]);
         }
 
-        return back()->withErrors(['email' => __($status)]);
     }
 }

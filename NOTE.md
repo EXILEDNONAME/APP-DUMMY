@@ -15,19 +15,19 @@ php artisan crud:generate Posts --fields_from_file="./resources/cruds/sample.jso
 php artisan crud:generate SuratMasuk --fields_from_file="./resources/cruds/sample.json" --controller-namespace="Mail" --model-namespace="Mail" --view-path="mail" --route-group="mail"
 
 # TO DO
-- PAGE AUTHENTICATION
-    - [OK] LOGIN
-    - FORGOT PASSWORD - CREATE AJAX VALIDATION
-    - REGISTER - CREATE AJAX VALIDATION
-    - SET NEW PASSWORD - CREATE AJAX VALIDATION REDIRECT DASHBOARD
-    - VERIFY EMAIL - CREATE AJAX VALIDATION
 - PAGE SETTINGS -> EDIT LOGO DESKTOP/MOBILE
     
-- [OK] GENERATOR PAGES
-
 - [OK] PAGE FILE MANAGER
 - [OK] PAGE PROFILES
 - [OK] PAGE APPLICATIONS
 - [OK] PAGE MANAGEMENTS
 - [OK] PAGE DATABASE
 - [OK] PAGE SESSIONS
+
+- [OK] GENERATOR PAGES
+- [OK] PAGE AUTHENTICATION
+    - [OK] LOGIN
+    - [OK] FORGOT PASSWORD - CREATE AJAX VALIDATION
+    - [OK] VERIFY EMAIL - CREATE AJAX VALIDATION
+    - [OK] REGISTER - CREATE AJAX VALIDATION
+    - [OK] SET NEW PASSWORD - CREATE AJAX VALIDATION REDIRECT DASHBOARD

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> EXILEDNONAME - Login </title>
+    <title> EXILEDNONAME - Reset Password </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
     <link href="{{ env('APP_URL') }}/assets/backend/media/app/favicon.ico" rel="shortcut icon" />
@@ -53,9 +53,7 @@
                             autocomplete="off"
                             autofocus
                             required />
-                        @error('email')
-                        <span class="error-message">{{ $message }}</span>
-                        @enderror
+
                     </div>
 
                     {{-- Password Field --}}
@@ -81,7 +79,7 @@
                                 </span>
                             </button>
                         </div>
-                        <span class="error-message" id="error-password"></span>
+
                     </div>
 
                     {{-- Password Confirmation Field --}}
@@ -107,32 +105,14 @@
                                 </span>
                             </button>
                         </div>
-                        <span class="error-message" id="error-password_confirmation"></span>
                     </div>
+                    
+                    <span class="error-message text-center font-semibold text-xs hidden" id="error-password_confirmation" style="color:var(--destructive)"></span>
+                    <span class="error-message text-center font-semibold text-xs hidden" id="error-password" style="color:var(--destructive)"></span>
 
-                    @error('email')
-                    <strong>{{ $message }}</strong>
-                    <br>
-                    @enderror
-                    @error('password')
-                    <strong>{{ $message }}</strong>
-                    <br>
-                    @enderror
-
-                    @if (session('status'))
-                    {{ session('status') }}
-                    @endif
-
-                    {{-- Submit Button --}}
-                    <button type="submit" id="submit-btn" class="kt-btn kt-btn-primary flex justify-center grow">
-                        <span id="btn-text">{{ __('Reset Password') }}</span>
-                    </button>
-
-                    {{-- Back to Login --}}
-                    <div class="text-center">
-                        <a href="{{ route('login') }}" class="text-sm opacity-70 hover:opacity-100 transition-opacity">
-                            <i class="ki-filled ki-left text-xs"></i> Back to Login
-                        </a>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="submit" id="submit-btn" class="kt-btn kt-btn-primary flex justify-center grow"> Submit </button>
+                        <a href="{{ route('login') }}" class="kt-btn kt-btn-mono flex justify-center grow"> Back </a>
                     </div>
                 </form>
             </div>
@@ -145,21 +125,16 @@
 
     <script>
         $(document).ready(function() {
-            // Setup AJAX CSRF Token
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            // Reset Password Form Submit
             $('#exilednoname-form').on('submit', function(e) {
                 e.preventDefault();
-
-                // Clear previous errors
                 clearErrors();
 
-                // Get form data
                 const formData = {
                     token: $('input[name="token"]').val(),
                     email: $('#email').val(),
@@ -167,10 +142,8 @@
                     password_confirmation: $('#password_confirmation').val()
                 };
 
-                // Show loading state
                 showLoading();
 
-                // AJAX Request
                 $.ajax({
                     url: '{{ route("password.store") }}',
                     method: 'POST',
@@ -178,13 +151,10 @@
                     success: function(response) {
                         hideLoading();
 
-                        // Show success message
                         showAlert('success', response.message || 'Password has been reset successfully!');
 
-                        // Reset form
                         $('#exilednoname-form')[0].reset();
 
-                        // Redirect to login after 2 seconds
                         setTimeout(function() {
                             window.location.href = '{{ route("login") }}';
                         }, 2000);
@@ -193,21 +163,17 @@
                         hideLoading();
 
                         if (xhr.status === 422) {
-                            // Validation errors
                             const errors = xhr.responseJSON.errors;
                             displayErrors(errors);
                         } else if (xhr.status === 400 || xhr.status === 404) {
-                            // Token expired or invalid
                             showAlert('error', xhr.responseJSON.message || 'Invalid or expired reset token.');
                         } else {
-                            // Other errors
                             showAlert('error', 'An error occurred. Please try again.');
                         }
                     }
                 });
             });
 
-            // Function to clear errors
             function clearErrors() {
                 $('.error-message').text('').hide();
                 $('.kt-input').removeClass('is-invalid');
@@ -215,14 +181,17 @@
                 $('#alert-message').hide().removeClass('alert-success alert-error');
             }
 
-            // Function to display validation errors
             function displayErrors(errors) {
                 $.each(errors, function(field, messages) {
                     const errorElement = $('#error-' + field);
                     const inputElement = $('#' + field);
                     const wrapperElement = $('#' + field + '-wrapper');
 
-                    errorElement.text(messages[0]).show();
+                    errorElement.html(`
+                        <div class="flex items-center"><span class="border-t border-border w-full"></span></div>
+                        <div class="mt-3 mb-3"> ${messages[0]} </div>
+                        <div class="flex items-center"><span class="border-t border-border w-full"></span></div>
+                    `).show();
 
                     if (wrapperElement.length) {
                         wrapperElement.addClass('is-invalid');
@@ -232,7 +201,6 @@
                 });
             }
 
-            // Function to show alert
             function showAlert(type, message) {
                 const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
                 $('#alert-message')
@@ -242,13 +210,11 @@
                     .fadeIn();
             }
 
-            // Function to show loading state
             function showLoading() {
                 $('#submit-btn').addClass('btn-loading').prop('disabled', true);
                 $('#btn-text').text('Processing...');
             }
 
-            // Function to hide loading state
             function hideLoading() {
                 $('#submit-btn').removeClass('btn-loading').prop('disabled', false);
                 $('#btn-text').text('{{ __("Reset Password") }}');

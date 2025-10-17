@@ -24,12 +24,12 @@
     </style>
 
     <div class="grid lg:grid-cols-1 grow">
-        <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1 page-bg">
+        <div class="flex justify-center items-center p-5 lg:p-10 order-2 lg:order-1 page-bg">
             <div class="kt-card max-w-[420px] w-full">
                 <form id="exilednoname-form" class="kt-card-content flex flex-col gap-5 p-10" method="post">
                     @csrf
                     <div class="text-center mb-2.5">
-                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5"> - LOGIN AREA - </h3>
+                        <h3 class="text-lg font-medium text-mono leading-none mb-2.5"> - LOGIN AREA - </h3><br>
                         <div class="flex items-center gap-2"><span class="border-t border-border w-full"></span></div>
                     </div>
 
@@ -58,7 +58,7 @@
                             </span>
                         </button>
                     </div>
-                    <span id="errors" class="font-semibold text-center text-sm hidden" style="color:var(--destructive)"> </span>
+                    <span id="errors" class="font-semibold text-center text-sm hidden" style="color:var(--destructive)"></span>
 
                     <div class="flex items-center justify-between gap-1">
                         <label class="kt-label">
@@ -138,7 +138,11 @@
                         message = '{{ __("auth.error") }}';
                     }
 
-                    $('#errors').html('<div class="text-red-500 text-center text-xs">' + message + '</div><br><hr>');
+                    $('#errors').html(`
+                        <div class="flex items-center gap-2"><span class="border-t border-border w-full"></span></div>
+                        <div class="text-red-500 text-center text-xs mt-3 mb-3"> ${message} </div>
+                        <div class="flex items-center gap-2"><span class="border-t border-border w-full"></span></div>
+                    `);
                 } else {
                     $('#errors').html('<div class="text-red-500 text-center text-xs"> {{ __("auth.error") }} </div>');
                 }

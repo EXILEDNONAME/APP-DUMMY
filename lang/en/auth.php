@@ -13,7 +13,7 @@ return [
     |
     */
     'error' => 'Something is wrong.',
-    'failed' => 'This Account does not match our records.',
+    'failed' => "This Account doesn't match our records.",
     'inactived' => 'This Account does not active.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
