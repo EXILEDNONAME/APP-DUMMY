@@ -25,11 +25,11 @@
 
 <div class="lg:col-span-1">
   <div class="grid">
-    <div class="kt-card kt-card-grid h-full min-w-full">
-      <div class="kt-card-header flex justify-center">
-        <h3 class="kt-card-title text-sm"> Total Sessions </h3>
+    <div class="kt-card kt-card-grid py-3">
+      <div class="flex justify-center">
+        <h3 class="font-semibold text-sm"> Total Sessions </h3>
       </div>
-      <div class="kt-card-content p-2 flex justify-center">
+      <div class="pt-2 flex justify-center">
         {{ \DB::table('sessions')->count() }}
       </div>
     </div>
@@ -38,11 +38,11 @@
 
 <div class="lg:col-span-1">
   <div class="grid">
-    <div class="kt-card kt-card-grid h-full min-w-full">
-      <div class="kt-card-header flex justify-center">
-        <h3 class="kt-card-title text-sm"> Total Users </h3>
+    <div class="kt-card kt-card-grid py-3">
+      <div class="flex justify-center">
+        <h3 class="font-semibold text-sm"> Total Users </h3>
       </div>
-      <div class="kt-card-content p-2 flex justify-center">
+      <div class="pt-2 flex justify-center">
         8
       </div>
     </div>
@@ -51,11 +51,11 @@
 
 <div class="lg:col-span-1">
   <div class="grid">
-    <div class="kt-card kt-card-grid h-full min-w-full">
-      <div class="kt-card-header flex justify-center">
-        <h3 class="kt-card-title text-sm"> Total Datatable Generals </h3>
+    <div class="kt-card kt-card-grid py-3">
+      <div class="flex justify-center">
+        <h3 class="font-semibold text-sm"> Total Datatable Generals </h3>
       </div>
-      <div class="kt-card-content p-2 flex justify-center">
+      <div class="pt-2 flex justify-center">
         {{ number_format(\DB::table('system_application_table_generals')->count(), 0, ',', '.') }}
       </div>
     </div>

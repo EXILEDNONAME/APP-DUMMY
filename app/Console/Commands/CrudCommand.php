@@ -157,6 +157,18 @@ class CrudCommand extends Command
       }
 
       \Artisan::call('optimize:clear');
+
+      // MENU SIDEBAR
+      $menuSidebar = base_path('resources/views/layouts/backend/__includes/sidebar-item.blade.php');
+      $addedMenu = File::append($menuSidebar, "\n" . implode("\n", 'TEST'));
+
+      if ($addedMenu) {
+        $this->info('Crud/Resource route added to ' . $menuSidebar);
+      } else {
+        $this->info('Unable to add the route to ' . $menuSidebar);
+      }
+
+
   }
 
   /**
